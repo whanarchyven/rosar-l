@@ -1,6 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Navbar from "@/components/Navbar";
+import Settings from "@/components/Settings";
+import Help from "@/components/Help";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +19,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+      <div className={'grid grid-cols-12 gap-8 px-[20px] py-[20px]'}>
+          <div className={'col-span-2 relative'}>
+              <div className={'w-full left-0 top-[20px] sticky'}>
+                  <Navbar></Navbar>
+              </div>
+          </div>
+          <div className={'col-start-3 h-[200vh] col-end-12 relative'}>
+              <div className={'left-0 top-[20px] sticky flex justify-between items-center'}>
+                  <div className={'flex gap-3'}>
+                      <div>
+                          <img className={'w-16 aspect-square rounded-full border-4 border-orange'} src={'/images/temp/logo.png'}/>
+                      </div>
+                      <div className={'flex h-full flex-col'}>
+                          <p className={'font-travels font-bold text-4xl text-blue'}>Росатом</p>
+                          <p className={'font-travels font-medium text-xl text-blue'}>Личный кабинет партнёра</p>
+                      </div>
+                  </div>
+                  <div className={'flex items-center flex-row gap-3'}>
+                      <Help></Help>
+                      <Settings></Settings>
+                  </div>
+              </div>
+              {children}
+          </div>
+      </div>
+      </body>
     </html>
   )
 }
