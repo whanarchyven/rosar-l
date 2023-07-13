@@ -52,14 +52,14 @@ const Navbar = () => {
                     {links.map((link)=>{
                         if(pathname==link.link){
                             return(
-                                <div className={'flex transition-none w-full cursor-pointer  bg-white rounded-full items-center justify-start'}>
+                                <div key={link.link} className={'flex transition-none w-full cursor-pointer  bg-white rounded-full items-center justify-start'}>
                                     <img className={'w-[56px] aspect-square'} src={`/images/navbar_icons/active/${link.icon}`}/>
                                 </div>
                             )
                         }
                         else{
                             return(
-                                <div className={'flex transition-none w-full cursor-pointer  items-center justify-start'} onClick={()=>{router.push(link.link)}}>
+                                <div key={link.link} className={'flex transition-none w-full cursor-pointer  items-center justify-start'} onClick={()=>{router.push(link.link)}}>
                                     <img className={'w-[56px] aspect-square'} src={`/images/navbar_icons/simple/${link.icon}`}/>
                                 </div>
                             )
@@ -71,7 +71,7 @@ const Navbar = () => {
                     {links.map((link)=>{
                         if(pathname==link.link){
                             return(
-                                <div className={'flex transition-none w-full cursor-pointer bg-white rounded-full items-center justify-start gap-3'}>
+                                <div key={link.link} className={'flex transition-none w-full cursor-pointer bg-white rounded-full items-center justify-start gap-3'}>
                                     <img className={'w-[56px] aspect-square'} src={`/images/navbar_icons/active/${link.icon}`}/>
                                     {showAnimate?<p className={'transition-all duration-300 animate-textnav font-travels text-blue text-xl font-bold'}>{link.name}</p>:null}
                                 </div>
@@ -79,7 +79,7 @@ const Navbar = () => {
                         }
                         else{
                             return(
-                                <div className={'flex transition-none w-full cursor-pointer items-center justify-start gap-3'} onClick={()=>{router.push(link.link)}}>
+                                <div key={link.link} className={'flex transition-none w-full cursor-pointer items-center justify-start gap-3'} onClick={()=>{router.push(link.link)}}>
                                     <img className={'w-[56px] aspect-square'} src={`/images/navbar_icons/simple/${link.icon}`}/>
                                     {showAnimate?<p className={'transition-all duration-300 animate-textnav font-travels text-white text-xl font-bold'}>{link.name}</p>:null}
                                 </div>
