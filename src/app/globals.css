@@ -12,4 +12,26 @@ body{
   .min-w-inherit {
     min-width: inherit;
   }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #004891;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #FF882E;
+    border-radius: 100vh;
+    border: 3px solid #FF882E;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
+
 }
+

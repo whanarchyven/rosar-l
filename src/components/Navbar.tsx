@@ -48,7 +48,7 @@ const Navbar = () => {
     return (
         <div className={'w-full h-full '}>
             {!isHovered?
-                <div className={'rounded-3xl transition-all duration-300 p-3 overflow-hidden flex w-20 flex-col gap-3 bg-blue h-full'} onMouseEnter={()=>{setIsHovered(true);setTimeout(()=>{setShowAnimate(!showAnimate)},300)}}>
+                <div className={'rounded-3xl transition-all duration-300 p-3 overflow-hidden flex w-20 flex-col gap-3 bg-blue h-full'} onMouseEnter={()=>{setIsHovered(true);setTimeout(()=>{setShowAnimate(!showAnimate)},400)}}>
                     {links.map((link)=>{
                         if(pathname==link.link){
                             return(

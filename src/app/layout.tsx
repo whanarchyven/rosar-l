@@ -19,15 +19,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={'scrollbar'}>
       <div className={'grid grid-cols-12 gap-8 px-[20px] py-[20px]'}>
           <div className={'col-span-2 relative'}>
               <div className={'w-full left-0 top-[20px] sticky'}>
                   <Navbar></Navbar>
               </div>
           </div>
-          <div className={'col-start-3 h-[200vh] col-end-12 relative'}>
-              <div className={'left-0 top-[20px] sticky flex justify-between items-center'}>
+          <div className={'col-start-3 scrollbar col-end-12 relative'}>
+              <div className={'left-0 top-[0px] pt-[20px] bg-white sticky z-[999] flex justify-between items-center'}>
                   <div className={'flex gap-3'}>
                       <div>
                           <img className={'w-16 aspect-square rounded-full border-4 border-orange'} src={'/images/temp/logo.png'}/>
