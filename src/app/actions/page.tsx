@@ -62,7 +62,7 @@ export default function Home() {
             <div className={'w-full grid mt-4 gap-8 grid-cols-3'}>
                 {actions.map((action,counter)=>{
                     return(
-                        <ActionBanner key={counter} name={action.name} caption={action.caption} image={action.image}></ActionBanner>
+                        <ActionBanner id={counter} key={counter} name={action.name} caption={action.caption} image={action.image}></ActionBanner>
                     )
                 })}
             </div>

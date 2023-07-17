@@ -1,10 +1,14 @@
-import Image from 'next/image'
-import NewsBanner from "@/components/NewsBanner";
-import Pagination from "@/components/UI/Pagination";
+"use client"
 
-export default function Home() {
 
-    const news = [
+import {useRouter, useSearchParams} from "next/navigation";
+import datediff from "@/helpers/dateDiff";
+import parseDate from "@/helpers/parseDate";
+import Button from "@/components/UI/Button";
+
+export default function Page() {
+    const router = useRouter()
+    const news=[
         {
             id: 0,
             title: 'Компания РОСАР-Л открывает представительство в Баку',
@@ -64,17 +68,22 @@ export default function Home() {
     ]
 
 
-    return (
-        <main className="mt-5">
-            <p className={'font-bold font-travels text-blue text-3xl'}>Новости</p>
-            <div className={'flex flex-col mt-6 gap-6'}>
-                {news.map((news)=>{
-                    return(
-                        <NewsBanner key={news.id} {...news}></NewsBanner>
-                    )
-                })}
-                <Pagination currentPage={1} setCurrentPage={()=>{}} pages={6}></Pagination>
+    const id=useSearchParams().get('id')
+    const post=id?news[Number(id)]:news[0]
+
+    return <div className={'w-full py-6'}>
+        <div className={'flex items-center justify-between'}>
+            <p className={'font-travels text-3xl font-bold text-blue'}>{post.title}</p>
+            <img className={'w-7 aspect-square cursor-pointer'} src={'/images/icons/close_orange.svg'} onClick={()=>{router.back()}}/>
+        </div>
+        <div className={'flex flex-col mt-5 gap-2'}>
+            <div className={'w-full aspect-video'}>
+                <img className={'w-full aspect-video h-full rounded-2xl object-cover'} src={post.image}/>
             </div>
-        </main>
-    )
+            <p className={'my-5 font-travels font-bold text-xl text-orange'}>{post.date} в {post.time}</p>
+            <p className={'font-travels font-medium text-lg text-blue'}>{post.description}</p>
+        </div>
+
+
+    </div>
 }
