@@ -33,5 +33,25 @@ body{
     background: #c0a0b9;
   }
 
+  .scrollbar-mini::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+
+  .scrollbar-mini::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #004891;
+  }
+
+  .scrollbar-mini::-webkit-scrollbar-thumb {
+    background: #FF882E;
+    border-radius: 100vh;
+    border: 1px solid #FF882E;
+  }
+
+  .scrollbar-mini::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
+
 }
 
