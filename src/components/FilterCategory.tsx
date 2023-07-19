@@ -5,7 +5,7 @@ import {classList} from "@/helpers/classList";
 interface filterCategoryInterface {
     variants: Array<{ icon?: string, value: string }>,
     unfilteredArray: Array<any>
-    filterFunction: (any) => any
+    filterFunction: (arg:any) => any
     type: 'variants' | 'multi' | 'radio',
     title: string,
     resetTrigger?:boolean
@@ -13,7 +13,7 @@ interface filterCategoryInterface {
 
 const FilterCategory = ({variants, resetTrigger, filterFunction, title, unfilteredArray, type}: filterCategoryInterface) => {
 
-    const [currentValue, setCurrentValue] = useState<typeof variants[0]>(null)
+    const [currentValue, setCurrentValue] = useState<typeof variants[0]|null>(null)
 
     const [multiVariants,setMultiVariants]=useState<typeof variants>([])
 
@@ -38,7 +38,7 @@ const FilterCategory = ({variants, resetTrigger, filterFunction, title, unfilter
                 <div className={'flex duration-300 transition-all flex-col'}>
                     {variants.map((variant) => {
                         return (
-                            <div className={'flex items-center gap-2'}>
+                            <div key={variant.value} className={'flex items-center gap-2'}>
                                 {variant.icon?<img className={'w-5'} src={variant.icon}/>:null}
                                 <p className={classList('transition-all duration-300 font-medium', variant.value == currentValue?.value ? 'text-orange' : 'cursor-pointer text-blue')}
                                    onClick={() => {
@@ -52,7 +52,7 @@ const FilterCategory = ({variants, resetTrigger, filterFunction, title, unfilter
                 <div className={'flex duration-300 transition-all flex-col'}>
                     {variants.map((variant) => {
                         return (
-                            <div className={'flex items-center gap-2'}>
+                            <div key={variant.value} className={'flex items-center gap-2'}>
                                 {variant.icon?<img className={'w-5'} src={variant.icon}/>:<img className={'w-5'} src={variant.value == currentValue?.value?'/images/icons/radio_checked.svg':'/images/icons/radio.svg'}/>}
                                 <p className={classList('transition-all duration-300 font-medium', variant.value == currentValue?.value ? 'text-orange' : 'cursor-pointer text-blue')}
                                    onClick={() => {
@@ -68,7 +68,7 @@ const FilterCategory = ({variants, resetTrigger, filterFunction, title, unfilter
                     {variants.map((variant) => {
                         const isFound=multiVariants.find((item=>item==variant))
                         return (
-                            <div className={'flex items-center gap-2'}>
+                            <div key={variant.value} className={'flex items-center gap-2'}>
                                 {isFound?<img className={'w-5'} src={'/images/icons/checkbox_checked.svg'}/>:<img className={'w-5'} src={'/images/icons/checkbox.svg'}/>}
                                 <p className={classList('transition-all duration-300 font-medium', isFound? 'text-orange cursor-pointer' : 'cursor-pointer text-blue')}
                                    onClick={() => {

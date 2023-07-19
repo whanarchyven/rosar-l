@@ -3,7 +3,7 @@ import React from 'react';
 interface InputInterface {
     type:'text'|'number',
     placeholder?:string,
-    mutateFunction:(any)=>any
+    mutateFunction:(arg:any)=>any
 }
 
 const Input = ({type, placeholder, mutateFunction}:InputInterface) => {

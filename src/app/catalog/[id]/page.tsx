@@ -1,76 +1,21 @@
 "use client"
-import Image from 'next/image'
-import {useEffect, useState} from "react";
-import FilterCategory from "@/components/FilterCategory";
-import Input from "@/components/UI/Input";
+
+
+import {useRouter, useSearchParams} from "next/navigation";
+import datediff from "@/helpers/dateDiff";
+import parseDate from "@/helpers/parseDate";
 import Button from "@/components/UI/Button";
-import {classList} from "@/helpers/classList";
-import ProductQntPicker from "@/components/ProductQntPicker";
-import Pagination from "@/components/UI/Pagination";
-import Link from "next/link";
 
-export default function Home() {
+export default function Page() {
+    const router = useRouter()
 
-    const categoryVariants = [
-        {
-            value: 'Розетки',
-            icon: '/images/catalog/power.svg'
-        },
-        {
-            value: 'Дисплеи',
-            icon: '/images/catalog/ambient_screen.svg'
-        },
-        {
-            value: 'Кабели',
-            icon: '/images/catalog/cable.svg'
-        },
-        {
-            value: 'Wi-Fi споты',
-            icon: '/images/catalog/settings_remote.svg'
-        },
-        {
-            value: 'Манипуляторы',
-            icon: '/images/catalog/joystick.svg'
-        }
-    ]
 
-    const materialVariants = [
-        {
-            value: 'Пластик'
-        },
-        {
-            value: 'Металл'
-        },
-        {
-            value: 'Медь'
-        },
-        {
-            value: 'Резина'
-        }, {
-            value: 'Ещё что то'
-        }
-    ]
-
-    const deliveryVariants = [
-        {
-            value: 'Самовывоз'
-        },
-        {
-            value: 'Доставка до склада'
-        }
-    ]
-
-    const [resetFilters, setResetFilters] = useState(false)
-
-    const [productsQnt, setProductsQnt] = useState(0)
-    const [productsPrice, setProductsPrice] = useState(0)
-
-    const products = [
+    const actions=[
         {
             id: 1,
             name: 'Розетка SFG134-RD',
             sk: 'R910X023',
-            image: '/images/temp/product.png',
+            image:'/images/temp/product.png',
             price: 569,
             category: 'Розетки',
             material: ['Пластик', 'Медь'],
@@ -81,7 +26,7 @@ export default function Home() {
             id: 2,
             name: 'Удлинитель электрический PowerX 500',
             sk: 'PX500-UE',
-            image: 'https://avatars.mds.yandex.net/i?id=7c568f1f2b1e773bd9fcf1d6bb2bff4be7b0bc15-8376176-images-thumbs&n=13',
+            image:'https://avatars.mds.yandex.net/i?id=7c568f1f2b1e773bd9fcf1d6bb2bff4be7b0bc15-8376176-images-thumbs&n=13',
             price: 849,
             category: 'Удлинители',
             material: ['Пластик', 'Медь'],
@@ -92,7 +37,7 @@ export default function Home() {
             id: 3,
             name: 'Лампа настольная Lumina-LX202',
             sk: 'LUM-LX202',
-            image: 'https://liferooms.ru/images/thumbnails/1100/900/detailed/147/06b9d470f457b7a78cdf14eb6530eb3e.jpg',
+            image:'https://liferooms.ru/images/thumbnails/1100/900/detailed/147/06b9d470f457b7a78cdf14eb6530eb3e.jpg',
             price: 1299,
             category: 'Лампы',
             material: ['Металл', 'Ткань'],
@@ -103,7 +48,7 @@ export default function Home() {
             id: 4,
             name: 'Кабель USB-A to USB-C DataLink 2m',
             sk: 'DL-USB2M',
-            image: 'https://i.ebayimg.com/00/s/MzU5WDUwMA==/z/ig8AAOSwDcBjYva9/$_3.JPG?set_id=8800005007',
+            image:'https://i.ebayimg.com/00/s/MzU5WDUwMA==/z/ig8AAOSwDcBjYva9/$_3.JPG?set_id=8800005007',
             price: 299,
             category: 'Кабели',
             material: ['Пластик', 'Медь'],
@@ -114,7 +59,7 @@ export default function Home() {
             id: 5,
             name: 'Кофеварка автоматическая BaristaMaster-5000',
             sk: 'BM-5000',
-            image: 'https://good-bt.ru/wa-data/public/shop/products/63/40/24063/images/30195/30195.750x0.jpg',
+            image:'https://good-bt.ru/wa-data/public/shop/products/63/40/24063/images/30195/30195.750x0.jpg',
             price: 5699,
             category: 'Кофеварки',
             material: ['Пластик', 'Металл'],
@@ -125,7 +70,7 @@ export default function Home() {
             id: 6,
             name: 'Утюг паровой SteamPro 3000',
             sk: 'SP-3000',
-            image: 'https://img.akrep.com/beyaz-esya-ve-ev-aletleri/utu-dikis-makinesi/tn6/arzum-ar6000-steampro-plus-buharli-utu-gri-siyah_1_4732328.jpg',
+            image:'https://img.akrep.com/beyaz-esya-ve-ev-aletleri/utu-dikis-makinesi/tn6/arzum-ar6000-steampro-plus-buharli-utu-gri-siyah_1_4732328.jpg',
             price: 1499,
             category: 'Утюги',
             material: ['Пластик', 'Металл'],
@@ -136,7 +81,7 @@ export default function Home() {
             id: 7,
             name: 'Фен для волос HairCare 2000',
             sk: 'HC-2000',
-            image: 'https://ke-images.servicecdn.ru/c6i9tfsqi3n45kjtuav0/original.jpg',
+            image:'https://ke-images.servicecdn.ru/c6i9tfsqi3n45kjtuav0/original.jpg',
             price: 799,
             category: 'Фены',
             material: ['Пластик', 'Металл'],
@@ -147,7 +92,7 @@ export default function Home() {
             id: 8,
             name: 'Микроволновая печь QuickHeat 800',
             sk: 'QH-800',
-            image: 'https://avatars.mds.yandex.net/get-marketpic/6145646/pic9bf472cbb6dc7000effeb2d640d6167a/orig',
+            image:'https://avatars.mds.yandex.net/get-marketpic/6145646/pic9bf472cbb6dc7000effeb2d640d6167a/orig',
             price: 3499,
             category: 'Микроволновки',
             material: ['Пластик', 'Металл'],
@@ -158,7 +103,7 @@ export default function Home() {
             id: 9,
             name: 'Беспроводные наушники SoundFreedom 202',
             sk: 'SF-202',
-            image: 'https://basket-10.wb.ru/vol1458/part145867/145867033/images/c246x328/1.jpg',
+            image:'https://basket-10.wb.ru/vol1458/part145867/145867033/images/c246x328/1.jpg',
             price: 1699,
             category: 'Наушники',
             material: ['Пластик', 'Металл'],
@@ -169,7 +114,7 @@ export default function Home() {
             id: 10,
             name: 'Электрическая зубная щетка SmileCare 3000',
             sk: 'SC-3000',
-            image: 'https://dizion.ru/image/cache/catalog/katalog/gigiyena-polosti-rta/elektricheskie-schetki/braun_oral_b_pro_3000_3d_action_d20_zubnaya_schotka_4-700x700.jpg',
+            image:'https://dizion.ru/image/cache/catalog/katalog/gigiyena-polosti-rta/elektricheskie-schetki/braun_oral_b_pro_3000_3d_action_d20_zubnaya_schotka_4-700x700.jpg',
             price: 799,
             category: 'Зубные щетки',
             material: ['Пластик', 'Металл'],
@@ -180,7 +125,7 @@ export default function Home() {
             id: 11,
             name: 'Розетка SFG134-RD',
             sk: 'R910X023',
-            image: '/images/temp/product.png',
+            image:'/images/temp/product.png',
             price: 569,
             category: 'Розетки',
             material: ['Пластик', 'Медь'],
@@ -191,7 +136,7 @@ export default function Home() {
             id: 12,
             name: 'Удлинитель электрический PowerX 500',
             sk: 'PX500-UE',
-            image: 'https://avatars.mds.yandex.net/i?id=7c568f1f2b1e773bd9fcf1d6bb2bff4be7b0bc15-8376176-images-thumbs&n=13',
+            image:'https://avatars.mds.yandex.net/i?id=7c568f1f2b1e773bd9fcf1d6bb2bff4be7b0bc15-8376176-images-thumbs&n=13',
             price: 849,
             category: 'Удлинители',
             material: ['Пластик', 'Медь'],
@@ -202,7 +147,7 @@ export default function Home() {
             id: 13,
             name: 'Лампа настольная Lumina-LX202',
             sk: 'LUM-LX202',
-            image: 'https://liferooms.ru/images/thumbnails/1100/900/detailed/147/06b9d470f457b7a78cdf14eb6530eb3e.jpg',
+            image:'https://liferooms.ru/images/thumbnails/1100/900/detailed/147/06b9d470f457b7a78cdf14eb6530eb3e.jpg',
             price: 1299,
             category: 'Лампы',
             material: ['Металл', 'Ткань'],
@@ -213,7 +158,7 @@ export default function Home() {
             id: 14,
             name: 'Кабель USB-A to USB-C DataLink 2m',
             sk: 'DL-USB2M',
-            image: 'https://i.ebayimg.com/00/s/MzU5WDUwMA==/z/ig8AAOSwDcBjYva9/$_3.JPG?set_id=8800005007',
+            image:'https://i.ebayimg.com/00/s/MzU5WDUwMA==/z/ig8AAOSwDcBjYva9/$_3.JPG?set_id=8800005007',
             price: 299,
             category: 'Кабели',
             material: ['Пластик', 'Медь'],
@@ -224,7 +169,7 @@ export default function Home() {
             id: 15,
             name: 'Кофеварка автоматическая BaristaMaster-5000',
             sk: 'BM-5000',
-            image: 'https://good-bt.ru/wa-data/public/shop/products/63/40/24063/images/30195/30195.750x0.jpg',
+            image:'https://good-bt.ru/wa-data/public/shop/products/63/40/24063/images/30195/30195.750x0.jpg',
             price: 5699,
             category: 'Кофеварки',
             material: ['Пластик', 'Металл'],
@@ -235,7 +180,7 @@ export default function Home() {
             id: 16,
             name: 'Утюг паровой SteamPro 3000',
             sk: 'SP-3000',
-            image: 'https://img.akrep.com/beyaz-esya-ve-ev-aletleri/utu-dikis-makinesi/tn6/arzum-ar6000-steampro-plus-buharli-utu-gri-siyah_1_4732328.jpg',
+            image:'https://img.akrep.com/beyaz-esya-ve-ev-aletleri/utu-dikis-makinesi/tn6/arzum-ar6000-steampro-plus-buharli-utu-gri-siyah_1_4732328.jpg',
             price: 1499,
             category: 'Утюги',
             material: ['Пластик', 'Металл'],
@@ -246,7 +191,7 @@ export default function Home() {
             id: 17,
             name: 'Фен для волос HairCare 2000',
             sk: 'HC-2000',
-            image: 'https://ke-images.servicecdn.ru/c6i9tfsqi3n45kjtuav0/original.jpg',
+            image:'https://ke-images.servicecdn.ru/c6i9tfsqi3n45kjtuav0/original.jpg',
             price: 799,
             category: 'Фены',
             material: ['Пластик', 'Металл'],
@@ -257,7 +202,7 @@ export default function Home() {
             id: 18,
             name: 'Микроволновая печь QuickHeat 800',
             sk: 'QH-800',
-            image: 'https://avatars.mds.yandex.net/get-marketpic/6145646/pic9bf472cbb6dc7000effeb2d640d6167a/orig',
+            image:'https://avatars.mds.yandex.net/get-marketpic/6145646/pic9bf472cbb6dc7000effeb2d640d6167a/orig',
             price: 3499,
             category: 'Микроволновки',
             material: ['Пластик', 'Металл'],
@@ -268,7 +213,7 @@ export default function Home() {
             id: 19,
             name: 'Беспроводные наушники SoundFreedom 202',
             sk: 'SF-202',
-            image: 'https://basket-10.wb.ru/vol1458/part145867/145867033/images/c246x328/1.jpg',
+            image:'https://basket-10.wb.ru/vol1458/part145867/145867033/images/c246x328/1.jpg',
             price: 1699,
             category: 'Наушники',
             material: ['Пластик', 'Металл'],
@@ -279,7 +224,7 @@ export default function Home() {
             id: 20,
             name: 'Электрическая зубная щетка SmileCare 3000',
             sk: 'SC-3000',
-            image: 'https://dizion.ru/image/cache/catalog/katalog/gigiyena-polosti-rta/elektricheskie-schetki/braun_oral_b_pro_3000_3d_action_d20_zubnaya_schotka_4-700x700.jpg',
+            image:'https://dizion.ru/image/cache/catalog/katalog/gigiyena-polosti-rta/elektricheskie-schetki/braun_oral_b_pro_3000_3d_action_d20_zubnaya_schotka_4-700x700.jpg',
             price: 799,
             category: 'Зубные щетки',
             material: ['Пластик', 'Металл'],
@@ -289,149 +234,75 @@ export default function Home() {
 
     ]
 
-    const [cartProducts, setCartProducts] = useState<{ product: typeof products[0], qnt: number }[]>([])
+    const id=useSearchParams().get('id')
+    const product=id?actions[Number(id)-1]:actions[0]
 
-    const addToCart = (product:any, qnt:any) => {
-        let temp = [...cartProducts]
-        temp.push({product, qnt})
-        setCartProducts([...temp])
-    }
+    const reviews = [
+        {
+            company: 'TechPros',
+            review: 'Мы приобрели розетки SFG134-RD для нашего нового офиса. Они отлично справляются с подключением наших устройств и обеспечивают стабильное соединение. Качество и надежность этих розеток впечатлили нас. Отличный выбор для любых помещений!'
+        },
+        {
+            company: 'ElectroWorld',
+            review: 'Удлинитель электрический PowerX 500 оказался настоящим спасением для нашего офиса. Он обеспечивает надежное подключение всех наших устройств и позволяет управлять ими с помощью выключателя. Качество изготовления удлинителя и его долгий срок службы приятно удивили нашу компанию. Отличный продукт!'
+        },
+        {
+            company: 'HomeComfort',
+            review: 'Лампа настольная Lumina-LX202 стала отличным дополнением для нашего интерьера. Она создает приятную атмосферу и обеспечивает комфортное освещение. Мы ценим ее функциональность и стильный дизайн. Отличное качество материалов, из которых она изготовлена, гарантирует долгий срок службы. Благодарим за отличный продукт!'
+        },
+        {
+            company: 'GadgetMasters',
+            review: 'Кабель USB-A to USB-C DataLink 2m отлично выполняет свою задачу. Он обеспечивает быструю и стабильную передачу данных и зарядку наших устройств. Качество материалов и изготовления не вызывает нареканий. У нас в компании есть много устройств с разъемами USB-C, и этот кабель стал незаменимым аксессуаром для нашей работы. Очень довольны покупкой!'
+        },
+        {
+            company: 'CafeTech',
+            review: 'Кофеварка автоматическая BaristaMaster-5000 превзошла все наши ожидания. Она готовит восхитительный кофе, и мы уже не представляем наше кафе без нее. Ее простота использования и многофункциональность - это то, что делает ее настоящим отличием от других кофеварок. Качество изготовления и использованных материалов на высоком уровне. Отличный продукт для профессиональных бариста и любителей кофе!'
+        }
+    ];
 
 
-    useEffect(() => {
-        let totalPrice = 0;
-        let totalQnt = 0;
-        cartProducts.map((item) => {
-            totalPrice += (item.product.price * item.qnt)
-            totalQnt += item.qnt
-        })
-        setProductsPrice(totalPrice)
-        setProductsQnt(totalQnt)
-    }, [cartProducts])
+    return <div className={'w-full py-6'}>
+        <div className={'flex items-center justify-end'}>
+            <img className={'w-7 aspect-square cursor-pointer'} src={'/images/icons/close_orange.svg'} onClick={()=>{router.back()}}/>
+        </div>
+        <div className={'grid mt-10 grid-cols-2 gap-8'}>
+            <img src={product.image} className={'w-full border-2 border-orange aspect-square object-cover'}/>
+            <div className={'flex flex-col gap-5'}>
+                <p className={'font-travels text-3xl font-bold text-blue'}>{product.name}</p>
+                <p className={'font-travels text-2xl font-medium text-orange'}>Артикул: {product.sk}</p>
+                <p className={'font-travels text-2xl font-bold text-orange'}>{product.price} ₽/шт.</p>
 
-    return (
-        <main className="mt-5">
-            <div className={'flex items-center justify-between'}>
-                <p className={'font-bold font-travels text-blue text-3xl'}>Новый заказ</p>
-                <div className={'flex gap-2 items-center'}>
-                    <p className={'text-2xl text-orange underline cursor-pointer'}>
-                        История заказов
-                    </p>
-                    <img src={'/images/icons/history_orange.svg'}/>
+                <div className={'border-2 p-2 border-orange'}>
+                    <p className={'text-blue font-medium text-lg'}>Категория: <span className={'text-orange'}>{product.category}</span></p>
+                    <p className={'text-blue font-medium text-lg'}>Материал: <span className={'text-orange'}>{[...product.material].join(', ')}</span></p>
+                    <p className={'text-blue font-medium text-lg'}>Доставка: <span className={'text-orange'}>{product.delivery}</span></p>
                 </div>
+
+                <p className={'font-travels text-xl font-bold text-blue'}>Описание товара</p>
+                <p className={'font-travels text-sm font-medium text-blue'}>{product.description}</p>
             </div>
-            <div className={'mt-5 flex flex-col gap-2'}>
-                <p className={'text-blue text-xl font-medium'}>
-                    Поиск товара по названию
-                </p>
-                <div className={'grid grid-cols-9 gap-2 items-center'}>
-                    <div className={'col-span-6'}>
-                        <Input type={'text'} placeholder={'Введите название или артикул'} mutateFunction={() => {
-                        }}/>
-                    </div>
-                    <Button className={'h-full col-span-3'} type={'orange'}>Найти</Button>
-                </div>
-            </div>
-            <div className={'mt-5 grid gap-2 grid-cols-9 items-start'}>
-                <div className={'col-span-2'}>
-                    <div className={'border-2 border-blue'}>
-                        <div className={'h-96 p-2 scrollbar-mini overflow-y-scroll'}>
-                            <div className={'flex flex-col gap-4'}>
-                                <FilterCategory resetTrigger={resetFilters} variants={categoryVariants}
-                                                unfilteredArray={[]}
-                                                filterFunction={() => {
-                                                }} type={'variants'} title={'Категория'}/>
-                                <FilterCategory resetTrigger={resetFilters} variants={materialVariants}
-                                                unfilteredArray={[]}
-                                                filterFunction={() => {
-                                                }} type={'multi'} title={'Материал'}/>
-                                <FilterCategory resetTrigger={resetFilters} variants={deliveryVariants}
-                                                unfilteredArray={[]}
-                                                filterFunction={() => {
-                                                }} type={'radio'} title={'Доставка'}/>
+        </div>
+
+        <p className={'font-travels mt-5 text-3xl font-bold text-blue'}>Отзывы</p>
+
+        <div className={'flex mt-8 flex-col gap-12'}>
+            {reviews.map((review)=>{
+                return(
+                    <div key={review.company} className={'grid grid-cols-12'}>
+                        <div className={'col-span-2 flex flex-col items-start gap-2 border-blue pr-4 p-2 border-r-2'}>
+                            <div className={'w-full'}>
+                                <img className={'w-14 aspect-square rounded-full border-2 border-orange'} src={'/images/temp/logo.png'}/>
                             </div>
+                            <p className={'font-bold text-blue'}>{review.company}</p>
+                            <img src={'/images/icons/review_stars.svg'}/>
                         </div>
-                        <div className={'p-2'}>
-                            <Button type={'transparent blue'} callback={() => {
-                                setResetFilters(!resetFilters)
-                            }}>Сбросить фильтр</Button>
+                        <div className={'col-span-10 p-2 pl-4'}>
+                            {review.review}
                         </div>
                     </div>
-                    <div className={'bg-blue flex flex-col gap-3 mt-4 p-2'}>
-                        <div className={'flex gap-2 items-center'}>
-                            <div className={'relative w-12 flex items-center justify-center aspect-square'}>
-                                <img src={'/images/icons/cart.svg'} className={'w-full z-0 h-full absolute'}/>
-                                <p className={classList('absolute bottom-0.5 z-[1] text-white font-bold', productsQnt < 10 ? 'text-lg' : '', productsQnt >= 10 && productsQnt < 100 ? 'text-sm' : '', productsQnt >= 100 ? 'text-xs' : '')}>{productsQnt > 1000 ? (productsQnt / 1000).toFixed(1) + ' k' : productsQnt}</p>
-                            </div>
-                            <div className={'flex flex-col'}>
-                                <p className={'text-sm font-medium text-white'}>В корзине {productsQnt} товаров</p>
-                                <p className={'text-sm font-medium text-white'}>на сумму <span
-                                    className={'text-orange font-bold'}>{productsPrice} ₽</span></p>
-                            </div>
-                        </div>
-                        <Button type={'white'}>Оформить заказ</Button>
-                    </div>
-                    <div className={'mt-4 bg-orange cursor-pointer flex items-center justify-between p-2'}>
-                        <p className={'font-bold text-white leading-[100%]'}>Импорт списка покупок из Excel</p>
-                        <img src={'/images/icons/import.svg'} className={'w-7 aspect-square'}/>
-                    </div>
-                </div>
-                <div className={'col-span-7 relative scrollbar border-2 border-blue'}>
-                    <div className={'grid grid-cols-12'}>
-                        <div
-                            className={'col-span-5 font-bold text-white border-r-2 border-white flex items-center justify-start bg-blue p-2'}>
-                            Наименование
-                        </div>
-                        <div
-                            className={'col-span-2 font-bold text-white border-r-2 border-white flex items-center justify-center bg-blue p-2'}>
-                            Цена
-                        </div>
-                        <div
-                            className={'col-span-5 font-bold text-white   border-white flex items-center justify-center bg-blue p-2'}>
+                )
+            })}
+        </div>
 
-                        </div>
-
-                    </div>
-                    {products.map((product, counter) => {
-                        if (counter < 10) {
-                            return (
-                                <div key={counter} className={'grid grid-cols-12 border-b-2 border-blue'}>
-                                    <div
-                                        className={'col-span-5 text-blue border-r-2 border-blue flex items-center justify-start bg-white p-2'}>
-                                        <div className={'flex gap-2 items-center'}>
-                                            <img className={'w-10 aspect-square object-cover'} src={product.image}/>
-                                            <div className={'flex flex-col'}>
-                                                <p className={'text-xs text-orange font-regular'}>Артикул: {product.sk}</p>
-                                                <div className={'flex gap-2 items-center'}>
-                                                    <Link href={{
-                                                        pathname: "/catalog/product/",
-                                                        query: {id: product.id},
-                                                    }}>
-                                                        <p className={'text-lg underline text-sm text-blue font-semibold'}>{product.name}</p>
-                                                    </Link>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className={'col-span-2 font-normal text-blue border-r-2 border-blue flex items-center justify-center bg-white p-2'}>
-                                        {product.price} ₽/шт.
-                                    </div>
-                                    <div
-                                        className={'col-span-5 font-bold text-blue border-blue flex items-center justify-center bg-white p-2'}>
-                                        <ProductQntPicker product={product} callback={addToCart}></ProductQntPicker>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    })}
-                    <Pagination currentPage={1} setCurrentPage={() => {
-                    }} pages={42}></Pagination>
-                </div>
-
-            </div>
-        </main>
-    )
+    </div>
 }
