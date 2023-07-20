@@ -1,0 +1,81 @@
+Date : 2023-07-19 20:16:16
+Directory : c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src
+Total : 33 files,  2282 codes, 0 comments, 173 blanks, all 2455 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| TypeScript JSX |         28 |      2,220 |          0 |        159 |      2,379 |
+| CSS            |          1 |         44 |          0 |         14 |         58 |
+| TypeScript     |          4 |         18 |          0 |          0 |         18 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                 | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                    |         33 |      2,282 |          0 |        173 |      2,455 |
+| app                                                                                  |         13 |      1,729 |          0 |        106 |      1,835 |
+| app (Files)                                                                          |          3 |        224 |          0 |         25 |        249 |
+| app\actions                                                                          |          2 |        175 |          0 |         12 |        187 |
+| app\actions (Files)                                                                  |          1 |         70 |          0 |          5 |         75 |
+| app\actions\[id]                                                                     |          1 |        105 |          0 |          7 |        112 |
+| app\catalog                                                                          |          2 |        712 |          0 |         34 |        746 |
+| app\catalog (Files)                                                                  |          1 |        419 |          0 |         19 |        438 |
+| app\catalog\[id]                                                                     |          1 |        293 |          0 |         15 |        308 |
+| app\deliveries                                                                       |          1 |          8 |          0 |          2 |         10 |
+| app\docs                                                                             |          3 |        453 |          0 |         20 |        473 |
+| app\docs (Files)                                                                     |          1 |        213 |          0 |          5 |        218 |
+| app\docs\history                                                                     |          1 |        111 |          0 |          8 |        119 |
+| app\docs\history\[id]                                                                |          1 |        111 |          0 |          8 |        119 |
+| app\docs\new                                                                         |          1 |        129 |          0 |          7 |        136 |
+| app\docs\new\[id]                                                                    |          1 |        129 |          0 |          7 |        136 |
+| app\news                                                                             |          2 |        157 |          0 |         13 |        170 |
+| app\news (Files)                                                                     |          1 |         76 |          0 |          5 |         81 |
+| app\news\[id]                                                                        |          1 |         81 |          0 |          8 |         89 |
+| components                                                                           |         16 |        535 |          0 |         67 |        602 |
+| components (Files)                                                                   |         11 |        435 |          0 |         50 |        485 |
+| components\UI                                                                        |          5 |        100 |          0 |         17 |        117 |
+| helpers                                                                              |          4 |         18 |          0 |          0 |         18 |
++--------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                             | language       | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\actions\[id]\page.tsx        | TypeScript JSX |        105 |          0 |          7 |        112 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\actions\page.tsx             | TypeScript JSX |         70 |          0 |          5 |         75 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\catalog\[id]\page.tsx        | TypeScript JSX |        293 |          0 |         15 |        308 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\catalog\page.tsx             | TypeScript JSX |        419 |          0 |         19 |        438 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\deliveries\page.tsx          | TypeScript JSX |          8 |          0 |          2 |         10 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\docs\history\[id]\page.tsx   | TypeScript JSX |        111 |          0 |          8 |        119 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\docs\new\[id]\page.tsx       | TypeScript JSX |        129 |          0 |          7 |        136 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\docs\page.tsx                | TypeScript JSX |        213 |          0 |          5 |        218 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\globals.css                  | CSS            |         44 |          0 |         14 |         58 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\layout.tsx                   | TypeScript JSX |         48 |          0 |          4 |         52 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\news\[id]\page.tsx           | TypeScript JSX |         81 |          0 |          8 |         89 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\news\page.tsx                | TypeScript JSX |         76 |          0 |          5 |         81 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\app\page.tsx                     | TypeScript JSX |        132 |          0 |          7 |        139 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\ActionBanner.tsx      | TypeScript JSX |         44 |          0 |          5 |         49 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\ActionTab.tsx         | TypeScript JSX |         20 |          0 |          3 |         23 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\DocBanner.tsx         | TypeScript JSX |         32 |          0 |          2 |         34 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\FilterCategory.tsx    | TypeScript JSX |         85 |          0 |          9 |         94 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\Help.tsx              | TypeScript JSX |         24 |          0 |          3 |         27 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\Navbar.tsx            | TypeScript JSX |         86 |          0 |          8 |         94 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\NewsBanner.tsx        | TypeScript JSX |         38 |          0 |          2 |         40 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\Notification.tsx      | TypeScript JSX |         19 |          0 |          4 |         23 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\PostTab.tsx           | TypeScript JSX |         27 |          0 |          3 |         30 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\ProductQntPicker.tsx  | TypeScript JSX |         41 |          0 |          8 |         49 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\Settings.tsx          | TypeScript JSX |         19 |          0 |          3 |         22 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\UI\Button.tsx         | TypeScript JSX |         12 |          0 |          2 |         14 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\UI\Input.tsx          | TypeScript JSX |         13 |          0 |          4 |         17 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\UI\Pagination.tsx     | TypeScript JSX |         33 |          0 |          5 |         38 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\UI\ReadMoreButton.tsx | TypeScript JSX |         26 |          0 |          3 |         29 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\components\UI\Tab.tsx            | TypeScript JSX |         16 |          0 |          3 |         19 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\helpers\classList.ts             | TypeScript     |          3 |          0 |          0 |          3 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\helpers\concatStr.ts             | TypeScript     |          8 |          0 |          0 |          8 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\helpers\dateDiff.ts              | TypeScript     |          3 |          0 |          0 |          3 |
+| c:\Users\Иван Забурдаев\Desktop\Rosar-L\rosar-l\src\helpers\parseDate.ts             | TypeScript     |          4 |          0 |          0 |          4 |
+| Total                                                                                |                |      2,282 |          0 |        173 |      2,455 |
++--------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

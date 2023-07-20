@@ -309,6 +309,85 @@ export default function Home() {
         setProductsQnt(totalQnt)
     }, [cartProducts])
 
+
+    //filter functions
+
+    const [filteredProducts,setFilteredProducts]=useState([...products])
+
+    const filterByCategory=(needCategory: { value:string,icon:string }|undefined)=>{
+        if(needCategory==undefined){
+            return products
+        }
+        let temp=[...products]
+        let filtered=temp.filter(item=>item.category==needCategory.value)
+        // console.log(needCategory.value)
+        // console.log(filtered)
+        // setFilteredProducts([...filtered])
+        return filtered
+    }
+
+    const filterByMaterials=(needMaterials:Array<{value:string}>)=>{
+
+        let temp=[...products]
+        let filtered=temp.filter((item)=>{
+            let flag=null;
+            item.material.map((material)=>{
+                if(needMaterials.find(needMaterial=>needMaterial.value==material)){
+                    flag=item
+                }
+            })
+            if(flag){
+                return flag
+            }
+            else{
+                return false
+            }
+        })
+        // console.log(needMaterials)
+        // console.log(filtered)
+        if(needMaterials.length==0){
+            return(products)
+        }
+        else{
+            return(filtered)
+        }
+    }
+
+    const filterByDelivery=(needDelivery: { value:string }|undefined)=>{
+
+        if(needDelivery==undefined){
+            return products
+        }
+
+        let temp=[...products]
+        let filtered=temp.filter(item=>item.delivery==needDelivery.value)
+        // console.log(needDelivery)
+        // console.log(filtered)
+        // setFilteredProducts([...filtered])
+        return filtered
+    }
+
+    const [filteredCategory,setFilteredCategory]=useState<{value:string,icon:string}>()
+
+    const [filteredDelivery,setFilteredDelivery]=useState<{value:string}>()
+
+    const [filteredMaterial,setFilteredMaterial]=useState<{value:string}[]>([])
+
+
+
+    useEffect(()=>{
+        setFilteredProducts([...products])
+        console.log('AAAAAAAAA',filteredProducts)
+        console.log(filteredCategory,filteredDelivery)
+        let arrs:any=[]
+        arrs.push(filterByCategory(filteredCategory))
+        arrs.push(filterByDelivery(filteredDelivery))
+        arrs.push(filterByMaterials(filteredMaterial))
+        let result=(arrs[0].filter((value:any)=>arrs[1].includes(value))).filter((value:any)=>arrs[2].includes(value))
+        setFilteredProducts([...result])
+        console.log(result)
+    },[filteredMaterial,filteredDelivery, filteredCategory])
+
     return (
         <main className="mt-5">
             <div className={'flex items-center justify-between'}>
@@ -337,23 +416,18 @@ export default function Home() {
                     <div className={'border-2 border-blue'}>
                         <div className={'h-96 p-2 scrollbar-mini overflow-y-scroll'}>
                             <div className={'flex flex-col gap-4'}>
-                                <FilterCategory resetTrigger={resetFilters} variants={categoryVariants}
-                                                unfilteredArray={[]}
-                                                filterFunction={() => {
-                                                }} type={'variants'} title={'Категория'}/>
-                                <FilterCategory resetTrigger={resetFilters} variants={materialVariants}
-                                                unfilteredArray={[]}
-                                                filterFunction={() => {
-                                                }} type={'multi'} title={'Материал'}/>
-                                <FilterCategory resetTrigger={resetFilters} variants={deliveryVariants}
-                                                unfilteredArray={[]}
-                                                filterFunction={() => {
-                                                }} type={'radio'} title={'Доставка'}/>
+                                <FilterCategory resetTrigger={resetFilters} variants={categoryVariants} currentValue={filteredCategory} setCurrentValue={setFilteredCategory}
+                                                type={'variants'} title={'Категория'}/>
+                                <FilterCategory resetTrigger={resetFilters} variants={materialVariants} setCurrentValue={setFilteredMaterial} currentValue={filteredMaterial}
+                                                type={'multi'} title={'Материал'}/>
+                                <FilterCategory resetTrigger={resetFilters} variants={deliveryVariants} currentValue={filteredDelivery} setCurrentValue={setFilteredDelivery}
+                                                type={'radio'} title={'Доставка'}/>
                             </div>
                         </div>
                         <div className={'p-2'}>
                             <Button type={'transparent blue'} callback={() => {
                                 setResetFilters(!resetFilters)
+                                setFilteredProducts([...products])
                             }}>Сбросить фильтр</Button>
                         </div>
                     </div>
@@ -392,7 +466,7 @@ export default function Home() {
                         </div>
 
                     </div>
-                    {products.map((product, counter) => {
+                    {filteredProducts.map((product, counter) => {
                         if (counter < 10) {
                             return (
                                 <div key={counter} className={'grid grid-cols-12 border-b-2 border-blue'}>
