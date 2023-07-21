@@ -373,6 +373,16 @@ export default function Home() {
 
     const [filteredMaterial,setFilteredMaterial]=useState<{value:string}[]>([])
 
+    const [filteredName,setFilteredName]=useState<string>('')
+
+
+    const filterByName=(arr:typeof products, query:string)=> {
+        if(query==''){
+            return products
+        }
+        return arr.filter((el:typeof products[0]) => el.name.toLowerCase().includes(query.toLowerCase()));
+    }
+
 
 
     useEffect(()=>{
@@ -388,14 +398,20 @@ export default function Home() {
         console.log(result)
     },[filteredMaterial,filteredDelivery, filteredCategory])
 
+
+    useEffect(()=>{
+        if(filteredName!=''){
+            setFilteredProducts([...filterByName(products,filteredName)])
+        }
+    },[filteredName])
     return (
         <main className="mt-5">
             <div className={'flex items-center justify-between'}>
                 <p className={'font-bold font-travels text-blue text-3xl'}>Новый заказ</p>
                 <div className={'flex gap-2 items-center'}>
-                    <p className={'text-2xl text-orange underline cursor-pointer'}>
+                    <Link href={'/catalog/history'} className={'text-2xl text-orange underline cursor-pointer'}>
                         История заказов
-                    </p>
+                    </Link>
                     <img src={'/images/icons/history_orange.svg'}/>
                 </div>
             </div>
@@ -404,11 +420,11 @@ export default function Home() {
                     Поиск товара по названию
                 </p>
                 <div className={'grid grid-cols-9 gap-2 items-center'}>
-                    <div className={'col-span-6'}>
-                        <Input type={'text'} placeholder={'Введите название или артикул'} mutateFunction={() => {
-                        }}/>
+                    <div className={'col-span-6 relative flex items-center'}>
+                        <Input mutateValue={filteredName} type={'text'} placeholder={'Введите название или артикул'} mutateFunction={setFilteredName}/>
+                        {filteredName!=''?<img onClick={()=>{setFilteredName('')}} className={'cursor-pointer right-2 absolute w-4 aspect-square'} src={'/images/icons/close_orange.svg'}/>:null}
                     </div>
-                    <Button className={'h-full col-span-3'} type={'orange'}>Найти</Button>
+                    <Button callback={()=>{setFilteredProducts([...filterByName(filteredProducts,filteredName)])}} className={'h-full col-span-3'} type={'orange'}>Найти</Button>
                 </div>
             </div>
             <div className={'mt-5 grid gap-2 grid-cols-9 items-start'}>
