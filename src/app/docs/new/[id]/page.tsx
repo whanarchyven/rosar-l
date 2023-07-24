@@ -129,7 +129,24 @@ export default function Page() {
         </div>
         <div className={'flex flex-col mt-5 gap-2'}>
             <p className={'font-travels font-medium text-lg text-blue'}>{doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption}</p>
-            <Button className={'w-96'} type={'orange'}>Ознакомиться и подписать ЭЦП</Button>
+            <div className={' flex flex-col gap-2'}>
+                <p className={'font-medium text-orange'}>
+                    Прикреплённые файлы:
+                </p>
+                <p className={'font-medium text-orange cursor-pointer underline'}>
+                    somefilename.txt
+                </p>
+                <p className={'font-medium text-orange cursor-pointer underline'}>
+                    somefilename.xls
+                </p>
+                <p className={'font-medium text-orange cursor-pointer underline'}>
+                    somefilename.doc
+                </p>
+            </div>
+            <div className={'flex gap-4 mt-5'}>
+                <Button className={''} type={'orange'}><div className={'flex items-center'}><p>Скачать архив</p><img src={'/images/icons/import.svg'}/></div></Button>
+                <Button className={''} type={'transparent blue'}>Ознакомиться и подписать ЭЦП</Button>
+            </div>
         </div>
 
     </div>

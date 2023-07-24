@@ -1,9 +1,10 @@
 "use client"
 import React from 'react';
 import ReadMoreButton from "@/components/UI/ReadMoreButton";
+import Link from "next/link";
 
 interface postTabInterface {
-    id:string,
+    id:number,
     caption:string,
     date:string,
     buttonCallback?:(props?:any)=>any,
@@ -17,10 +18,13 @@ const PostTab = ({ id, buttonCallback, caption, date, image}:postTabInterface) =
                 <img className={'w-full h-full object-cover'} src={image}/>
             </div>
             <div className={'col-span-2 flex flex-col gap-2 p-3'}>
-                <p className={'font-travels font-bold text-blue text-lg'}>{caption.split(' ').slice(0,10).join(' ')}...</p>
+                <p className={'font-travels font-bold text-blue text-lg'}>{caption.split(' ').slice(0,5).join(' ')}...</p>
                 <p className={'font-regular text-orange font-travels text-sm'}>{date}</p>
                 <div className={'w-full flex justify-end'}>
-                    <ReadMoreButton title={'Смотреть полностью'} callback={()=>{}}></ReadMoreButton>
+                    <Link href={{pathname:'/news/post/',query:{id:id}}}>
+                        <ReadMoreButton title={'Смотреть полностью'}></ReadMoreButton>
+                    </Link>
+
                 </div>
             </div>
         </div>

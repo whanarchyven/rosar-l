@@ -1,5 +1,5 @@
 "use client"
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button";
@@ -20,13 +20,20 @@ const products=[
 
 
 interface productQntPicker {
-    callback:(arg1:any,arg2:any)=>any,
-    product:typeof products[0]
+    callback?:(arg1:any,arg2:any)=>any,
+    product:typeof products[0],
+    initialValue?:number
 }
 
-const ProductQntPicker = ({callback, product}:productQntPicker) => {
+const ProductQntPicker = ({callback, product, initialValue}:productQntPicker) => {
 
-    const [qnt,setQnt]=useState(1)
+    const [qnt,setQnt]=useState(initialValue?initialValue:1)
+
+    useEffect(()=>{
+        if(initialValue){
+            setQnt(initialValue)
+        }
+    },[initialValue])
 
     return (
         <div className={'flex items-center gap-5 justify-between'}>
@@ -34,14 +41,17 @@ const ProductQntPicker = ({callback, product}:productQntPicker) => {
                 <div className={'flex cursor-pointer font-bold items-center justify-center p-1 w-7 bg-orange rounded-full aspect-square'} onClick={()=>{if(qnt>1){setQnt(Number(qnt)-1)}}}>
                     <img className={'w-full h-full'} src={'/images/icons/minus.svg'}/>
                 </div>
-                <div className={'w-28'}>
+                <div className={'w-20'}>
                     <input value={qnt} onChange={(e)=>{if(!isNaN(Number(e.target.value))){setQnt(Number(e.target.value))}}} type={'text'} className={'w-full h-8 text-center placeholder:text-blue placeholder:text-opacity-50 p-3 font-semibold text-blue border-blue border-2 focus:border-orange focus:outline-0'}/>
                 </div>
                 <div className={'flex cursor-pointer font-bold items-center justify-center p-1 w-7 bg-orange rounded-full aspect-square'} onClick={()=>{if(qnt>0){setQnt(Number(qnt)+1)}}}>
                     <img className={'w-full h-full'} src={'/images/icons/plus.svg'}/>
                 </div>
             </div>
-            <Button callback={()=>{callback(product,qnt)}} type={'orange'}>В корзину</Button>
+            {callback?<Button callback={()=>{
+                if (callback) {
+                    callback(product, qnt)
+                }}} type={'orange'}>В корзину</Button>:null}
         </div>
     );
 };

@@ -289,19 +289,20 @@ export default function Home() {
 
     ]
 
-    const [cartProducts, setCartProducts] = useState<{ product: typeof products[0], qnt: number }[]>([])
+    const [cartProducts, setCartProducts] = useState<any>(localStorage.getItem('products')?JSON.parse(String(localStorage.getItem('products'))):[])
 
     const addToCart = (product:any, qnt:any) => {
         let temp = [...cartProducts]
         temp.push({product, qnt})
         setCartProducts([...temp])
+        localStorage.setItem('products',JSON.stringify(temp))
     }
 
 
     useEffect(() => {
         let totalPrice = 0;
         let totalQnt = 0;
-        cartProducts.map((item) => {
+        cartProducts.map((item:any) => {
             totalPrice += (item.product.price * item.qnt)
             totalQnt += item.qnt
         })
@@ -419,7 +420,7 @@ export default function Home() {
                 <p className={'text-blue text-xl font-medium'}>
                     Поиск товара по названию
                 </p>
-                <div className={'grid grid-cols-9 gap-2 items-center'}>
+                <div className={'grid grid-cols-9 grid-rows-1 gap-2  items-start relative'}>
                     <div className={'col-span-6 relative flex items-center'}>
                         <Input mutateValue={filteredName} type={'text'} placeholder={'Введите название или артикул'} mutateFunction={setFilteredName}/>
                         {filteredName!=''?<img onClick={()=>{setFilteredName('')}} className={'cursor-pointer right-2 absolute w-4 aspect-square'} src={'/images/icons/close_orange.svg'}/>:null}
@@ -459,7 +460,9 @@ export default function Home() {
                                     className={'text-orange font-bold'}>{productsPrice} ₽</span></p>
                             </div>
                         </div>
-                        <Button type={'white'}>Оформить заказ</Button>
+                        <Link href={{pathname:'/cart'}}>
+                            <Button type={'white'}>Оформить заказ</Button>
+                        </Link>
                     </div>
                     <div className={'mt-4 bg-orange cursor-pointer flex items-center justify-between p-2'}>
                         <p className={'font-bold text-white leading-[100%]'}>Импорт списка покупок из Excel</p>
