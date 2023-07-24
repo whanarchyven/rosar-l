@@ -11,7 +11,7 @@ import Link from "next/link";
 import Select from "@/components/UI/Select";
 
 export default function Home() {
-    const [cartProducts, setCartProducts] = useState<any>(localStorage.getItem('products')!=null?JSON.parse(String(localStorage.getItem('products'))):[])
+    const [cartProducts, setCartProducts] = useState<any>([])
 
     const [productsQnt,setProductsQnt]=useState(0)
     const [productsTotalPrice,setProductsTotalPrice]=useState(0)
@@ -26,6 +26,10 @@ export default function Home() {
         setProductsQnt(tempQnt)
         setProductsTotalPrice(tempTotalPrice)
     },[cartProducts])
+
+    useEffect(()=>{
+        window?.localStorage.getItem('products')!=null?JSON.parse(String(window?.localStorage.getItem('products'))):[]
+    },[])
 
     const [warehouses,setWarehouses]=useState(['Реутов, пр. Ленина 5 к2','Москва, ул. Минина д.123','Балашиха, ул. Карла Маркса д.64'])
     const [currentWarehouse,setCurrentWarehouse]=useState(warehouses[0])
@@ -129,7 +133,7 @@ export default function Home() {
                                         let temp=[...cartProducts]
                                         temp.splice(counter,1)
                                         setCartProducts([...temp])
-                                        localStorage.setItem('products',JSON.stringify(temp))
+                                        window?.localStorage.setItem('products',JSON.stringify(temp))
                                     }} type={'orange'}>Удалить</Button>
                                 </div>
                             </div>

@@ -289,13 +289,17 @@ export default function Home() {
 
     ]
 
-    const [cartProducts, setCartProducts] = useState<any>(localStorage.getItem('products')?JSON.parse(String(localStorage.getItem('products'))):[])
+    const [cartProducts, setCartProducts] = useState<any>([])
+
+    useEffect(()=>{
+        window?.localStorage.getItem('products')?JSON.parse(String(window?.localStorage.getItem('products'))):[]
+    },[])
 
     const addToCart = (product:any, qnt:any) => {
         let temp = [...cartProducts]
         temp.push({product, qnt})
         setCartProducts([...temp])
-        localStorage.setItem('products',JSON.stringify(temp))
+        window?.localStorage.setItem('products',JSON.stringify(temp))
     }
 
 
