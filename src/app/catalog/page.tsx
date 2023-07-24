@@ -292,7 +292,8 @@ export default function Home() {
     const [cartProducts, setCartProducts] = useState<any>([])
 
     useEffect(()=>{
-        window?.localStorage.getItem('products')?JSON.parse(String(window?.localStorage.getItem('products'))):[]
+        console.log('aaa')
+        window?.localStorage.getItem('products')?setCartProducts(JSON.parse(String(window?.localStorage.getItem('products')))):[]
     },[])
 
     const addToCart = (product:any, qnt:any) => {

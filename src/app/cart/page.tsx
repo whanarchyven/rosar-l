@@ -28,7 +28,7 @@ export default function Home() {
     },[cartProducts])
 
     useEffect(()=>{
-        window?.localStorage.getItem('products')!=null?JSON.parse(String(window?.localStorage.getItem('products'))):[]
+        window?.localStorage.getItem('products')!=null?setCartProducts(JSON.parse(String(window?.localStorage.getItem('products')))):[]
     },[])
 
     const [warehouses,setWarehouses]=useState(['Реутов, пр. Ленина 5 к2','Москва, ул. Минина д.123','Балашиха, ул. Карла Маркса д.64'])
