@@ -198,9 +198,11 @@ export default function Home() {
                                     )
                                 }
                             })}
-                            <Link href={{pathname:'/actions'}}>
-                                <ReadMoreButton title={'Смотреть все'}></ReadMoreButton>
-                            </Link>
+                            <div className={'w-auto flex justify-start'}>
+                                <Link className={'w-fit'} href={{pathname:'/actions'}}>
+                                    <ReadMoreButton title={'Смотреть все'}></ReadMoreButton>
+                                </Link>
+                            </div>
                         </div>
                     </Tab>
                 </div>

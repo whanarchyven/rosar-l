@@ -23,7 +23,7 @@ const DocBanner = ({title, date, caption, id, email, phoneNumber, sender, curren
             <p className={'font-regular text-blue'}>{concatStr(caption,10)}</p>
             <div className={'flex gap-6 items-center'}>
                 <p className={'font-bold text-orange text-lg'}>от {date}</p>
-                <Link href={{pathname:`/docs/${currentTab}/doc`,query:{id:id}}}>
+                <Link className={'cursor-default'} href={{pathname:`/docs/${currentTab}/doc`,query:{id:id}}}>
                     <ReadMoreButton title={'Ознакомиться'}></ReadMoreButton>
                 </Link>
             </div>

@@ -25,12 +25,14 @@ const NewsBanner = ({ id, title, time, date, image, description}:newsBannerInter
                 </div>
                 <div className={'col-span-5 flex gap-5 flex-col'}>
                     <p className={'font-medium text-white'}>{description.split(' ').slice(0,30).join(' ')} ...</p>
-                    <Link href={{
-                        pathname: "/news/post",
-                        query: {id: id},
-                    }}>
-                        <ReadMoreButton isInteractive={false} title={'Прочитать полностью'}></ReadMoreButton>
-                    </Link>
+                    <div className={'w-fit'}>
+                        <Link href={{
+                            pathname: "/news/post",
+                            query: {id: id},
+                        }}>
+                            <ReadMoreButton title={'Прочитать полностью'}></ReadMoreButton>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
