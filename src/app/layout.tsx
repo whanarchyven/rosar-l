@@ -20,46 +20,64 @@ export default function RootLayout({
     const [loading, setLoading] = useState(true)
 
     const variants = {
-        open: { opacity: 1,display:'flex'},
-        closed: { opacity: 0,display:'none'},
+        open: {opacity: 1, display: 'flex'},
+        closed: {opacity: 0, display: 'none'},
     }
 
-    useEffect(()=>{
-        setTimeout(()=>{setLoading(false)},500)
-    },[])
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
+    }, [])
     return (
         <html lang="en">
         <body className={'scrollbar'}>
         <motion.div
             animate={loading ? "open" : "closed"}
             transition={{delay: 0.1}}
-            variants={variants} className={'absolute flex items-center justify-center w-screen h-screen z-[9999] bg-white'}>
+            variants={variants}
+            className={'absolute flex items-center justify-center w-screen h-screen z-[9999] bg-white'}>
             <img src={'/images/loading.svg'} className={'animate-spin w-16 aspect-square'}/>
         </motion.div>
-        <div className={'grid grid-cols-12 gap-8 px-[20px] py-[20px]'}>
-            <div className={'col-span-2 relative'}>
-                <div className={'w-full left-0 top-[20px] sticky'}>
+        <div className={''}>
+            <div className={'grid bg-blue px-[70px] py-[20px] items-center grid-cols-12 gap-8'}>
+                <div className={'col-span-3 scrollbar relative'}>
+                    <div className={'left-0 top-[0px] sticky z-[999] flex justify-between items-center'}>
+                        <div className={'flex gap-3'}>
+                            <div>
+                                <img className={'w-12 aspect-square rounded-full border-[1px] border-white'}
+                                     src={'/images/temp/logo.png'}/>
+                            </div>
+                            <div className={'flex h-full flex-col'}>
+                                <p className={'font-travels font-bold text-2xl text-white'}>Росатом</p>
+                                <p className={'font-travels font-medium text-sm text-white'}>Личный кабинет партнёра</p>
+                            </div>
+                        </div>
+                        {/*<div className={'flex items-center flex-row gap-3'}>*/}
+                        {/*    <Help></Help>*/}
+                        {/*    <Settings></Settings>*/}
+                        {/*</div>*/}
+                    </div>
+                </div>
+                <div className={'col-span-7 relative'}>
                     <Navbar></Navbar>
                 </div>
-            </div>
-            <div className={'col-start-3 scrollbar col-end-12 relative'}>
-                <div className={'left-0 top-[0px] pt-[20px] bg-white sticky z-[999] flex justify-between items-center'}>
-                    <div className={'flex gap-3'}>
-                        <div>
-                            <img className={'w-16 aspect-square rounded-full border-4 border-orange'}
-                                 src={'/images/temp/logo.png'}/>
-                        </div>
-                        <div className={'flex h-full flex-col'}>
-                            <p className={'font-travels font-bold text-4xl text-blue'}>Росатом</p>
-                            <p className={'font-travels font-medium text-xl text-blue'}>Личный кабинет партнёра</p>
-                        </div>
-                    </div>
-                    <div className={'flex items-center flex-row gap-3'}>
-                        <Help></Help>
-                        <Settings></Settings>
-                    </div>
+                <div>
+
                 </div>
-                {children}
+                <div className={'flex gap-8 items-center justify-end'}>
+                    <img src={'/images/icons/shop.svg'}/>
+                    <img src={'/images/icons/account.svg'}/>
+                </div>
+            </div>
+            <div className={'relative px-[70px] py-[20px]'}>
+                <div className={'bg-blue w-full left-0 h-72 rounded-b-3xl absolute top-0 z-[0]'}>
+
+                </div>
+                <div className={'absolute w-full bg-transparent left-0 px-[70px] pt-[80px] pb-20 top-0 z-[1]'}>
+                    {children}
+                </div>
+
             </div>
         </div>
         </body>

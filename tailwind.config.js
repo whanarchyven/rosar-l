@@ -13,11 +13,12 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors:{
-        'orange':'#FF882E',
+        'orange':'#F28736',
         'blue':'#004891',
       },
       fontFamily:{
-        'travels':['TT Travels']
+        'travels':['TT Travels'],
+        'manrope':['Manrope']
       },
       animation:{
         'textnav':'textnav 300ms ease-in-out',

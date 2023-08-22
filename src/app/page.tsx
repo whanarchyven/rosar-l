@@ -28,14 +28,7 @@ export default function Home() {
     ]
 
     const news = [
-        {
-            id: 0,
-            title: 'Компания РОСАР-Л открывает представительство в Баку',
-            date: '2.06.2023',
-            time: '16:00',
-            image: '/images/temp/news_image.jpg',
-            description: 'Компания РОСАР-Л открывает представительство в Баку Компания РОСАР-Л открывает представительство в Баку Компания РОСАР-Л открывает представительство в Баку Компания РОСАР-Л открывает представительство в Баку Компания РОСАР-Л открывает представительство в Баку Компания РОСАР-Л открывает представительство в Баку Компания РОСАР-Л открывает представительство в Баку '
-        },
+
         {
             id: 1,
             title: 'РОСАР-Л запускает новую линейку инверторных преобразователей',
@@ -88,47 +81,47 @@ export default function Home() {
     const actions = [
         {
             name:'Летняя акция от “ООО Интел-КО”',
-            caption:'-20% на весь ассортимент продукции',
+            caption:'-20% На весь ассортимент продукции',
             image:'/images/temp/action_banner.png'
         },
         {
             name:'Летняя акция от “ООО Интел-КО”',
-            caption:'-30% на весь ассортимент продукции',
+            caption:'-30% На весь ассортимент продукции',
             image:'/images/temp/action_banner.png'
         },
         {
             name:'Летняя акция от “ООО Интел-КО”',
-            caption:'-40% на весь ассортимент продукции',
+            caption:'-40% На весь ассортимент продукции',
             image:'/images/temp/action_banner.png'
         },
         {
             name:'Летняя акция от “ООО Интел-КО”',
-            caption:'-50% на весь ассортимент продукции',
+            caption:'-50% На весь ассортимент продукции',
             image:'/images/temp/action_banner.png'
         },
         {
             name:'Летняя акция от “ООО Интел-КО”',
-            caption:'-10% на весь ассортимент продукции',
+            caption:'-10% На весь ассортимент продукции',
             image:'/images/temp/action_banner.png'
         },
         {
             name:'Летняя акция от “ООО Интел-КО”',
-            caption:'-13% на весь ассортимент продукции',
+            caption:'-13% На весь ассортимент продукции',
             image:'/images/temp/action_banner.png'
         },
         {
             name:'Летняя акция от “ООО Интел-КО”',
-            caption:'-15% на весь ассортимент продукции',
+            caption:'-15% На весь ассортимент продукции',
             image:'/images/temp/action_banner.png'
         },
         {
             name:'Летняя акция от “ООО Интел-КО”',
-            caption:'-24% на весь ассортимент продукции',
+            caption:'-24% На весь ассортимент продукции',
             image:'/images/temp/action_banner.png'
         },
         {
             name:'Летняя акция от “ООО Интел-КО”',
-            caption:'-28% на весь ассортимент продукции',
+            caption:'-28% На весь ассортимент продукции',
             image:'/images/temp/action_banner.png'
         },
     ]
@@ -136,27 +129,54 @@ export default function Home() {
 
     return (
         <main className="mt-5">
-            <div className={'grid gap-6 grid-cols-2 grid-rows-8'}>
-                <div className={'row-span-3'}>
-                    <Tab title={'Объявления и оповещения'} icon={'/images/icons/notification.svg'}>
-                        <div className={'w-full h-48 scrollbar overflow-y-scroll flex flex-col gap-3'}>
-                            {notifications.map((notification) => {
-                                return (
-                                    <div key={notification.id} id={notification.id}>
-                                        <Notification id={notification.id} title={notification.title}
-                                                      caption={notification.caption}/>
-                                    </div>)
-                            })}
+            <div className={'grid gap-6 grid-rows-3 grid-cols-3'}>
+                <div className={'h-60'}>
+                    <Tab subtitle={'Выберите комплектующие'} title={'Товары'} icon={'/images/tab/cart.svg'}>
+                        <div className={'w-full flex justify-between items-start'}>
+                            <div className={'flex flex-col'}>
+                                <p className={'text-[#676767] font-medium text-sm'}>Вы выбрали товаров на:</p>
+                                <p className={'text-black font-bold text-3xl'}>463000,34 ₽</p>
+                            </div>
+                            <div className={'flex flex-col gap-2'}>
+                                <div className={'flex w-36 items-center justify-center p-3 text-xs bg-orange border-2 border-orange rounded-lg text-white font-manrope font-bold'}>
+                                    Перейти в каталог
+                                </div>
+                                <div className={'flex w-36 items-center justify-center p-3 text-xs border-2 border-orange rounded-lg text-orange font-manrope font-bold'}>
+                                    Перейти в корзину
+                                </div>
+                            </div>
+
+
                         </div>
                     </Tab>
                 </div>
-                <div className={'row-span-3'}>
-                    <Tab title={'Новости'} icon={'/images/icons/news_white.svg'}>
-                        <div className={'overflow-y-scroll scrollbar p-2 h-48'}>
+                <div className={'h-60'}>
+                    <Tab subtitle={'Задолженности на 22.06.2023:'} title={'Задолженность'} icon={'/images/tab/debpt.svg'}>
+                        <div className={'flex mt-3 items-center justify-between'}>
+                            <p className={'font-travels font-bold text-black text-3xl'}>25623.34 ₽</p>
+                            <div className={'flex w-36 items-center justify-center p-3 text-xs bg-orange border-2 border-orange rounded-lg text-white font-manrope font-bold'}>
+                                Оплатить
+                            </div>
+                        </div>
+                    </Tab>
+                </div>
+                <div className={'h-60'}>
+                    <Tab subtitle={'Срок отсрочки: 73 дня'} title={'Доступный кредит'} icon={'/images/tab/credit.svg'}>
+                        <div className={'flex mt-3 items-center justify-between'}>
+                            <p className={'font-travels font-bold text-black text-3xl'}>51837423,34 ₽</p>
+                            <div className={'flex w-36 items-center justify-center p-3 text-xs bg-orange border-2 border-orange rounded-lg text-white font-manrope font-bold'}>
+                                Оставить заявку
+                            </div>
+                        </div>
+                    </Tab>
+                </div>
+                <div className={'row-span-2 col-span-2'}>
+                    <Tab title={'Новости'} icon={'/images/tab/news.svg'}>
+                        <div className={'overflow-y-scroll scrollbar p-2 h-96'}>
                             {news.map((post) => {
                                 return (
                                     <div key={post.id} className={'mb-3'}>
-                                        <PostTab key={post.id} id={post.id} caption={post.description} date={post.date}
+                                        <PostTab key={post.id} title={post.title} id={post.id} caption={post.description} date={post.date}
                                                  image={post.image}></PostTab>
                                     </div>
                                 )
@@ -164,45 +184,21 @@ export default function Home() {
                         </div>
                     </Tab>
                 </div>
-                <div className={'row-span-2'}>
-                    <Tab title={'Задолженность'} icon={'/images/icons/wallet_white.svg'}>
-                        <p className={'text-center font-travels text-lg text-blue font-medium'}>Размер задолженности на
-                            22.06.2023:</p>
-                        <div className={'flex mt-3 items-center justify-between'}>
-                            <p className={'font-travels font-bold text-orange text-3xl'}>25623.34 ₽</p>
-                            <Button type={'orange'}>Оплатить</Button>
-                        </div>
-                    </Tab>
-                </div>
-                <div className={'row-span-2'}>
-                    <Tab title={'Доступный кредит'} icon={'/images/icons/bank_white.svg'}>
-                        <p className={'text-left font-travels text-lg text-blue font-medium'}>Кредитное плечо: <strong>234539784.00
-                            ₽</strong></p>
-                        <div className={'flex mt-3 items-center justify-between'}>
-                            <p className={'text-left font-travels text-lg text-blue font-medium'}>Cрок
-                                отсрочки: <strong>73 дня</strong></p>
-                            <Button type={'orange'}>Составить заявку</Button>
-                        </div>
-                    </Tab>
-                </div>
-                <div className={'col-span-2'}>
-                    <Tab title={'Акции и скидки'} icon={'/images/icons/check.svg'}>
-                        <div className={'grid grid-cols-4 gap-8'}>
+
+
+                <div className={'row-span-2 col-span-1'}>
+                    <Tab title={'Акции и скидки'} icon={'/images/tab/actions.svg'}>
+                        <div className={'grid grid-cols-1 gap-8'}>
                             {actions.map((action, counter) => {
                                 if (counter < 3) {
                                     return (
-                                        <Link key={counter} href={{pathname:'/actions/action',query:{id:counter}}}>
+                                        <Link key={counter} href={{pathname:'/',query:{id:counter}}}>
                                             <ActionTab discount={action.caption.split(' ')[0]}
                                                        caption={action.caption}></ActionTab>
                                         </Link>
                                     )
                                 }
                             })}
-                            <div className={'w-auto flex justify-start'}>
-                                <Link className={'w-fit'} href={{pathname:'/actions'}}>
-                                    <ReadMoreButton title={'Смотреть все'}></ReadMoreButton>
-                                </Link>
-                            </div>
                         </div>
                     </Tab>
                 </div>

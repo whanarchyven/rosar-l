@@ -1,11 +1,13 @@
+@import "public/fonts/TT_Travels/stylesheet.css";
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import "public/fonts/TT_Travels/stylesheet.css";
 
 body{
   font-family: "TT Travels";
+  background-color:#FAFAFA ;
 }
 
 @layer utilities {
@@ -20,13 +22,13 @@ body{
 
   .scrollbar::-webkit-scrollbar-track {
     border-radius: 100vh;
-    background: #004891;
+    background: #F9F9F9;
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
-    background: #FF882E;
+    background: rgba(242, 135, 54, 0.59);
     border-radius: 100vh;
-    border: 3px solid #FF882E;
+    background: rgba(242, 135, 54, 0.59);
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
@@ -40,13 +42,13 @@ body{
 
   .scrollbar-mini::-webkit-scrollbar-track {
     border-radius: 100vh;
-    background: #004891;
+    background: #F9F9F9;
   }
 
   .scrollbar-mini::-webkit-scrollbar-thumb {
-    background: #FF882E;
+    background: rgba(242, 135, 54, 0.59);
     border-radius: 100vh;
-    border: 1px solid #FF882E;
+    background: rgba(242, 135, 54, 0.59);
   }
 
   .scrollbar-mini::-webkit-scrollbar-thumb:hover {
