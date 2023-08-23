@@ -235,7 +235,7 @@ export default function Page({params}:any) {
     ]
 
     const id=params.id
-    const product=id?actions[Number(id)-1]:actions[0]
+    const product=id&&id<actions.length-1?actions[Number(id)-1]:actions[0]
 
     const reviews = [
         {

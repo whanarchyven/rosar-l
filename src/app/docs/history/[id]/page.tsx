@@ -96,7 +96,7 @@ export default function Page({params}:any) {
 
 
     const id=params.id
-    const doc=id?docs[Number(id)]:docs[0]
+    const doc=id&&id<docs.length-1?docs[Number(id)]:docs[0]
 
     return <div className={''}>
         <div className={'flex items-center mb-14 gap-6 relative'}>

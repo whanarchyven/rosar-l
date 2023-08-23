@@ -73,7 +73,7 @@ export default function Page({params}: any) {
 
 
     const id = params.id;
-    const post = id ? news[Number(id)] : news[0]
+    const post = id&&id<news.length-1 ? news[Number(id)] : news[0]
 
     return <div className={'w-full'}>
         <div className={'flex items-center mb-14 gap-6 relative'}>
