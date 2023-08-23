@@ -4,7 +4,7 @@ import {classList} from "@/helpers/classList";
 
 const Tab = (props:any) => {
     return (
-        <div className={'w-full h-full drop-shadow-lg rounded-2xl bg-white p-3'}>
+        <div className={'w-full h-full drop-shadow-lg rounded-2xl bg-white p-2'}>
             <div className={'w-full border-blue flex items-start justify-between p-4 gap-3 rounded-t-xl '}>
                 <div className={'flex flex-col items-start gap-2'}>
                     <p className={'text-black font-manrope text-3xl font-bold'}>{props.title}</p>

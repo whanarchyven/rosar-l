@@ -200,52 +200,57 @@ export default function Home() {
     const [view,setView]=useState<'tabs'|'table'>('tabs')
 
   return (
-    <main className="mt-5">
-        <p className={'font-bold font-travels text-blue text-3xl'}>Документы</p>
+    <main className="">
         <div className={'flex items-center justify-between'}>
-            <div className={'flex items-center gap-5 mt-4'}>
-                <div className={classList('flex p-2 font-bold text-blue text-lg transition-all duration-200 items-center border-b-2 justify-center',currentTab=='new'?'border-orange':'border-blue cursor-pointer')} onClick={()=>{setCurrentTab('new');setCurrentDocs(docs)}}>
-                    Основные документы
+            <p className={'font-bold font-manrope text-white text-3xl'}>Документы</p>
+            <div className={'flex items-center gap-12'}>
+                <div className={'flex items-center font-manrope gap-5 '}>
+                    <div className={classList('flex p-2 font-bold text-white text-lg transition-all duration-200 items-center border-b-2 justify-center',currentTab=='new'?'border-white':'border-blue cursor-pointer')} onClick={()=>{setCurrentTab('new');setCurrentDocs(docs)}}>
+                        Основные документы
+                    </div>
+                    <div className={classList('flex p-2 font-bold text-white text-lg transition-all duration-200 items-center border-b-2 justify-center',currentTab=='history'?'border-white':'border-blue cursor-pointer')} onClick={()=>{setCurrentTab('history');setCurrentDocs(history)}}>
+                        История подписанных документов
+                    </div>
                 </div>
-                <div className={classList('flex p-2 font-bold text-blue text-lg transition-all duration-200 items-center border-b-2 justify-center',currentTab=='history'?'border-orange':'border-blue cursor-pointer')} onClick={()=>{setCurrentTab('history');setCurrentDocs(history)}}>
-                    История подписанных документов
+                <div className={'flex items-center gap-3'}>
+                    <div onClick={()=>{setView('tabs')}} className={classList('w-8 p-1 rounded-full flex items-center transition-all duration-300 justify-center',view=='tabs'?'border-2 border-blue bg-white':'border-2 border-blue cursor-pointer')}><img src={view=='tabs'?'/images/icons/tabs_blue.svg':'/images/icons/tabs_white.svg'}/></div>
+                    <div onClick={()=>{setView('table')}} className={classList('w-8 p-1 rounded-full flex items-center transition-all duration-300 justify-center',view=='table'?'border-2 border-blue bg-white':'border-2 border-blue cursor-pointer')}><img src={view=='table'?'/images/icons/table_blue.svg':'/images/icons/table_white.svg'}/></div>
                 </div>
-            </div>
-            <div className={'flex items-center gap-3'}>
-                <div onClick={()=>{setView('tabs')}} className={classList('w-8 p-1 rounded-full flex items-center transition-all duration-300 justify-center',view=='tabs'?'border-2 border-orange bg-orange':'border-2 border-blue cursor-pointer')}><img src={view=='tabs'?'/images/icons/tabs_white.svg':'/images/icons/tabs_blue.svg'}/></div>
-                <div onClick={()=>{setView('table')}} className={classList('w-8 p-1 rounded-full flex items-center transition-all duration-300 justify-center',view=='table'?'border-2 border-orange bg-orange':'border-2 border-blue cursor-pointer')}><img src={view=='table'?'/images/icons/table_white.svg':'/images/icons/table_blue.svg'}/></div>
             </div>
         </div>
-        {view=='tabs'?<div className={'grid mt-4 grid-cols-2 gap-5'}>
+
+        {view=='tabs'?<div className={'grid mt-10 grid-cols-3 gap-5'}>
             {currentDocs.map((doc,counter)=>{
                 return (
-                    <DocBanner currentTab={currentTab} key={counter} {...doc}></DocBanner>
+                    <Link key={counter} href={`/docs/${currentTab}/${counter}`}>
+                        <DocBanner currentTab={currentTab} {...doc}></DocBanner>
+                    </Link>
                 )
             })}
-            <div className={'flex w-full items-center justify-center my-3 col-span-2'}>
-                <Pagination currentPage={1} setCurrentPage={()=>{}} pages={8}></Pagination>
-            </div>
-        </div>:<div className={'flex mt-5 border-t-2 border-orange w-full flex-col'}>
+            {/*<div className={'flex w-full items-center justify-center my-3 col-span-2'}>*/}
+            {/*    <Pagination currentPage={1} setCurrentPage={()=>{}} pages={8}></Pagination>*/}
+            {/*</div>*/}
+        </div>:<div className={'flex mt-5 gap-4 border-orange w-full flex-col'}>
             {currentDocs.map((doc,counter)=>{
                 return (
-                    <div key={counter} className={'grid py-4 border-orange grid-cols-12 gap-4 border-b-2 border-orange'}>
-                        <div className={'font-bold text-blue col-span-2 flex items-center justify-start p-1'}>
+                    <div key={counter} className={'grid py-4 rounded-xl drop-shadow-lg bg-white px-6 grid-cols-12 gap-4'}>
+                        <div className={'font-manrope font-medium text-[#676767] col-span-2 flex items-center justify-start p-1'}>
                             {doc.date}
                         </div>
-                        <div className={'font-bold text-blue col-span-7 flex items-center justify-start p-1'}>
+                        <div className={'font-bold font-manrope text-black col-span-7 flex items-center justify-start p-1'}>
                             {doc.title}
                         </div>
                         <div className={'col-span-3 flex items-center justify-start p-1'}>
-                            <Link className={'w-full'} href={{pathname:`/docs/${currentTab}/document/`,query:{id:doc.id}}}>
+                            <Link className={'w-full'} href={`/docs/${currentTab}/${counter}/`}>
                                 <Button  type={'orange'}>Посмотреть полностью</Button>
                             </Link>
                         </div>
                     </div>
                 )
             })}
-            <div className={'flex w-full items-center justify-center my-3'}>
-                <Pagination currentPage={1} setCurrentPage={()=>{}} pages={8}></Pagination>
-            </div>
+            {/*<div className={'flex w-full items-center justify-center my-3'}>*/}
+            {/*    <Pagination currentPage={1} setCurrentPage={()=>{}} pages={8}></Pagination>*/}
+            {/*</div>*/}
         </div>}
     </main>
   )

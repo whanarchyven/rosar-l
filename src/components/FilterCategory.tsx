@@ -30,7 +30,7 @@ const FilterCategory = ({variants, resetTrigger, title, setCurrentValue, current
     },[resetTrigger])
 
     return (
-        <div className={'flex flex-col'}>
+        <div className={'flex font-manrope flex-col'}>
             <div className={'flex gap-2 cursor-pointer items-center'} onClick={() => {
                 setIsOpen(!isOpen)
             }}>

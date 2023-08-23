@@ -19,9 +19,9 @@ const Select = ({current, variants, mutateFunction, mutateVariants}: SelectInter
     const [newWarehouse, setNewWarehouse] = useState('')
 
     return (
-        <div className={'relative w-full'}>
+        <div className={'relative font-manrope font-bold text-[#004169] w-full'}>
             <div
-                className={'w-full cursor-pointer flex justify-between relative placeholder:text-blue placeholder:text-opacity-50 p-3 font-semibold text-blue border-blue border-2 focus:border-orange focus:outline-0'}
+                className={'bg-[#F8F8FA] p-3 w-full rounded-xl drop-shadow-md flex items-center gap-2'}
                 onClick={() => {
                     setIsOpen(!isOpen)
                 }}>
@@ -30,12 +30,12 @@ const Select = ({current, variants, mutateFunction, mutateVariants}: SelectInter
                      src={'/images/icons/arrow_right_orange.svg'}/>
             </div>
             {isOpen ?
-                <div className={'w-full mt-2'}>
+                <div className={'bg-[#F8F8FA] p-3 w-full rounded-xl drop-shadow-md flex flex-col mt-3 items-center gap-2'}>
                     {variants.map((variant, counter) => {
                         if (variant != current) {
                             return (
                                 <div
-                                    className={classList('w-full cursor-pointer relative placeholder:text-blue placeholder:text-opacity-50 p-3 font-semibold text-blue border-blue border-2 focus:border-orange focus:outline-0')}
+                                    className={classList('w-full cursor-pointer relative placeholder:text-blue placeholder:text-opacity-50 p-3 font-semibold text-blue border-[#F1F1F1] border-b-2 focus:border-orange focus:outline-0')}
                                     onClick={() => {
                                         mutateFunction(variant)
                                         setIsOpen(!isOpen)
@@ -47,7 +47,7 @@ const Select = ({current, variants, mutateFunction, mutateVariants}: SelectInter
                         }
                     })}
                     <div
-                        className={classList('w-full gap-3 font-white flex items-center justify-center font-bold text-white cursor-pointer relative bg-blue p-3')}
+                        className={classList('w-full gap-3 font-white flex items-center justify-center font-bold text-white cursor-pointer rounded-lg relative bg-blue p-3')}
                         onClick={() => {
                             setNewWarehousePop(!newWarehousePop)
                         }}>
@@ -56,7 +56,7 @@ const Select = ({current, variants, mutateFunction, mutateVariants}: SelectInter
                     </div>
                 </div> : null}
             {newWarehousePop ? <div
-                className={'fixed z-[9999] flex items-center justify-center w-full h-full left-0 top-0 bg-black bg-opacity-70'}>
+                className={'fixed z-[9999] flex items-center justify-center w-full rounded-xl h-full left-0 top-0 bg-black bg-opacity-70'}>
                 <div className={'relative w-[600px] p-5 bg-white rounded-xl gap-5 flex flex-col'}>
                     <div className={'flex justify-between'}>
                         <p className={'text-blue text-3xl font-bold'}>

@@ -291,23 +291,23 @@ export default function Home() {
 
     const [cartProducts, setCartProducts] = useState<any>([])
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('aaa')
-        window?.localStorage.getItem('products')?setCartProducts(JSON.parse(String(window?.localStorage.getItem('products')))):[]
-    },[])
+        window?.localStorage.getItem('products') ? setCartProducts(JSON.parse(String(window?.localStorage.getItem('products')))) : []
+    }, [])
 
-    const addToCart = (product:any, qnt:any) => {
+    const addToCart = (product: any, qnt: any) => {
         let temp = [...cartProducts]
         temp.push({product, qnt})
         setCartProducts([...temp])
-        window?.localStorage.setItem('products',JSON.stringify(temp))
+        window?.localStorage.setItem('products', JSON.stringify(temp))
     }
 
 
     useEffect(() => {
         let totalPrice = 0;
         let totalQnt = 0;
-        cartProducts.map((item:any) => {
+        cartProducts.map((item: any) => {
             totalPrice += (item.product.price * item.qnt)
             totalQnt += item.qnt
         })
@@ -318,217 +318,232 @@ export default function Home() {
 
     //filter functions
 
-    const [filteredProducts,setFilteredProducts]=useState([...products])
+    const [filteredProducts, setFilteredProducts] = useState([...products])
 
-    const filterByCategory=(needCategory: { value:string,icon:string }|undefined)=>{
-        if(needCategory==undefined){
+    const filterByCategory = (needCategory: { value: string, icon: string } | undefined) => {
+        if (needCategory == undefined) {
             return products
         }
-        let temp=[...products]
-        let filtered=temp.filter(item=>item.category==needCategory.value)
+        let temp = [...products]
+        let filtered = temp.filter(item => item.category == needCategory.value)
         // console.log(needCategory.value)
         // console.log(filtered)
         // setFilteredProducts([...filtered])
         return filtered
     }
 
-    const filterByMaterials=(needMaterials:Array<{value:string}>)=>{
+    const filterByMaterials = (needMaterials: Array<{ value: string }>) => {
 
-        let temp=[...products]
-        let filtered=temp.filter((item)=>{
-            let flag=null;
-            item.material.map((material)=>{
-                if(needMaterials.find(needMaterial=>needMaterial.value==material)){
-                    flag=item
+        let temp = [...products]
+        let filtered = temp.filter((item) => {
+            let flag = null;
+            item.material.map((material) => {
+                if (needMaterials.find(needMaterial => needMaterial.value == material)) {
+                    flag = item
                 }
             })
-            if(flag){
+            if (flag) {
                 return flag
-            }
-            else{
+            } else {
                 return false
             }
         })
         // console.log(needMaterials)
         // console.log(filtered)
-        if(needMaterials.length==0){
-            return(products)
-        }
-        else{
-            return(filtered)
+        if (needMaterials.length == 0) {
+            return (products)
+        } else {
+            return (filtered)
         }
     }
 
-    const filterByDelivery=(needDelivery: { value:string }|undefined)=>{
+    const filterByDelivery = (needDelivery: { value: string } | undefined) => {
 
-        if(needDelivery==undefined){
+        if (needDelivery == undefined) {
             return products
         }
 
-        let temp=[...products]
-        let filtered=temp.filter(item=>item.delivery==needDelivery.value)
+        let temp = [...products]
+        let filtered = temp.filter(item => item.delivery == needDelivery.value)
         // console.log(needDelivery)
         // console.log(filtered)
         // setFilteredProducts([...filtered])
         return filtered
     }
 
-    const [filteredCategory,setFilteredCategory]=useState<{value:string,icon:string}>()
+    const [filteredCategory, setFilteredCategory] = useState<{ value: string, icon: string }>()
 
-    const [filteredDelivery,setFilteredDelivery]=useState<{value:string}>()
+    const [filteredDelivery, setFilteredDelivery] = useState<{ value: string }>()
 
-    const [filteredMaterial,setFilteredMaterial]=useState<{value:string}[]>([])
+    const [filteredMaterial, setFilteredMaterial] = useState<{ value: string }[]>([])
 
-    const [filteredName,setFilteredName]=useState<string>('')
+    const [filteredName, setFilteredName] = useState<string>('')
 
 
-    const filterByName=(arr:typeof products, query:string)=> {
-        if(query==''){
+    const filterByName = (arr: typeof products, query: string) => {
+        if (query == '') {
             return products
         }
-        return arr.filter((el:typeof products[0]) => el.name.toLowerCase().includes(query.toLowerCase()));
+        return arr.filter((el: typeof products[0]) => el.name.toLowerCase().includes(query.toLowerCase()));
     }
 
 
-
-    useEffect(()=>{
+    useEffect(() => {
         setFilteredProducts([...products])
-        console.log('AAAAAAAAA',filteredProducts)
-        console.log(filteredCategory,filteredDelivery)
-        let arrs:any=[]
+        console.log('AAAAAAAAA', filteredProducts)
+        console.log(filteredCategory, filteredDelivery)
+        let arrs: any = []
         arrs.push(filterByCategory(filteredCategory))
         arrs.push(filterByDelivery(filteredDelivery))
         arrs.push(filterByMaterials(filteredMaterial))
-        let result=(arrs[0].filter((value:any)=>arrs[1].includes(value))).filter((value:any)=>arrs[2].includes(value))
+        let result = (arrs[0].filter((value: any) => arrs[1].includes(value))).filter((value: any) => arrs[2].includes(value))
         setFilteredProducts([...result])
         console.log(result)
-    },[filteredMaterial,filteredDelivery, filteredCategory])
+    }, [filteredMaterial, filteredDelivery, filteredCategory])
 
 
-    useEffect(()=>{
-        if(filteredName!=''){
-            setFilteredProducts([...filterByName(products,filteredName)])
+    useEffect(() => {
+        if (filteredName != '') {
+            setFilteredProducts([...filterByName(products, filteredName)])
         }
-    },[filteredName])
+    }, [filteredName])
     return (
-        <main className="mt-5">
-            <div className={'flex items-center justify-between'}>
-                <p className={'font-bold font-travels text-blue text-3xl'}>Новый заказ</p>
+        <main className="">
+            <div className={'flex items-center mb-10 justify-between'}>
+                <p className={'font-bold font-manrope text-white text-4xl'}>Каталог</p>
                 <div className={'flex gap-2 items-center'}>
-                    <Link href={'/catalog/history'} className={'text-2xl text-orange underline cursor-pointer'}>
+                    <Link href={'/catalog/history'}
+                          className={'flex p-2 font-bold text-white text-lg transition-all duration-200 items-center border-b-2 justify-center'}>
                         История заказов
                     </Link>
-                    <img src={'/images/icons/history_orange.svg'}/>
                 </div>
             </div>
-            <div className={'mt-5 flex flex-col gap-2'}>
-                <p className={'text-blue text-xl font-medium'}>
-                    Поиск товара по названию
-                </p>
-                <div className={'grid grid-cols-9 grid-rows-1 gap-2  items-start relative'}>
-                    <div className={'col-span-6 relative flex items-center'}>
-                        <Input mutateValue={filteredName} type={'text'} placeholder={'Введите название или артикул'} mutateFunction={setFilteredName}/>
-                        {filteredName!=''?<img onClick={()=>{setFilteredName('')}} className={'cursor-pointer right-2 absolute w-4 aspect-square'} src={'/images/icons/close_orange.svg'}/>:null}
+            <div className={'bg-white p-4 drop-shadow-lg rounded-xl'}>
+                <div className={'mt-5 flex flex-col gap-2'}>
+                    <div className={'grid grid-cols-12 grid-rows-1 gap-2  items-start relative'}>
+                        <div className={'col-span-7 relative flex items-center'}>
+                            <Input icon={'/images/icons/search.svg'} mutateValue={filteredName} type={'text'}
+                                   placeholder={'Введите название или артикул'} mutateFunction={setFilteredName}/>
+                            {filteredName != '' ? <img onClick={() => {
+                                setFilteredName('')
+                            }} className={'cursor-pointer right-2 absolute w-4 aspect-square'}
+                                                       src={'/images/icons/close_orange.svg'}/> : null}
+                        </div>
+                        <Button callback={() => {
+                            setFilteredProducts([...filterByName(filteredProducts, filteredName)])
+                        }} className={'h-full col-span-3 col-end-13'} type={'orange'}>Найти</Button>
                     </div>
-                    <Button callback={()=>{setFilteredProducts([...filterByName(filteredProducts,filteredName)])}} className={'h-full col-span-3'} type={'orange'}>Найти</Button>
                 </div>
-            </div>
-            <div className={'mt-5 grid gap-2 grid-cols-9 items-start'}>
-                <div className={'col-span-2'}>
-                    <div className={'border-2 border-blue'}>
-                        <div className={'h-96 p-2 scrollbar-mini overflow-y-scroll'}>
-                            <div className={'flex flex-col gap-4'}>
-                                <FilterCategory resetTrigger={resetFilters} variants={categoryVariants} currentValue={filteredCategory} setCurrentValue={setFilteredCategory}
-                                                type={'variants'} title={'Категория'}/>
-                                <FilterCategory resetTrigger={resetFilters} variants={materialVariants} setCurrentValue={setFilteredMaterial} currentValue={filteredMaterial}
-                                                type={'multi'} title={'Материал'}/>
-                                <FilterCategory resetTrigger={resetFilters} variants={deliveryVariants} currentValue={filteredDelivery} setCurrentValue={setFilteredDelivery}
-                                                type={'radio'} title={'Доставка'}/>
+                <div className={'mt-5 grid gap-8 grid-cols-12 items-start'}>
+                    <div className={'col-span-3'}>
+                        <div className={'drop-shadow-md bg-[#F8F8FA] p-4 rounded-xl'}>
+                            <div className={'h-96 p-2 scrollbar-mini overflow-y-scroll'}>
+                                <div className={'flex flex-col gap-4'}>
+                                    <FilterCategory resetTrigger={resetFilters} variants={categoryVariants}
+                                                    currentValue={filteredCategory}
+                                                    setCurrentValue={setFilteredCategory}
+                                                    type={'variants'} title={'Категория'}/>
+                                    <FilterCategory resetTrigger={resetFilters} variants={materialVariants}
+                                                    setCurrentValue={setFilteredMaterial}
+                                                    currentValue={filteredMaterial}
+                                                    type={'multi'} title={'Материал'}/>
+                                    <FilterCategory resetTrigger={resetFilters} variants={deliveryVariants}
+                                                    currentValue={filteredDelivery}
+                                                    setCurrentValue={setFilteredDelivery}
+                                                    type={'radio'} title={'Доставка'}/>
+                                </div>
+                            </div>
+                            <div className={'p-2'}>
+                                <Button type={'transparent blue'} callback={() => {
+                                    setResetFilters(!resetFilters)
+                                    setFilteredProducts([...products])
+                                }}>Сбросить фильтр</Button>
                             </div>
                         </div>
-                        <div className={'p-2'}>
-                            <Button type={'transparent blue'} callback={() => {
-                                setResetFilters(!resetFilters)
-                                setFilteredProducts([...products])
-                            }}>Сбросить фильтр</Button>
-                        </div>
-                    </div>
-                    <div className={'bg-blue flex flex-col gap-3 mt-4 p-2'}>
-                        <div className={'flex gap-2 items-center'}>
-                            <div className={'relative w-12 flex items-center justify-center aspect-square'}>
-                                <img src={'/images/icons/cart.svg'} className={'w-full z-0 h-full absolute'}/>
-                                <p className={classList('absolute bottom-0.5 z-[1] text-white font-bold', productsQnt < 10 ? 'text-lg' : '', productsQnt >= 10 && productsQnt < 100 ? 'text-sm' : '', productsQnt >= 100 ? 'text-xs' : '')}>{productsQnt > 1000 ? (productsQnt / 1000).toFixed(1) + ' k' : productsQnt}</p>
+                        <Link href={'/cart'}>
+                            <div className={'bg-blue rounded-xl drop-shadow-lg flex flex-col gap-3 mt-4 p-4'}>
+                                <div className={'flex gap-2 items-center justify-between'}>
+                                    <p className={'text-sm font-manrope font-bold text-white'}>Оформить заказ</p>
+                                    <p className={'font-manrope font-extrabold text-white text-2xl'}>{productsPrice} ₽</p>
+                                </div>
                             </div>
-                            <div className={'flex flex-col'}>
-                                <p className={'text-sm font-medium text-white'}>В корзине {productsQnt} товаров</p>
-                                <p className={'text-sm font-medium text-white'}>на сумму <span
-                                    className={'text-orange font-bold'}>{productsPrice} ₽</span></p>
-                            </div>
-                        </div>
-                        <Link href={{pathname:'/cart'}}>
-                            <Button type={'white'}>Оформить заказ</Button>
                         </Link>
-                    </div>
-                    <div className={'mt-4 bg-orange cursor-pointer flex items-center justify-between p-2'}>
-                        <p className={'font-bold text-white leading-[100%]'}>Импорт списка покупок из Excel</p>
-                        <img src={'/images/icons/import.svg'} className={'w-7 aspect-square'}/>
-                    </div>
-                </div>
-                <div className={'col-span-7 relative scrollbar border-2 border-blue'}>
-                    <div className={'grid grid-cols-12'}>
-                        <div
-                            className={'col-span-5 font-bold text-white border-r-2 border-white flex items-center justify-start bg-blue p-2'}>
-                            Наименование
+                        <div className={'bg-orange rounded-xl drop-shadow-lg flex flex-col gap-3 mt-4 p-4'}>
+                            <div className={'flex gap-2 items-center justify-between'}>
+                                <p className={'text-sm font-manrope font-bold text-white'}>Импорт списка покупок из
+                                    Excel</p>
+                                <img src={'/images/icons/import.svg'}/>
+                            </div>
                         </div>
-                        <div
-                            className={'col-span-2 font-bold text-white border-r-2 border-white flex items-center justify-center bg-blue p-2'}>
-                            Цена
-                        </div>
-                        <div
-                            className={'col-span-5 font-bold text-white   border-white flex items-center justify-center bg-blue p-2'}>
+                    </div>
+                    <div className={'col-span-9 relative scrollbar'}>
+                        <div className={'drop-shadow-sm mb-4 grid bg-[#F8F8FA] rounded-xl font-manrope grid-cols-12'}>
+                            <div
+                                className={'col-span-4 font-bold text-[#004169] flex items-center justify-center  p-2'}>
+                                Наименование
+                            </div>
+                            <div
+                                className={'col-span-2 font-bold text-[#004169] flex items-center justify-center  p-2'}>
+                                Цена
+                            </div>
+                            <div
+                                className={'col-span-2 font-bold text-[#004169] flex items-center justify-center  p-2'}>
+                                О товаре
+                            </div>
+
+                            <div
+                                className={'col-span-2 font-bold text-[#004169] flex items-center justify-center  p-2'}>
+                                Количество
+                            </div>
+                            <div
+                                className={'col-span-2 font-bold text-[#004169]  flex items-center justify-center  p-2'}>
+
+                            </div>
 
                         </div>
+                        {filteredProducts.map((product, counter) => {
+                            if (counter < 10) {
+                                return (
+                                    <div key={counter} className={'grid grid-cols-12 border-b-2 border-[#F1F1F1]'}>
+                                        <div
+                                            className={'col-span-4 text-blue border-r-2 border-[#F1F1F1] flex items-center justify-start bg-white p-2'}>
+                                            <div className={'flex gap-2 items-center'}>
+                                                <img className={'w-12 aspect-square object-cover'} src={product.image}/>
+                                                <div className={'flex flex-col'}>
 
-                    </div>
-                    {filteredProducts.map((product, counter) => {
-                        if (counter < 10) {
-                            return (
-                                <div key={counter} className={'grid grid-cols-12 border-b-2 border-blue'}>
-                                    <div
-                                        className={'col-span-5 text-blue border-r-2 border-blue flex items-center justify-start bg-white p-2'}>
-                                        <div className={'flex gap-2 items-center'}>
-                                            <img className={'w-10 aspect-square object-cover'} src={product.image}/>
-                                            <div className={'flex flex-col'}>
-                                                <p className={'text-xs text-orange font-regular'}>Артикул: {product.sk}</p>
-                                                <div className={'flex gap-2 items-center'}>
-                                                    <Link href={{
-                                                        pathname: "/catalog/product/",
-                                                        query: {id: product.id},
-                                                    }}>
-                                                        <p className={'text-lg underline text-sm text-blue font-semibold'}>{product.name}</p>
-                                                    </Link>
+                                                    <div className={'flex gap-2 items-center'}>
+                                                        <p className={'text-md font-manrope text-black font-semibold'}>{product.name}</p>
+
+                                                    </div>
+                                                    <p className={'text-sm font-manrope text-[#004169] font-regular'}>Артикул: {product.sk}</p>
 
                                                 </div>
-
                                             </div>
                                         </div>
-                                    </div>
-                                    <div
-                                        className={'col-span-2 font-normal text-blue border-r-2 border-blue flex items-center justify-center bg-white p-2'}>
-                                        {product.price} ₽/шт.
-                                    </div>
-                                    <div
-                                        className={'col-span-5 font-bold text-blue border-blue flex items-center justify-center bg-white p-2'}>
-                                        <ProductQntPicker product={product} callback={addToCart}></ProductQntPicker>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    })}
-                    <Pagination currentPage={1} setCurrentPage={() => {
-                    }} pages={42}></Pagination>
-                </div>
+                                        <div
+                                            className={'font-manrope col-span-2 font-bold text-black border-r-2 border-[#F1F1F1] flex items-center justify-center bg-white p-2'}>
+                                            {product.price} ₽/шт.
+                                        </div>
+                                        <div
+                                            className={'col-span-2 font-normal text-blue border-r-2 border-[#F1F1F1] flex items-center justify-center bg-white p-2'}>
+                                            <Link href={`/catalog/${product.id}`}>
+                                                <p className={'text-md font-manrope underline text-[#004169] font-semibold'}>Подробнее</p>
+                                            </Link>
+                                        </div>
 
+                                        <div
+                                            className={'col-span-4 font-bold text-blue border-[#F1F1F1] flex items-center justify-center bg-white'}>
+                                            <ProductQntPicker product={product} callback={addToCart}></ProductQntPicker>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        })}
+                        {/*<Pagination currentPage={1} setCurrentPage={() => {*/}
+                        {/*}} pages={42}></Pagination>*/}
+                    </div>
+
+                </div>
             </div>
         </main>
     )

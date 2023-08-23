@@ -3,13 +3,14 @@ import React, {useEffect, useState} from 'react';
 
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button";
+import {classList} from "@/helpers/classList";
 
-const products=[
+const products = [
     {
         id: 1,
         name: 'Розетка SFG134-RD',
         sk: 'R910X023',
-        image:'/images/temp/product.png',
+        image: '/images/temp/product.png',
         price: 569,
         category: 'Розетки',
         material: ['Пластик', 'Медь'],
@@ -20,38 +21,58 @@ const products=[
 
 
 interface productQntPicker {
-    callback?:(arg1:any,arg2:any)=>any,
-    product:typeof products[0],
-    initialValue?:number
+    callback?: (arg1: any, arg2: any) => any,
+    product: typeof products[0],
+    initialValue?: number
 }
 
-const ProductQntPicker = ({callback, product, initialValue}:productQntPicker) => {
+const ProductQntPicker = ({callback, product, initialValue}: productQntPicker) => {
 
-    const [qnt,setQnt]=useState(initialValue?initialValue:1)
+    const [qnt, setQnt] = useState(initialValue ? initialValue : 1)
 
-    useEffect(()=>{
-        if(initialValue){
+    useEffect(() => {
+        if (initialValue) {
             setQnt(initialValue)
         }
-    },[initialValue])
+    }, [initialValue])
 
     return (
-        <div className={'flex items-center gap-5 justify-between'}>
-            <div className={'flex gap-3 items-center'}>
-                <div className={'flex cursor-pointer font-bold items-center justify-center p-1 w-7 bg-orange rounded-full aspect-square'} onClick={()=>{if(qnt>1){setQnt(Number(qnt)-1)}}}>
+        <div className={classList('w-full h-full grid', callback ? 'grid-cols-4' : 'grid-cols-2')}>
+            <div className={'flex gap-3 p-2 border-r-2 border-[#F1F1F1] justify-center col-span-2 items-center'}>
+                <div
+                    className={'flex cursor-pointer font-bold items-center justify-center p-2 w-7 border-2 border-[#E6E6E6] rounded-full aspect-square'}
+                    onClick={() => {
+                        if (qnt > 1) {
+                            setQnt(Number(qnt) - 1)
+                        }
+                    }}>
                     <img className={'w-full h-full'} src={'/images/icons/minus.svg'}/>
                 </div>
                 <div className={'w-20'}>
-                    <input value={qnt} onChange={(e)=>{if(!isNaN(Number(e.target.value))){setQnt(Number(e.target.value))}}} type={'text'} className={'w-full h-8 text-center placeholder:text-blue placeholder:text-opacity-50 p-3 font-semibold text-blue border-blue border-2 focus:border-orange focus:outline-0'}/>
+                    <input value={qnt} onChange={(e) => {
+                        if (!isNaN(Number(e.target.value))) {
+                            setQnt(Number(e.target.value))
+                        }
+                    }} type={'text'}
+                           className={'w-full h-8 text-center placeholder:text-blue placeholder:text-opacity-50 p-3 font-semibold text-blue border-[#E6E6E6] rounded-lg border-2 focus:border-orange focus:outline-0'}/>
                 </div>
-                <div className={'flex cursor-pointer font-bold items-center justify-center p-1 w-7 bg-orange rounded-full aspect-square'} onClick={()=>{if(qnt>0){setQnt(Number(qnt)+1)}}}>
+                <div
+                    className={'flex cursor-pointer font-bold items-center justify-center p-2 w-7 border-2 border-[#E6E6E6] rounded-full aspect-square'}
+                    onClick={() => {
+                        if (qnt > 0) {
+                            setQnt(Number(qnt) + 1)
+                        }
+                    }}>
                     <img className={'w-full h-full'} src={'/images/icons/plus.svg'}/>
                 </div>
             </div>
-            {callback?<Button callback={()=>{
+
+            {callback ? <div className={'col-span-2 p-4'}><Button callback={() => {
                 if (callback) {
                     callback(product, qnt)
-                }}} type={'orange'}>В корзину</Button>:null}
+                }
+            }} type={'orange'}>В корзину</Button></div> : null}
+
         </div>
     );
 };

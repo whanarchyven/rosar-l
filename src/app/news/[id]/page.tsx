@@ -5,10 +5,14 @@ import {useRouter, useSearchParams} from "next/navigation";
 import datediff from "@/helpers/dateDiff";
 import parseDate from "@/helpers/parseDate";
 import Button from "@/components/UI/Button";
+import Link from "next/link";
+import React from "react";
+import ActionBanner from "@/components/ActionBanner";
+import NewsBanner from "@/components/NewsBanner";
 
-export default function Page() {
+export default function Page({params}: any) {
     const router = useRouter()
-    const news=[
+    const news = [
         {
             id: 0,
             title: 'Компания РОСАР-Л открывает представительство в Баку',
@@ -68,20 +72,37 @@ export default function Page() {
     ]
 
 
-    const id=useSearchParams().get('id')
-    const post=id?news[Number(id)]:news[0]
+    const id = params.id;
+    const post = id ? news[Number(id)] : news[0]
 
-    return <div className={'w-full py-6'}>
-        <div className={'flex items-center justify-between'}>
-            <p className={'font-travels text-3xl font-bold text-blue'}>{post.title}</p>
-            <img className={'w-7 aspect-square cursor-pointer'} src={'/images/icons/close_orange.svg'} onClick={()=>{router.back()}}/>
+    return <div className={'w-full'}>
+        <div className={'flex items-center mb-14 gap-6 relative'}>
+            <Link href={'/news'}>
+                <img className={'cursor-pointer w-10'} src={'/images/icons/arrow_left.svg'}/>
+            </Link>
+            <p className={'font-manrope text-4xl font-bold text-white'}>Новости</p>
         </div>
-        <div className={'flex flex-col mt-5 gap-2'}>
-            <div className={'w-full aspect-video'}>
-                <img className={'w-full aspect-video h-full rounded-2xl object-cover'} src={post.image}/>
+        <div className={'grid grid-cols-12 drop-shadow-lg bg-white rounded-xl overflow-hidden mt-5 gap-2'}>
+            <div className={'col-span-6 w-full aspect-video'}>
+                <img className={'w-full h-full object-cover'} src={post.image}/>
             </div>
-            <p className={'my-5 font-travels font-bold text-xl text-orange'}>{post.date} в {post.time}</p>
-            <p className={'font-travels font-medium text-lg text-blue'}>{post.description}</p>
+            <div className={'col-span-6 p-5 px-7 flex flex-col gap-4'}>
+                <div className={'flex items-start justify-between'}>
+                    <p className={'font-bold font-manrope w-2/3 text-3xl'}>{post.title}</p>
+                    <p className={'font-regular font-travels text-right text-xl'}>{post.date}</p>
+                </div>
+                <p className={'font-manrope text-lg text-[#676767]'}>{post.description}</p>
+            </div>
+        </div>
+        <div className={'flex mt-8 flex-col gap-4'}>
+            {news.map((news,counter)=>{
+                if(counter!=id&&counter<4){
+                    return(
+                        <NewsBanner key={news.id} {...news}></NewsBanner>
+                    )
+                }
+            })}
+
         </div>
 
 

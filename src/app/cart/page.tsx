@@ -40,106 +40,106 @@ export default function Home() {
 
     return (
         <main className="mt-5">
-            <div className={''}>
-                <p className={'font-bold font-travels text-blue text-3xl'}>Корзина</p>
-                <p className={'mt-4 font-bold text-2xl text-blue'}>Выбрано {productsQnt} товаров на сумму <span className={'text-orange'}>{productsTotalPrice} рублей</span></p>
-            </div>
-            <div className={'grid mt-6 gap-8 grid-cols-3'}>
-                <div className={'flex flex-col gap-3 items-start'}>
-                    <div className={'flex flex-col w-full'}>
-                        <p className={'text-lg text-blue font-medium'}>Имя заказа</p>
-                        <Input type={'text'} mutateValue={orderName} mutateFunction={setOrderName} placeholder={'Заказ от 24.07'}></Input>
-                    </div>
-                    <div className={'flex flex-col w-full'}>
-                        <FilterCategory variants={deliveryVariants} currentValue={deliveryVariant} setCurrentValue={setDeliveryVariant} type={'radio'} title={'Выберите способ доставки'}></FilterCategory>
-                    </div>
-                </div>
-                <div className={'flex flex-col gap-3 items-start'}>
-                    <div className={'flex flex-col w-full'}>
-                        <p className={'text-lg text-blue font-medium'}>Выберите склад для доставки</p>
-                        <Select current={currentWarehouse} mutateVariants={setWarehouses} variants={[...warehouses]} mutateFunction={setCurrentWarehouse}></Select>
-                    </div>
-                </div>
-                <div className={'flex flex-col gap-3 items-start'}>
-                    <div className={'flex flex-col w-full'}>
-                        <p className={'text-lg text-blue font-medium'}>Стоимость доставки: <strong>12599 ₽</strong></p>
-                        <Button className={'h-full'} type={'orange'}>Выставить счёт на оплату</Button>
-                    </div>
-                </div>
-            </div>
+            <p className={'font-bold font-manrope text-white mb-8 text-4xl'}>Корзина</p>
 
-            <div className={'relative mt-6 scrollbar border-2 border-blue'}>
-                <div className={'grid grid-cols-12'}>
-                    <div
-                        className={'col-span-4 font-bold text-white border-r-2 border-white flex items-center justify-start bg-blue p-2'}>
-                        Наименование
-                    </div>
-                    <div
-                        className={'col-span-2 font-bold text-white border-r-2 border-white flex items-center justify-center bg-blue p-2'}>
-                        Цена
-                    </div>
-                    <div
-                        className={'col-span-2 font-bold text-white border-r-2 border-white flex items-center justify-center bg-blue p-2'}>
-                        Количество
-                    </div>
-                    <div
-                        className={'col-span-2 font-bold text-white border-r-2 border-white flex items-center justify-center bg-blue p-2'}>
-                        Итого
-                    </div><div
-                    className={'col-span-2 font-bold text-white border-white flex items-center justify-center bg-blue p-2'}>
+            <div className={'grid grid-cols-6 gap-6 p-4 items-start rounded-xl p-6 drop-shadow-lg bg-white'}>
+                <div className={'relative col-span-4 scrollbar '}>
+                    <div className={'grid grid-cols-12 px-2 bg-[#F8F8FA] rounded-xl font-manrope'}>
+                        <div
+                            className={'col-span-3 font-bold text-[#004169] flex items-center justify-start p-2'}>
+                            Наименование
+                        </div>
+                        <div
+                            className={'col-span-2 font-bold text-[#004169] flex items-center justify-center p-2'}>
+                            Цена
+                        </div>
+                        <div
+                            className={'col-span-2 font-bold text-[#004169] flex items-center justify-center p-2'}>
+                            О товаре
+                        </div>
+                        <div
+                            className={'col-span-3 font-bold text-[#004169] flex items-center justify-center p-2'}>
+                            Количество
+                        </div><div
+                        className={'col-span-2 font-bold text-[#004169] flex items-center justify-center p-2'}>
 
-                </div>
+                    </div>
 
 
-                </div>
-                {cartProducts.map((product:any, counter:number) => {
-                    if (counter < 10) {
-                        return (
-                            <div key={counter} className={'grid grid-cols-12 border-b-2 border-blue'}>
-                                <div
-                                    className={'col-span-4 text-blue border-r-2 border-blue flex items-center justify-start bg-white p-2'}>
-                                    <div className={'flex gap-2 items-center'}>
-                                        <img className={'w-10 aspect-square object-cover'} src={product.product.image}/>
-                                        <div className={'flex flex-col'}>
-                                            <p className={'text-xs text-orange font-regular'}>Артикул: {product.product.sk}</p>
-                                            <div className={'flex gap-2 items-center'}>
-                                                <Link href={{
-                                                    pathname: "/catalog/product/",
-                                                    query: {id: product.product.id},
-                                                }}>
-                                                    <p className={'text-lg underline text-sm text-blue font-semibold'}>{product.product.name}</p>
-                                                </Link>
+                    </div>
+                    {cartProducts.map((product:any, counter:number) => {
+                        if (counter < 10) {
+                            return (
+                                <div key={counter} className={'grid grid-cols-12 border-b-2 border-[#F1F1F1]'}>
+                                    <div
+                                        className={'col-span-3 text-blue border-r-2 border-[#F1F1F1] flex items-center justify-start bg-white p-2'}>
+                                        <div className={'flex gap-2 items-center'}>
+                                            <img className={'w-12 aspect-square object-cover'} src={product.product.image}/>
+                                            <div className={'flex flex-col'}>
+
+                                                <div className={'flex gap-2 items-center'}>
+                                                    <p className={'text-md font-manrope text-black font-semibold'}>{product.product.name}</p>
+
+                                                </div>
+                                                <p className={'text-sm font-manrope text-[#004169] font-regular'}>Артикул: {product.product.sk}</p>
 
                                             </div>
-
                                         </div>
                                     </div>
+                                    <div
+                                        className={'font-manrope col-span-2 font-bold text-black border-r-2 border-[#F1F1F1] flex items-center justify-center bg-white p-2'}>
+                                        {product.product.price} ₽/шт.
+                                    </div>
+                                    <div
+                                        className={'col-span-2 font-bold text-blue border-r-2 border-[#F1F1F1] flex items-center justify-center bg-white p-2'}>
+                                        <Link href={`/catalog/${product.id}`}>
+                                            <p className={'text-md font-manrope underline text-[#004169] font-semibold'}>Подробнее</p>
+                                        </Link>
+                                    </div>
+                                    <div
+                                        className={'col-span-3 font-bold text-blue border-[#F1F1F1] flex items-center justify-center bg-white'}>
+                                        <ProductQntPicker initialValue={product.qnt} product={product.product}></ProductQntPicker>
+                                    </div>
+                                    <div
+                                        className={'col-span-2 font-normal text-blue border-r-2 border-[#F1F1F1] flex items-center justify-center bg-white p-2'}>
+                                        <Button callback={()=>{
+                                            let temp=[...cartProducts]
+                                            temp.splice(counter,1)
+                                            setCartProducts([...temp])
+                                            window?.localStorage.setItem('products',JSON.stringify(temp))
+                                        }} type={'orange'}>Удалить</Button>
+                                    </div>
                                 </div>
-                                <div
-                                    className={'col-span-2 font-normal text-blue border-r-2 border-blue flex items-center justify-center bg-white p-2'}>
-                                    {product.product.price} ₽/шт.
-                                </div>
-                                <div
-                                    className={'col-span-2 font-normal text-blue border-r-2 border-blue flex items-center justify-center bg-white p-2'}>
-                                    <ProductQntPicker initialValue={product.qnt} product={product.product}></ProductQntPicker>
-                                </div>
-                                <div
-                                    className={'col-span-2 font-bold text-blue border-r-2 border-blue flex items-center justify-center bg-white p-2'}>
-                                    {product.product.price*product.qnt} ₽
-                                </div>
-                                <div
-                                    className={'col-span-2 font-normal text-blue border-r-2 border-blue flex items-center justify-center bg-white p-2'}>
-                                    <Button callback={()=>{
-                                        let temp=[...cartProducts]
-                                        temp.splice(counter,1)
-                                        setCartProducts([...temp])
-                                        window?.localStorage.setItem('products',JSON.stringify(temp))
-                                    }} type={'orange'}>Удалить</Button>
-                                </div>
-                            </div>
-                        )
-                    }
-                })}
+                            )
+                        }
+                    })}
+                </div>
+
+                <div className={'grid col-span-2 gap-8 grid-cols-1'}>
+                    <div className={'flex flex-col gap-6 items-start'}>
+                        <p className={'uppercase font-extrabold text-3xl font-manrope '}>Итого:</p>
+                        <p className={'font-bold text-xl font-manrope '}>Выбрано {productsQnt} товаров на сумму {productsTotalPrice} рублей 00 коп.</p>
+                        <div className={'flex flex-col w-full'}>
+                            <p className={'text-lg text-black font-bold font-manrope'}>Имя заказа</p>
+                            <Input type={'text'} mutateValue={orderName} mutateFunction={setOrderName} placeholder={'Заказ от 24.07'}></Input>
+                        </div>
+                        <div className={'flex flex-col w-full'}>
+                            <FilterCategory variants={deliveryVariants} currentValue={deliveryVariant} setCurrentValue={setDeliveryVariant} type={'radio'} title={'Выберите способ доставки'}></FilterCategory>
+                        </div>
+                    </div>
+                    <div className={'flex flex-col gap-3 items-start'}>
+                        <div className={'flex flex-col w-full'}>
+                            <p className={'text-lg text-blue font-medium'}>Выберите склад для доставки</p>
+                            <Select current={currentWarehouse} mutateVariants={setWarehouses} variants={[...warehouses]} mutateFunction={setCurrentWarehouse}></Select>
+                        </div>
+                    </div>
+                    <div className={'flex flex-col gap-3 items-start'}>
+                        <div className={'flex flex-col w-full'}>
+                            <p className={'text-lg text-blue font-medium'}>Стоимость доставки: <strong>12599 ₽</strong></p>
+                            <Button className={'h-full'} type={'orange'}>Выставить счёт на оплату</Button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </main>

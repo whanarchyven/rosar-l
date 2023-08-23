@@ -1,6 +1,7 @@
 import React from 'react';
 import ReadMoreButton from "@/components/UI/ReadMoreButton";
 import Link from "next/link";
+import Button from "@/components/UI/Button";
 
 interface newsBannerInterface {
     id: number,
@@ -10,27 +11,28 @@ interface newsBannerInterface {
     image: string,
     description: string
 }
-const NewsBanner = ({ id, title, time, date, image, description}:newsBannerInterface) => {
+
+const NewsBanner = ({id, title, time, date, image, description}: newsBannerInterface) => {
     return (
-        <div className={'w-full bg-blue rounded-xl p-5'}>
-            <div className={'w-full flex justify-between items-center'}>
-                <p className={'text-white whitespace-pre-wrap leading-[100%] w-1/2 font-bold text-2xl'}>{title}</p>
-                <div className={'bg-white p-2 font-bold text-blue flex items-center justify-center rounded-lg'}>
-                    {date} в {time}
-                </div>
-            </div>
-            <div className={'grid mt-6 grid-cols-7 gap-7 items-start'}>
+        <div className={'w-full bg-white rounded-xl overflow-hidden drop-shadow-lg'}>
+            <div className={'grid grid-cols-12 gap-2 items-start'}>
                 <div className={'col-span-2'}>
-                    <img src={image} className={'w-full aspect-square object-cover rounded-r-2xl'}/>
+                    <img src={image} className={'w-full aspect-square object-cover'}/>
                 </div>
-                <div className={'col-span-5 flex gap-5 flex-col'}>
-                    <p className={'font-medium text-white'}>{description.split(' ').slice(0,30).join(' ')} ...</p>
-                    <div className={'w-fit'}>
-                        <Link href={{
-                            pathname: "/news/post",
-                            query: {id: id},
-                        }}>
-                            <ReadMoreButton title={'Прочитать полностью'}></ReadMoreButton>
+                <div className={'col-span-10 flex gap-5 flex-col p-4 px-6 py-6'}>
+                    <div className={'flex items-start justify-between'}>
+                        <p className={'font-bold text-black font-manrope text-2xl w-2/3'}>{title}</p>
+                        <p className={'font-normal text-[#1E496F] font-travels text-xl text-right'}>{date}</p>
+                    </div>
+                    <div className={'flex items-end justify-between'}>
+                        <p className={'font-travels text-md w-4/5 text-[#676767]'}>{description.split(' ').splice(0,25).join(' ')} ...</p>
+                        <Link href={`/news/${id}`}>
+                            <Button type={'orange'}>
+                                <div className={'flex items-center gap-3'}>
+                                    <p className={'font-manrope font-extrabold text-sm'}>Подробнее</p>
+                                    <img className={''} src={'/images/tab/arrow_next.svg'}/>
+                                </div>
+                            </Button>
                         </Link>
                     </div>
                 </div>

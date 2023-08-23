@@ -7,6 +7,7 @@ import Settings from "@/components/Settings";
 import Help from "@/components/Help";
 import {useEffect, useState} from "react";
 import {motion} from "framer-motion";
+import Link from "next/link";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -43,16 +44,18 @@ export default function RootLayout({
             <div className={'grid bg-blue px-[70px] py-[20px] items-center grid-cols-12 gap-8'}>
                 <div className={'col-span-3 scrollbar relative'}>
                     <div className={'left-0 top-[0px] sticky z-[999] flex justify-between items-center'}>
-                        <div className={'flex gap-3'}>
-                            <div>
-                                <img className={'w-12 aspect-square rounded-full border-[1px] border-white'}
-                                     src={'/images/temp/logo.png'}/>
+                        <Link href={'/'}>
+                            <div className={'flex gap-3'}>
+                                <div>
+                                    <img className={'w-12 aspect-square rounded-full border-[1px] border-white'}
+                                         src={'/images/temp/logo.png'}/>
+                                </div>
+                                <div className={'flex h-full flex-col'}>
+                                    <p className={'font-travels font-bold text-2xl text-white'}>Росатом</p>
+                                    <p className={'font-travels font-medium text-sm text-white'}>Личный кабинет партнёра</p>
+                                </div>
                             </div>
-                            <div className={'flex h-full flex-col'}>
-                                <p className={'font-travels font-bold text-2xl text-white'}>Росатом</p>
-                                <p className={'font-travels font-medium text-sm text-white'}>Личный кабинет партнёра</p>
-                            </div>
-                        </div>
+                        </Link>
                         {/*<div className={'flex items-center flex-row gap-3'}>*/}
                         {/*    <Help></Help>*/}
                         {/*    <Settings></Settings>*/}
@@ -66,7 +69,9 @@ export default function RootLayout({
 
                 </div>
                 <div className={'flex gap-8 items-center justify-end'}>
-                    <img src={'/images/icons/shop.svg'}/>
+                    <Link href={'/cart'}>
+                        <img src={'/images/icons/shop.svg'}/>
+                    </Link>
                     <img src={'/images/icons/account.svg'}/>
                 </div>
             </div>

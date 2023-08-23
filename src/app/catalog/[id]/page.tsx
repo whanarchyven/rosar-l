@@ -6,7 +6,7 @@ import datediff from "@/helpers/dateDiff";
 import parseDate from "@/helpers/parseDate";
 import Button from "@/components/UI/Button";
 
-export default function Page() {
+export default function Page({params}:any) {
     const router = useRouter()
 
 
@@ -234,7 +234,7 @@ export default function Page() {
 
     ]
 
-    const id=useSearchParams().get('id')
+    const id=params.id
     const product=id?actions[Number(id)-1]:actions[0]
 
     const reviews = [

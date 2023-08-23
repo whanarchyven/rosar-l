@@ -65,15 +65,15 @@ export default function Home() {
 
 
     return (
-        <main className="mt-5">
-            <p className={'font-bold font-travels text-blue text-3xl'}>Новости</p>
+        <main className="">
+            <p className={'font-bold font-manrope text-white mb-10 text-4xl'}>Новости</p>
             <div className={'flex flex-col mt-6 gap-6'}>
                 {news.map((news)=>{
                     return(
                         <NewsBanner key={news.id} {...news}></NewsBanner>
                     )
                 })}
-                <Pagination currentPage={1} setCurrentPage={()=>{}} pages={6}></Pagination>
+                {/*<Pagination currentPage={1} setCurrentPage={()=>{}} pages={6}></Pagination>*/}
             </div>
         </main>
     )

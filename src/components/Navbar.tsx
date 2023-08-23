@@ -10,27 +10,27 @@ const Navbar = () => {
     const links = [
         {
             name: 'Каталог',
-            link: '/',
+            link: '/catalog',
             icon: 'catalog.svg'
         },
         {
             name: 'Документы',
-            link: '/',
+            link: '/docs',
             icon: 'docs.svg'
         },
         {
             name: 'Новости',
-            link: '/',
+            link: '/news',
             icon: 'news.svg'
         },
         {
             name: 'Акции',
-            link: '/',
+            link: '/actions',
             icon: 'actions.svg'
         },
         {
             name: 'Отгрузки',
-            link: '/',
+            link: '/deliveries',
             icon: 'delivery.svg'
         },
     ]

@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import Button from "@/components/UI/Button";
 import {classList} from "@/helpers/classList";
 import Link from "next/link";
+import Tab from "@/components/UI/Tab";
 
 interface actionBannerInterface {
     id: number
@@ -14,35 +15,16 @@ interface actionBannerInterface {
 
 const ActionBanner = ({name, caption, image, id}: actionBannerInterface) => {
 
-    const [isHovered, setIsHovered] = useState(false)
 
     return (
-        <div className={'rounded-2xl overflow-hidden'}>
-            <div className={'flex items-center justify-center bg-blue text-white p-2 font-bold font-travels'}>
-                {name}
+        <Tab title={name} subtitle={caption.split(' ').splice(1,7).join(' ')} icon={'/images/tab/actions.svg'}>
+            <div className={'flex items-center justify-between'}>
+                <Link href={`/actions/${id}`}>
+                    <Button type={'orange'}>Получить скидку</Button>
+                </Link>
+                <p className={'font-manrope text-5xl text-orange font-bold'}>{caption.split(' ').splice(0,1)}</p>
             </div>
-            <div className={'w-full h-40 relative'} onMouseEnter={() => {
-                setIsHovered(true)
-            }} onMouseLeave={() => {
-                setIsHovered(false)
-            }}>
-                <img className={'absolute top-0 left-0 object-cover w-full h-full'} src={image}/>
-                <div
-                    className={classList('absolute top-0 left-0 bg-white w-full h-full flex items-center justify-center transition-all duration-300', isHovered ? 'bg-opacity-80' : 'bg-opacity-40')}>
-                    {isHovered ? <Button className={'animate-fadein'} type={'white'}><Link
-                        href={{
-                            pathname: "/actions/action",
-                            query: {id: id},
-                        }}
-                    >
-                        Воспользоваться
-                    </Link></Button> : null}
-                </div>
-            </div>
-            <div className={'flex items-center justify-center bg-orange text-white p-2 font-bold font-travels'}>
-                {caption}
-            </div>
-        </div>
+        </Tab>
     );
 };
 

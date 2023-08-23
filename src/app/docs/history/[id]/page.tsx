@@ -5,8 +5,10 @@ import {useRouter, useSearchParams} from "next/navigation";
 import datediff from "@/helpers/dateDiff";
 import parseDate from "@/helpers/parseDate";
 import Button from "@/components/UI/Button";
+import Link from "next/link";
+import React from "react";
 
-export default function Page() {
+export default function Page({params}:any) {
     const router = useRouter()
     const docs=[
         {
@@ -93,44 +95,50 @@ export default function Page() {
     ]
 
 
-    const id=useSearchParams().get('id')
+    const id=params.id
     const doc=id?docs[Number(id)]:docs[0]
 
-    return <div className={'w-full py-6'}>
-        <div className={'flex items-start justify-between'}>
-            <div className={'flex flex-col gap-1'}>
-                <p className={'text-orange font-medium'}>Отправитель: {doc.sender}</p>
-                <p className={'text-orange font-medium'}>{doc.phoneNumber}</p>
-                <p className={'text-orange font-medium'}>{doc.email}</p>
-            </div>
-            <img className={'w-7 aspect-square cursor-pointer'} src={'/images/icons/close_orange.svg'} onClick={()=>{router.back()}}/>
+    return <div className={''}>
+        <div className={'flex items-center mb-14 gap-6 relative'}>
+            <Link href={'/docs'}>
+                <img className={'cursor-pointer w-10'} src={'/images/icons/arrow_left.svg'}/>
+            </Link>
+            <p className={'font-manrope text-4xl font-bold text-white'}>Основные документы</p>
         </div>
-        <div className={'flex items-center justify-between'}>
-            <p className={'font-travels text-3xl font-bold text-blue'}>{doc.title}</p>
-            <p className={'my-5 font-travels font-bold text-xl text-orange'}>{doc.date}</p>
-        </div>
-        <div className={'flex flex-col mt-5 gap-2'}>
-            <p className={'font-travels font-medium text-lg text-blue'}>{doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption}</p>
-            <div className={' flex flex-col gap-2'}>
-                <p className={'font-medium text-orange'}>
-                    Прикреплённые файлы:
-                </p>
-                <p className={'font-medium text-orange cursor-pointer underline'}>
-                    somefilename.txt
-                </p>
-                <p className={'font-medium text-orange cursor-pointer underline'}>
-                    somefilename.xls
-                </p>
-                <p className={'font-medium text-orange cursor-pointer underline'}>
-                    somefilename.doc
-                </p>
+        <div className={'bg-white drop-shadow-lg p-4 px-8 rounded-xl'}>
+            <div className={'flex items-start justify-between'}>
+                <div className={'flex flex-col gap-0'}>
+                    <p className={'text-black font-manrope text-xl font-bold'}>Отправитель: {doc.sender}</p>
+                    <p className={'text-black font-manrope text-xl font-bold'}>{doc.phoneNumber}</p>
+                    <p className={'text-black font-manrope text-xl font-bold'}>{doc.email}</p>
+                </div>
+                <p className={'my-5 font-travels font-medium text-md text-[#1E496F]'}>{doc.date}</p>
             </div>
-            <div className={'flex gap-4 mt-5'}>
-                <Button className={''} type={'orange'}><div className={'flex items-center'}><p>Скачать архив</p><img src={'/images/icons/import.svg'}/></div></Button>
-                <Button className={''} type={'transparent blue'}>Ознакомиться и подписать ЭЦП</Button>
+            <div className={'flex mt-5 items-center justify-between'}>
+                <p className={'font-manrope text-3xl font-bold text-blue'}>{doc.title}</p>
+            </div>
+            <div className={'flex flex-col mt-5 gap-2'}>
+                <p className={'font-travels font-medium text-lg text-blue'}>{doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption} {doc.caption}</p>
+                <div className={' flex flex-col gap-2'}>
+                    <p className={'font-medium font-manrope text-orange'}>
+                        Прикреплённые файлы:
+                    </p>
+                    <p className={'font-medium font-manrope text-orange cursor-pointer underline'}>
+                        somefilename.txt
+                    </p>
+                    <p className={'font-medium font-manrope text-orange cursor-pointer underline'}>
+                        somefilename.xls
+                    </p>
+                    <p className={'font-medium font-manrope text-orange cursor-pointer underline'}>
+                        somefilename.doc
+                    </p>
+                </div>
+                <div className={'flex gap-4 mt-5'}>
+                    <Button className={''} type={'orange'}><div className={'flex items-center'}><p>Скачать архив</p><img src={'/images/icons/import.svg'}/></div></Button>
+                    <Button className={''} type={'white'}>Ознакомиться и подписать ЭЦП</Button>
+                </div>
             </div>
         </div>
-
 
     </div>
 }
