@@ -8,6 +8,8 @@ import Help from "@/components/Help";
 import {useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import Link from "next/link";
+import {usePathname, useSearchParams} from "next/navigation";
+import {classList} from "@/helpers/classList";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -19,6 +21,10 @@ export default function RootLayout({
 }) {
 
     const [loading, setLoading] = useState(true)
+
+    const pathname=usePathname();
+    const landing='/landing'
+    console.log(pathname)
 
     const variants = {
         open: {opacity: 1, display: 'flex'},
@@ -32,7 +38,7 @@ export default function RootLayout({
     }, [])
     return (
         <html lang="en">
-        <body className={'scrollbar'}>
+        <body className={'scroll-smooth scrollbar'}>
         <motion.div
             animate={loading ? "open" : "closed"}
             transition={{delay: 0.1}}
@@ -41,8 +47,8 @@ export default function RootLayout({
             <img src={'/images/loading.svg'} className={'animate-spin w-16 aspect-square'}/>
         </motion.div>
         <div className={''}>
-            <div className={'grid bg-blue px-[70px] py-[20px] items-center grid-cols-12 gap-8'}>
-                <div className={'col-span-3 scrollbar relative'}>
+            <div className={classList('grid px-[70px] w-full py-[20px] items-center grid-cols-12 gap-8',pathname!=landing?'bg-blue':'bg-transparent absolute top-0 z-[20]')}>
+                {pathname!=landing?<div className={'col-span-3 scrollbar relative'}>
                     <div className={'left-0 top-[0px] sticky z-[999] flex justify-between items-center'}>
                         <Link href={'/'}>
                             <div className={'flex gap-3'}>
@@ -61,8 +67,8 @@ export default function RootLayout({
                         {/*    <Settings></Settings>*/}
                         {/*</div>*/}
                     </div>
-                </div>
-                <div className={'col-span-7 relative'}>
+                </div>:null}
+                <div className={classList('relative',pathname!=landing?'col-span-7':'col-span-10')}>
                     <Navbar></Navbar>
                 </div>
                 <div>
@@ -75,11 +81,11 @@ export default function RootLayout({
                     <img src={'/images/icons/account.svg'}/>
                 </div>
             </div>
-            <div className={'relative px-[70px] py-[20px]'}>
-                <div className={'bg-blue w-full left-0 h-72 rounded-b-3xl absolute top-0 z-[0]'}>
+            <div className={classList(pathname!=landing?'relative px-[70px] py-[20px]':'relative px-[70px')}>
+                {pathname!=landing?<div className={'bg-blue w-full left-0 h-72 rounded-b-3xl absolute top-0 z-[0]'}>
 
-                </div>
-                <div className={'absolute w-full bg-transparent left-0 px-[70px] pt-[80px] pb-20 top-0 z-[1]'}>
+                </div>:null}
+                <div className={classList(pathname!=landing?'absolute w-full bg-transparent left-0 px-[70px] pt-[80px] pb-20 top-0 z-[1]':'absolute w-full bg-transparent left-0 top-0 z-[1]')}>
                     {children}
                 </div>
 

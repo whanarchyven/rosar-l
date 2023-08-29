@@ -35,6 +35,34 @@ const Navbar = () => {
         },
     ]
 
+    const landingLinks=[
+        {
+            name: 'О компании',
+            link: '#company',
+            icon: 'catalog.svg'
+        },
+        {
+            name: 'Преимущества',
+            link: '#features',
+            icon: 'docs.svg'
+        },
+        {
+            name: 'Оптовым партнёрам',
+            link: '#opt',
+            icon: 'news.svg'
+        },
+        {
+            name: 'Партнёры',
+            link: '#partners',
+            icon: 'actions.svg'
+        },
+        {
+            name: 'Контакты',
+            link: '#contacts',
+            icon: 'delivery.svg'
+        },
+    ]
+
     const router = useRouter()
 
     const pathname = usePathname()
@@ -51,23 +79,45 @@ const Navbar = () => {
         open: {opacity:1,display:'flex',transition:{delay:0.3}}
     }
 
+    if(pathname!='/landing'){
+        return (
+            <div className={'w-full h-full flex'} >
+                {links.map((link) => {
+                    return(
+                        <div key={link.link}
+                             className={classList('flex  w-full cursor-pointer rounded-full items-center justify-start')}>
+                            <Link href={link.link}>
+                                <p
+                                    className={classList(' font-manrope text-md font-light',pathname==link.link?'text-white':'text-white')}>{link.name}</p>
+                            </Link>
+                        </div>
+                    )
+                })}
 
-    return (
-        <div className={'w-full h-full flex'} >
-            {links.map((link) => {
-                return(
-                    <div key={link.link}
-                         className={classList('flex  w-full cursor-pointer rounded-full items-center justify-start')}>
-                        <Link href={link.link}>
-                            <p
-                                className={classList(' font-manrope text-md font-light',pathname==link.link?'text-white':'text-white')}>{link.name}</p>
-                        </Link>
-                    </div>
-                )
-            })}
+            </div>
+        );
+    }
+    else{
+        return (
+            <div className={'w-full h-full flex'} >
+                {landingLinks.map((link) => {
+                    return(
+                        <div key={link.link}
+                             className={classList('flex  w-full cursor-pointer rounded-full items-center justify-start')}>
+                            <Link href={link.link}>
+                                <p
+                                    className={classList(' font-manrope text-md font-light',pathname==link.link?'text-white':'text-white')}>{link.name}</p>
+                            </Link>
+                        </div>
+                    )
+                })}
 
-        </div>
-    );
+            </div>
+        );
+
+    }
+
+
 };
 
 

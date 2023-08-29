@@ -14,7 +14,7 @@ interface postTabInterface {
 
 const PostTab = ({ id, buttonCallback, title, caption, date, image}:postTabInterface) => {
     return (
-        <div className={'rounded-2xl overflow-hidden bg-[#FAFAFA] drop-shadow-lg grid grid-cols-4'}>
+        <div className={'rounded-2xl overflow-hidden h-full bg-[#FAFAFA] drop-shadow-lg grid grid-cols-4'}>
             <div className={'col-span-1 h-full'}>
                 <img className={'w-full aspect-square object-cover'} src={image}/>
             </div>
@@ -26,7 +26,7 @@ const PostTab = ({ id, buttonCallback, title, caption, date, image}:postTabInter
 
                 <div className={'flex justify-between items-center'}>
                     <p className={'w-96'}>{caption.split(' ').slice(0,15).join(' ')}...</p>
-                    <Link href={{pathname:'/',query:{id:id}}}>
+                    <Link href={`/news/${id}`}>
                         <div className={'flex w-48 gap-5 items-center justify-center p-3 text-sm bg-orange border-2 border-orange rounded-lg text-white font-manrope font-bold'}>
                             <p>Подробнее</p>
                             <img src={'/images/tab/arrow_next.svg'}/>

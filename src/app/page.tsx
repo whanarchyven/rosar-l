@@ -138,12 +138,12 @@ export default function Home() {
                                 <p className={'text-black font-bold text-3xl'}>463000,34 ₽</p>
                             </div>
                             <div className={'flex flex-col gap-2'}>
-                                <div className={'flex w-36 items-center justify-center p-3 text-xs bg-orange border-2 border-orange rounded-lg text-white font-manrope font-bold'}>
+                                <Link href={'/catalog'} className={'flex w-36 items-center justify-center p-3 text-xs bg-orange border-2 border-orange rounded-lg text-white font-manrope font-bold'}>
                                     Перейти в каталог
-                                </div>
-                                <div className={'flex w-36 items-center justify-center p-3 text-xs border-2 border-orange rounded-lg text-orange font-manrope font-bold'}>
+                                </Link>
+                                <Link href={'/cart'} className={'flex w-36 items-center justify-center p-3 text-xs border-2 border-orange rounded-lg text-orange font-manrope font-bold'}>
                                     Перейти в корзину
-                                </div>
+                                </Link>
                             </div>
 
 
@@ -192,7 +192,7 @@ export default function Home() {
                             {actions.map((action, counter) => {
                                 if (counter < 3) {
                                     return (
-                                        <Link key={counter} href={{pathname:'/',query:{id:counter}}}>
+                                        <Link key={counter} href={`/actions/${counter}`}>
                                             <ActionTab discount={action.caption.split(' ')[0]}
                                                        caption={action.caption}></ActionTab>
                                         </Link>
