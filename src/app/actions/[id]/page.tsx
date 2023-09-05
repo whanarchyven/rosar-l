@@ -1,6 +1,3 @@
-"use client"
-
-
 import {useRouter, useSearchParams} from "next/navigation";
 import datediff from "@/helpers/dateDiff";
 import parseDate from "@/helpers/parseDate";
@@ -10,8 +7,6 @@ import ActionBanner from "@/components/ActionBanner";
 import Link from "next/link";
 
 export default function Page({params}: any) {
-    const router = useRouter()
-
 
     const actions = [
         {
