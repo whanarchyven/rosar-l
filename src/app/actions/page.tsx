@@ -4,7 +4,7 @@ import ActionBanner from "@/components/ActionBanner";
 import {useState} from "react";
 import Pagination from "@/components/UI/Pagination";
 
-export default function Home() {
+export default function Page() {
 
     const actions=[
         {
