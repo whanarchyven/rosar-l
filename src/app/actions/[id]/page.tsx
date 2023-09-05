@@ -96,7 +96,7 @@ export default function Page({params}: any) {
             <Link href={'/actions'}>
                 <img className={'cursor-pointer w-10'} src={'/images/icons/arrow_left.svg'}/>
             </Link>
-            <p className={'font-manrope text-4xl font-bold text-white'}>Акции и эксклюзивные предложения</p>
+            <p className={'font-manrope text-4xl font-bold text-white'}>Акции и эксклюзивные предложения  </p>
         </div>
         <div className={'w-full rounded-xl drop-shadow-lg overflow-hidden bg-white'}>
             <div className={'grid grid-cols-12 gap-5 items-top'}>
