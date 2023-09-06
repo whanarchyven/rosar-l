@@ -14,7 +14,11 @@ interface categoryInterface {
 
 const FullScreenFilterCategory = ({name, value, filter, subcategories, pushToFilter, shiftFromFilter}:categoryInterface) => {
 
-    const [open,setOpen]=useState(filter.find((item)=>{if(item.name==name&&item.value==value){return item}})?true:false);
+    const [open,setOpen]=useState(false);
+
+    // if(!subcategories&&filter.find((item)=>{if(item.name==name&&item.value==value){return item}})){
+    //     setOpen(true);
+    // }
 
     return (
         <div className={'pl-2 flex flex-col items-start'}>
@@ -25,12 +29,12 @@ const FullScreenFilterCategory = ({name, value, filter, subcategories, pushToFil
                     </div>
                     :null}
                 <p onClick={()=>{
-                    if(!open&&!subcategories){
-                        pushToFilter(name,value);
-                    }
-                    else if(open&&!subcategories){
-                        shiftFromFilter(name)
-                    }
+                    // if(!open&&!subcategories){
+                    //     pushToFilter(name,value);
+                    // }
+                    // else if(open&&!subcategories){
+                    //     shiftFromFilter(name)
+                    // }
                     setOpen(!open)
 
                 }} className={classList('text-lg font-manrope transition-all duration-100 cursor-pointer',open?'font-bold':'font-normal',subcategories?'text-black':'text-blue')}>{value}</p>
