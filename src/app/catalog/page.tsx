@@ -8,6 +8,7 @@ import {classList} from "@/helpers/classList";
 import ProductQntPicker from "@/components/ProductQntPicker";
 import Pagination from "@/components/UI/Pagination";
 import Link from "next/link";
+import FullScreenFilter from "@/components/FullScreenFilter";
 
 export default function Home() {
 
@@ -407,6 +408,13 @@ export default function Home() {
             setFilteredProducts([...filterByName(products, filteredName)])
         }
     }, [filteredName])
+
+    const [filterValues,setFilterValues]=useState<Array<{name:string,value:string}>>([])
+
+    const [isFilterOpen,setIsFilterOpen]=useState(false)
+
+    const [delivery,setDelivery]=useState('');
+
     return (
         <main className="">
             <div className={'flex items-center mb-10 justify-between'}>
@@ -418,65 +426,70 @@ export default function Home() {
                     </Link>
                 </div>
             </div>
-            <div className={'bg-white p-4 drop-shadow-lg rounded-xl'}>
+            <div className={'bg-white p-12 drop-shadow-lg relative overflow-hidden rounded-xl'}>
+                {isFilterOpen?<div className={'absolute left-0 top-0 w-full z-[30] p-12 bg-white h-full'}>
+                    <img onClick={()=>{
+                        setIsFilterOpen(false);
+                    }} src={'/images/icons/close_filter.svg'} className={'w-5 aspect-square cursor-pointer absolute right-8 top-8'}/>
+                    <FullScreenFilter delivery={delivery} setDelivery={setDelivery} togglePop={()=>{setIsFilterOpen(false)}} filterValues={filterValues} setFilterValues={setFilterValues}></FullScreenFilter>
+                </div>:null}
                 <div className={'mt-5 flex flex-col gap-2'}>
                     <div className={'grid grid-cols-12 grid-rows-1 gap-2  items-start relative'}>
-                        <div className={'col-span-7 relative flex items-center'}>
+                        <div className={'col-span-7 gap-4 relative flex items-center'}>
                             <Input icon={'/images/icons/search.svg'} mutateValue={filteredName} type={'text'}
                                    placeholder={'Введите название или артикул'} mutateFunction={setFilteredName}/>
-                            {filteredName != '' ? <img onClick={() => {
-                                setFilteredName('')
-                            }} className={'cursor-pointer right-2 absolute w-4 aspect-square'}
-                                                       src={'/images/icons/close_orange.svg'}/> : null}
+                            <div className={'w-12 flex items-center justify-center p-3 cursor-pointer rounded-lg aspect-square bg-orange'}>
+                                <img src={'/images/search_white.svg'} className={'w-full h-full'}/>
+                            </div>
                         </div>
                         <Button callback={() => {
-                            setFilteredProducts([...filterByName(filteredProducts, filteredName)])
-                        }} className={'h-full col-span-3 col-end-13'} type={'orange'}>Найти</Button>
+                           setIsFilterOpen(true);
+                        }} className={'h-full col-span-3 col-end-13'} type={'orange'}>Фильтр</Button>
                     </div>
                 </div>
                 <div className={'mt-5 grid gap-8 grid-cols-12 items-start'}>
-                    <div className={'col-span-3'}>
-                        <div className={'drop-shadow-md bg-[#F8F8FA] p-4 rounded-xl'}>
-                            <div className={'h-96 p-2 scrollbar-mini overflow-y-scroll'}>
-                                <div className={'flex flex-col gap-4'}>
-                                    <FilterCategory resetTrigger={resetFilters} variants={categoryVariants}
-                                                    currentValue={filteredCategory}
-                                                    setCurrentValue={setFilteredCategory}
-                                                    type={'variants'} title={'Категория'}/>
-                                    <FilterCategory resetTrigger={resetFilters} variants={materialVariants}
-                                                    setCurrentValue={setFilteredMaterial}
-                                                    currentValue={filteredMaterial}
-                                                    type={'multi'} title={'Материал'}/>
-                                    <FilterCategory resetTrigger={resetFilters} variants={deliveryVariants}
-                                                    currentValue={filteredDelivery}
-                                                    setCurrentValue={setFilteredDelivery}
-                                                    type={'radio'} title={'Доставка'}/>
-                                </div>
-                            </div>
-                            <div className={'p-2'}>
-                                <Button type={'transparent blue'} callback={() => {
-                                    setResetFilters(!resetFilters)
-                                    setFilteredProducts([...products])
-                                }}>Сбросить фильтр</Button>
-                            </div>
-                        </div>
-                        <Link href={'/cart'}>
-                            <div className={'bg-blue rounded-xl drop-shadow-lg flex flex-col gap-3 mt-4 p-4'}>
-                                <div className={'flex gap-2 items-center justify-between'}>
-                                    <p className={'text-sm font-manrope font-bold text-white'}>Оформить заказ</p>
-                                    <p className={'font-manrope font-extrabold text-white text-2xl'}>{productsPrice} ₽</p>
-                                </div>
-                            </div>
-                        </Link>
-                        <div className={'bg-orange rounded-xl drop-shadow-lg flex flex-col gap-3 mt-4 p-4'}>
-                            <div className={'flex gap-2 items-center justify-between'}>
-                                <p className={'text-sm font-manrope font-bold text-white'}>Импорт списка покупок из
-                                    Excel</p>
-                                <img src={'/images/icons/import.svg'}/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={'col-span-9 relative scrollbar'}>
+                    {/*<div className={'col-span-3'}>*/}
+                    {/*    <div className={'drop-shadow-md bg-[#F8F8FA] p-4 rounded-xl'}>*/}
+                    {/*        <div className={'h-96 p-2 scrollbar-mini overflow-y-scroll'}>*/}
+                    {/*            <div className={'flex flex-col gap-4'}>*/}
+                    {/*                <FilterCategory resetTrigger={resetFilters} variants={categoryVariants}*/}
+                    {/*                                currentValue={filteredCategory}*/}
+                    {/*                                setCurrentValue={setFilteredCategory}*/}
+                    {/*                                type={'variants'} title={'Категория'}/>*/}
+                    {/*                <FilterCategory resetTrigger={resetFilters} variants={materialVariants}*/}
+                    {/*                                setCurrentValue={setFilteredMaterial}*/}
+                    {/*                                currentValue={filteredMaterial}*/}
+                    {/*                                type={'multi'} title={'Материал'}/>*/}
+                    {/*                <FilterCategory resetTrigger={resetFilters} variants={deliveryVariants}*/}
+                    {/*                                currentValue={filteredDelivery}*/}
+                    {/*                                setCurrentValue={setFilteredDelivery}*/}
+                    {/*                                type={'radio'} title={'Доставка'}/>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*        <div className={'p-2'}>*/}
+                    {/*            <Button type={'transparent blue'} callback={() => {*/}
+                    {/*                setResetFilters(!resetFilters)*/}
+                    {/*                setFilteredProducts([...products])*/}
+                    {/*            }}>Сбросить фильтр</Button>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    <Link href={'/cart'}>*/}
+                    {/*        <div className={'bg-blue rounded-xl drop-shadow-lg flex flex-col gap-3 mt-4 p-4'}>*/}
+                    {/*            <div className={'flex gap-2 items-center justify-between'}>*/}
+                    {/*                <p className={'text-sm font-manrope font-bold text-white'}>Оформить заказ</p>*/}
+                    {/*                <p className={'font-manrope font-extrabold text-white text-2xl'}>{productsPrice} ₽</p>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </Link>*/}
+                    {/*    <div className={'bg-orange rounded-xl drop-shadow-lg flex flex-col gap-3 mt-4 p-4'}>*/}
+                    {/*        <div className={'flex gap-2 items-center justify-between'}>*/}
+                    {/*            <p className={'text-sm font-manrope font-bold text-white'}>Импорт списка покупок из*/}
+                    {/*                Excel</p>*/}
+                    {/*            <img src={'/images/icons/import.svg'}/>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    <div className={'col-span-12 relative scrollbar'}>
                         <div className={'drop-shadow-sm mb-4 grid bg-[#F8F8FA] rounded-xl font-manrope grid-cols-12'}>
                             <div
                                 className={'col-span-4 font-bold text-[#004169] flex items-center justify-center  p-2'}>
