@@ -2,6 +2,8 @@
 import React, {useState} from 'react';
 import {classList} from "@/helpers/classList";
 import FullScreenFilterCategory from "@/components/FullScreenFilterCategory";
+import {nanoid} from "nanoid";
+import {nan} from "zod";
 
 interface fullScreenFilterInterface {
     filterValues:Array<{name:string,value:string}>
@@ -1222,7 +1224,7 @@ const FullScreenFilter = ({filterValues,setFilterValues,togglePop, setDelivery, 
                 }} className={'text-md font-manrope text-[#8C8C8D] font-bold underline cursor-pointer'}>Сбросить фильтр</p>
                 {categories.map((item)=>{
                     return(
-                        <div className={'flex justify-start items-center gap-2'}>
+                        <div key={nanoid()} className={'flex justify-start items-center gap-2'}>
                             <p onClick={()=>{setActiveCategory(item)}} className={classList('font-manrope transition-all duration-300 cursor-pointer text-2xl font-bold',item.value==activeCategory.value?'text-blue':'text-black')}>{item.value}</p>
                             {item.value==activeCategory.value?<img className={'w-4 aspect-square'} src={'/images/category_right.svg'}/>:null}
                         </div>
@@ -1252,15 +1254,13 @@ const FullScreenFilter = ({filterValues,setFilterValues,togglePop, setDelivery, 
                 <div className={'w-full grid grid-cols-3 gap-8'}>
                     {activeCategory.subcategories.map((subcategory)=>{
                         return(
-                            <div className={'flex flex-col gap-1'}>
+                            <div key={nanoid()} className={'flex flex-col gap-1'}>
                                 <p className={'text-black font-bold font-manrope text-lg'}>
                                     {subcategory.value}
                                 </p>
                                 {subcategory.subcategories.map((item)=>{
                                     return(
-                                        <FullScreenFilterCategory filter={filterValues} name={item.name} value={item.value} subcategories={item.subcategories} pushToFilter={pushToFilterValues} shiftFromFilter={shiftFromFilterValues}>
-
-                                        </FullScreenFilterCategory>
+                                        <FullScreenFilterCategory key={nanoid()} filter={filterValues} name={item.name} value={item.value} subcategories={item.subcategories} pushToFilter={pushToFilterValues} shiftFromFilter={shiftFromFilterValues}/>
                                     )
                                 })}
                             </div>

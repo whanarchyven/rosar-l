@@ -1,6 +1,7 @@
 "use client"
 import React, {useState} from 'react';
 import {classList} from "@/helpers/classList";
+import {nanoid} from "nanoid";
 
 interface categoryInterface {
     name: string,
@@ -35,11 +36,9 @@ const FullScreenFilterCategory = ({name, value, filter, subcategories, pushToFil
                 }} className={classList('text-lg font-manrope transition-all duration-100 cursor-pointer',open?'font-bold':'font-normal',subcategories?'text-black':'text-blue')}>{value}</p>
                 {subcategories?<img className={classList('transition-all duration-100',open?'rotate-90':'')} src={'/images/subcategory_right.svg'}/>:null}
             </div>
-            {subcategories&&open?subcategories.map((item)=>{
+            {subcategories&&open?subcategories.map((item:any)=>{
                 return(
-                    <FullScreenFilterCategory filter={filter} shiftFromFilter={shiftFromFilter} pushToFilter={pushToFilter} name={item.name} value={item.value} subcategories={item.subcategories}>
-
-                    </FullScreenFilterCategory>
+                    <FullScreenFilterCategory key={nanoid()} filter={filter} shiftFromFilter={shiftFromFilter} pushToFilter={pushToFilter} name={item.name} value={item.value} subcategories={item.subcategories}/>
                 )
             }):null}
         </div>
