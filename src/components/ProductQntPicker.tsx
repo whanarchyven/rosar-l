@@ -38,7 +38,7 @@ const ProductQntPicker = ({callback, product, initialValue}: productQntPicker) =
 
     return (
         <div className={classList('w-full h-full grid', callback ? 'grid-cols-4' : 'grid-cols-2')}>
-            <div className={'flex gap-3 p-2 border-r-2 border-[#F1F1F1] justify-center col-span-2 items-center'}>
+            <div className={'flex gap-3 p-2 border-r-2 border-[#F1F1F1] justify-center col-span-3 items-center'}>
                 <div
                     className={'flex cursor-pointer font-bold items-center justify-center p-2 w-7 border-2 border-[#E6E6E6] rounded-full aspect-square'}
                     onClick={() => {
@@ -67,11 +67,11 @@ const ProductQntPicker = ({callback, product, initialValue}: productQntPicker) =
                 </div>
             </div>
 
-            {callback ? <div className={'col-span-2 p-4'}><Button callback={() => {
+            {callback ? <div className={'col-span-1 p-2'}><Button className={'w-full aspect-square px-0'} callback={() => {
                 if (callback) {
                     callback(product, qnt)
                 }
-            }} type={'orange'}>В корзину</Button></div> : null}
+            }} type={'orange'}><img src={'/images/icons/cart_white.svg'}/></Button></div> : null}
 
         </div>
     );

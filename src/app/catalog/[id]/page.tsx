@@ -5,6 +5,7 @@ import {useRouter, useSearchParams} from "next/navigation";
 import datediff from "@/helpers/dateDiff";
 import parseDate from "@/helpers/parseDate";
 import Button from "@/components/UI/Button";
+import ProductQntPicker from "@/components/ProductQntPicker";
 
 export default function Page({params}:any) {
     const router = useRouter()
@@ -261,48 +262,50 @@ export default function Page({params}:any) {
     ];
 
 
-    return <div className={'w-full py-6'}>
+    return <div className={'w-full rounded-xl shadow-lg bg-white p-8'}>
         <div className={'flex items-center justify-end'}>
-            <img className={'w-7 aspect-square cursor-pointer'} src={'/images/icons/close_orange.svg'} onClick={()=>{router.back()}}/>
+            <img className={'w-7 aspect-square cursor-pointer'} src={'/images/icons/close_filter.svg'} onClick={()=>{router.back()}}/>
+
         </div>
-        <div className={'grid mt-10 grid-cols-2 gap-8'}>
-            <img src={product.image} className={'w-full border-2 border-orange aspect-square object-cover'}/>
-            <div className={'flex flex-col gap-5'}>
-                <p className={'font-travels text-3xl font-bold text-blue'}>{product.name}</p>
-                <p className={'font-travels text-2xl font-medium text-orange'}>Артикул: {product.sk}</p>
-                <p className={'font-travels text-2xl font-bold text-orange'}>{product.price} ₽/шт.</p>
-
-                <div className={'border-2 p-2 border-orange'}>
-                    <p className={'text-blue font-medium text-lg'}>Категория: <span className={'text-orange'}>{product.category}</span></p>
-                    <p className={'text-blue font-medium text-lg'}>Материал: <span className={'text-orange'}>{[...product.material].join(', ')}</span></p>
-                    <p className={'text-blue font-medium text-lg'}>Доставка: <span className={'text-orange'}>{product.delivery}</span></p>
+        <div className={'grid grid-cols-3 gap-8'}>
+            <div className={'flex flex-col gap-3 p-4 border-r-2'}>
+                <img src={product.image} className={'w-full mb-12 aspect-square object-cover'}/>
+                <p className={'font-manrope text-blue font-bold text-2xl'}>Цена: <span className={'text-black'}>{product.price}  ₽</span></p>
+                <p className={'font-manrope text-blue font-bold text-2xl'}>Количество:</p>
+                <div className={'w-2/3 h-12'}>
+                    <ProductQntPicker callback={()=>{}} product={product}></ProductQntPicker>
                 </div>
+                <p className={'font-manrope text-blue font-light underline cursor-pointer text-xl'}>Распечатать</p>
+            </div>
+            <div className={'flex flex-col col-span-2 gap-4'}>
+                <p className={'font-manrope text-3xl font-bold text-black'}>{product.name}</p>
+                <p className={'font-manrope text-2xl font-medium text-[#4A4A4A]'}>Технические характеристики</p>
+                <div className={'flex flex-col font-manrope gap-6'}>
+                    <div className={'w-1/2 grid grid-cols-2'}>
+                        <p className={'text-black font-bold text-lg'}>Категория:</p>
+                        <p className={'text-black font-medium text-lg'}>{product.category}</p>
+                    </div>
+                    <div className={'w-1/2 grid grid-cols-2'}>
+                        <p className={'text-black font-bold text-lg'}>Материал:</p>
+                        <p className={'text-black font-medium text-lg'}>{[...product.material].join(', ')}</p>
+                    </div>
+                    <div className={'w-1/2 grid grid-cols-2'}>
+                        <p className={'text-black font-bold text-lg'}>Доставка:</p>
+                        <p className={'text-black font-medium text-lg'}>{product.delivery}</p>
+                    </div>
 
-                <p className={'font-travels text-xl font-bold text-blue'}>Описание товара</p>
-                <p className={'font-travels text-sm font-medium text-blue'}>{product.description}</p>
+                </div>
+                <div className={'w-1/2 mt-32 grid grid-cols-2'}>
+                    <p className={'text-black font-manrope font-bold text-lg'}>ОКПД2:</p>
+                    <p className={'font-manrope text-blue font-light cursor-pointer text-xl'}>Узнать</p>
+                </div>
+                <div className={'w-1/2 grid grid-cols-2'}>
+                    <p className={'text-black font-manrope font-bold text-lg'}>ОКПД2:</p>
+                    <p className={'font-manrope text-blue font-light cursor-pointer text-xl'}>Узнать</p>
+                </div>
             </div>
         </div>
 
-        <p className={'font-travels mt-5 text-3xl font-bold text-blue'}>Отзывы</p>
-
-        <div className={'flex mt-8 flex-col gap-12'}>
-            {reviews.map((review)=>{
-                return(
-                    <div key={review.company} className={'grid grid-cols-12'}>
-                        <div className={'col-span-2 flex flex-col items-start gap-2 border-blue pr-4 p-2 border-r-2'}>
-                            <div className={'w-full'}>
-                                <img className={'w-14 aspect-square rounded-full border-2 border-orange'} src={'/images/temp/logo.png'}/>
-                            </div>
-                            <p className={'font-bold text-blue'}>{review.company}</p>
-                            <img src={'/images/icons/review_stars.svg'}/>
-                        </div>
-                        <div className={'col-span-10 p-2 pl-4'}>
-                            {review.review}
-                        </div>
-                    </div>
-                )
-            })}
-        </div>
 
     </div>
 }

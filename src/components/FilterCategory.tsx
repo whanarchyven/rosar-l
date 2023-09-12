@@ -1,33 +1,40 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import {classList} from "@/helpers/classList";
+import Input from "@/components/UI/Input";
 
 interface filterCategoryInterface {
     variants: Array<{ icon?: string, value: string }>,
-    currentValue:any,
-    setCurrentValue:([...args]:any)=>any
-    type: 'variants' | 'multi' | 'radio',
+    currentValue: any,
+    setCurrentValue: ([...args]: any) => any
+    type: 'variants' | 'multi' | 'radio' | 'price',
     title: string,
-    resetTrigger?:boolean
+    resetTrigger?: boolean
 }
 
-const FilterCategory = ({variants, resetTrigger, title, setCurrentValue, currentValue, type}: filterCategoryInterface) => {
+const FilterCategory = ({
+                            variants,
+                            resetTrigger,
+                            title,
+                            setCurrentValue,
+                            currentValue,
+                            type
+                        }: filterCategoryInterface) => {
 
     // const [currentValue, setCurrentValue] = useState<typeof variants[0]|null>(null)
 
     // const [multiVariants,setMultiVariants]=useState<typeof variants>([])
 
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
 
-    useEffect(()=>{
-        if(Array.isArray(currentValue)){
+    useEffect(() => {
+        if (Array.isArray(currentValue)) {
             setCurrentValue([])
-        }
-        else{
+        } else {
             setCurrentValue(null);
         }
         // setMultiVariants([])
-    },[resetTrigger])
+    }, [resetTrigger])
 
     return (
         <div className={'flex font-manrope flex-col'}>
@@ -39,13 +46,13 @@ const FilterCategory = ({variants, resetTrigger, title, setCurrentValue, current
                     className={classList('w-4 duration-300 transition-all aspect-square', isOpen ? 'rotate-90' : 'rotate-0')}
                     src={'/images/icons/arrow_right_orange.svg'}/>
             </div>
-            {isOpen&&(type=='variants') ?
+            {isOpen && (type == 'variants') ?
                 <div className={'flex duration-300 transition-all flex-col'}>
                     {variants.map((variant) => {
                         return (
                             <div key={variant.value} className={'flex items-center gap-2'}>
-                                {variant.icon?<img className={'w-5'} src={variant.icon}/>:null}
-                                <p className={classList('transition-all text-sm duration-300 font-medium', variant.value == currentValue?.value ? 'text-orange' : 'cursor-pointer text-blue')}
+                                {variant.icon ? <img className={'w-5'} src={variant.icon}/> : null}
+                                <p className={classList('transition-all text-sm duration-300 font-medium', variant.value == currentValue?.value ? 'text-orange' : 'cursor-pointer text-blue', !variant.icon ? 'pl-4' : '')}
                                    onClick={() => {
                                        setCurrentValue(variant);
 
@@ -54,12 +61,13 @@ const FilterCategory = ({variants, resetTrigger, title, setCurrentValue, current
                         )
                     })}
                 </div> : null}
-            {isOpen&&(type=='radio') ?
+            {isOpen && (type == 'radio') ?
                 <div className={'flex duration-300 transition-all flex-col'}>
                     {variants.map((variant) => {
                         return (
                             <div key={variant.value} className={'flex items-center gap-2'}>
-                                {variant.icon?<img className={'w-5'} src={variant.icon}/>:<img className={'w-5'} src={variant.value == currentValue?.value?'/images/icons/radio_checked.svg':'/images/icons/radio.svg'}/>}
+                                {variant.icon ? <img className={'w-5'} src={variant.icon}/> : <img className={'w-5'}
+                                                                                                   src={variant.value == currentValue?.value ? '/images/icons/radio_checked.svg' : '/images/icons/radio.svg'}/>}
                                 <p className={classList('transition-all text-sm duration-300 font-medium', variant.value == currentValue?.value ? 'text-orange' : 'cursor-pointer text-blue')}
                                    onClick={() => {
                                        setCurrentValue(variant)
@@ -69,22 +77,22 @@ const FilterCategory = ({variants, resetTrigger, title, setCurrentValue, current
                     })}
                 </div> : null}
 
-            {isOpen&&type=='multi'?
+            {isOpen && type == 'multi' ?
                 <div className={'flex duration-300 transition-all flex-col'}>
                     {variants.map((variant) => {
-                        const isFound=currentValue?.find(((item:any)=>item.value==variant.value))
+                        const isFound = currentValue?.find(((item: any) => item.value == variant.value))
                         return (
                             <div key={variant.value} className={'flex items-center gap-2'}>
-                                {isFound?<img className={'w-5'} src={'/images/icons/checkbox_checked.svg'}/>:<img className={'w-5'} src={'/images/icons/checkbox.svg'}/>}
-                                <p className={classList('transition-all text-sm duration-300 font-medium', isFound? 'text-orange cursor-pointer' : 'cursor-pointer text-blue')}
+                                {isFound ? <img className={'w-5'} src={'/images/icons/checkbox_checked.svg'}/> :
+                                    <img className={'w-5'} src={'/images/icons/checkbox.svg'}/>}
+                                <p className={classList('transition-all text-sm duration-300 font-medium', isFound ? 'text-orange cursor-pointer' : 'cursor-pointer text-blue')}
                                    onClick={() => {
-                                       let temp=[...currentValue]
-                                       const index=temp.findIndex((item=>item.value==variant.value))
-                                       if(index!=-1){
-                                           temp.splice(index,1)
+                                       let temp = [...currentValue]
+                                       const index = temp.findIndex((item => item.value == variant.value))
+                                       if (index != -1) {
+                                           temp.splice(index, 1)
                                            setCurrentValue([...temp])
-                                       }
-                                       else{
+                                       } else {
                                            temp.push(variant)
                                            setCurrentValue([...temp])
                                        }
@@ -92,6 +100,15 @@ const FilterCategory = ({variants, resetTrigger, title, setCurrentValue, current
                             </div>
                         )
                     })}
+                </div> : null}
+            {type == 'price' ?
+                <div className={'flex mt-2 items-center gap-3'}>
+                    <p className={'font-manrope text-[#E6E6E6] font-bold'}>от</p>
+                    <input type={'number'}
+                           className={'w-full h-8 text-center placeholder:text-blue placeholder:text-opacity-50 p-3 font-semibold text-blue border-[#E6E6E6] rounded-lg border-2 focus:border-orange focus:outline-0'}/>
+                    <p className={'font-manrope text-[#E6E6E6] font-bold'}>до</p>
+                    <input type={'number'}
+                           className={'w-full h-8 text-center placeholder:text-blue placeholder:text-opacity-50 p-3 font-semibold text-blue border-[#E6E6E6] rounded-lg border-2 focus:border-orange focus:outline-0'}/>
                 </div> : null}
         </div>
     );

@@ -36,6 +36,10 @@ export default function RootLayout({
             setLoading(false)
         }, 500)
     }, [])
+
+    const [isOpen,setIsOpen]=useState(false)
+
+
     return (
         <html lang="en">
         <body className={'scroll-smooth scrollbar'}>
@@ -78,7 +82,13 @@ export default function RootLayout({
                     <Link href={'/cart'}>
                         <img src={'/images/icons/shop.svg'}/>
                     </Link>
-                    <img src={'/images/icons/account.svg'}/>
+                    <div className={'relative flex items-end'} onMouseEnter={()=>{setIsOpen(true)}}>
+                        <img src={'/images/icons/account.svg'}/>
+                        {isOpen?<div className={'bg-white flex flex-col gap-1 p-3 absolute top-10 right-0 z-[50] rounded-lg'} onMouseLeave={()=>{setIsOpen(false)}}>
+                            <Link className={'whitespace-nowrap font-manrope font-semibold text-blue'} href={'/personal'}>Личный кабинет</Link>
+                            <Link className={'whitespace-nowrap font-manrope font-semibold text-blue'} href={'/'}>Выйти</Link>
+                        </div>:false}
+                    </div>
                 </div>
             </div>
             <div className={classList(pathname!=landing?'relative px-[70px] py-[20px]':'relative px-[70px')}>
