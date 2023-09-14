@@ -652,25 +652,25 @@ const FullScreenFilter = ({
                         </div>
                     )
                 })}
-                <div className={'flex mt-32 flex-col gap-4'}>
-                    <p className={'font-manrope transition-all duration-300 cursor-pointer text-2xl font-bold text-black'}>Доставка</p>
-                    {deliveryVariants.map((item) => {
-                        return (
-                            <div key={item} onClick={() => {
-                                if (item == delivery) {
-                                    setDelivery('');
-                                } else {
-                                    setDelivery(item)
-                                }
-                            }} className={'flex items-center cursor-pointer gap-2'}>
-                                {item == delivery ?
-                                    <img className={'w-5 aspect-square'} src={'/images/icons/radio_checked.svg'}/> :
-                                    <img className={'w-5 aspect-square'} src={'/images/icons/radio.svg'}/>}
-                                <p className={'text-xl font-manrope font-medium'}>{item}</p>
-                            </div>
-                        )
-                    })}
-                </div>
+                {/*<div className={'flex mt-32 flex-col gap-4'}>*/}
+                {/*    <p className={'font-manrope transition-all duration-300 cursor-pointer text-2xl font-bold text-black'}>Доставка</p>*/}
+                {/*    {deliveryVariants.map((item) => {*/}
+                {/*        return (*/}
+                {/*            <div key={item} onClick={() => {*/}
+                {/*                if (item == delivery) {*/}
+                {/*                    setDelivery('');*/}
+                {/*                } else {*/}
+                {/*                    setDelivery(item)*/}
+                {/*                }*/}
+                {/*            }} className={'flex items-center cursor-pointer gap-2'}>*/}
+                {/*                {item == delivery ?*/}
+                {/*                    <img className={'w-5 aspect-square'} src={'/images/icons/radio_checked.svg'}/> :*/}
+                {/*                    <img className={'w-5 aspect-square'} src={'/images/icons/radio.svg'}/>}*/}
+                {/*                <p className={'text-xl font-manrope font-medium'}>{item}</p>*/}
+                {/*            </div>*/}
+                {/*        )*/}
+                {/*    })}*/}
+                {/*</div>*/}
             </div>
             <div className={'col-span-3 flex flex-col gap-4'}>
                 <p className={classList('font-manrope transition-all duration-300 cursor-pointer text-2xl font-bold text-blue')}>{activeCategory.value}</p>
