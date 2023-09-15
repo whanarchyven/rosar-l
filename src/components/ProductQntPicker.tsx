@@ -23,10 +23,11 @@ const products = [
 interface productQntPicker {
     callback?: (arg1: any, arg2: any) => any,
     product: typeof products[0],
-    initialValue?: number
+    initialValue?: number,
+    className?:string,
 }
 
-const ProductQntPicker = ({callback, product, initialValue}: productQntPicker) => {
+const ProductQntPicker = ({callback, product, initialValue, className}: productQntPicker) => {
 
     const [qnt, setQnt] = useState(initialValue ? initialValue : 1)
 
@@ -37,7 +38,7 @@ const ProductQntPicker = ({callback, product, initialValue}: productQntPicker) =
     }, [initialValue])
 
     return (
-        <div className={classList('w-full h-full grid', callback ? 'grid-cols-4' : 'grid-cols-2')}>
+        <div className={classList('w-full h-full grid', callback ? 'grid-cols-4' : 'grid-cols-2',className?className:'')}>
             <div className={'flex gap-3 p-2 border-r-2 border-[#F1F1F1] justify-center col-span-3 items-center'}>
                 <div
                     className={'flex cursor-pointer font-bold items-center justify-center p-2 w-7 border-2 border-[#E6E6E6] rounded-full aspect-square'}

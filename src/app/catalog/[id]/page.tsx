@@ -6,237 +6,132 @@ import datediff from "@/helpers/dateDiff";
 import parseDate from "@/helpers/parseDate";
 import Button from "@/components/UI/Button";
 import ProductQntPicker from "@/components/ProductQntPicker";
+import Link from "next/link";
+import React from "react";
+import ProductQntPickerPop from "@/components/ProductQntPickerPop";
+import {nanoid} from "nanoid";
 
-export default function Page({params}:any) {
+export default function Page({params}: any) {
     const router = useRouter()
 
 
-    const actions=[
+    const actions = [
         {
             id: 1,
-            name: 'Розетка SFG134-RD',
+            name: 'Кабель ВВГ-Пнг(А)-LS 660 В 3Х1,50 ок(N,PE) ТРТС Технокабель НПП',
             sk: 'R910X023',
-            image:'/images/temp/product.png',
+            image: '/images/temp/product.png',
             price: 569,
             category: 'Розетки',
             material: ['Пластик', 'Медь'],
             delivery: 'Самовывоз',
-            description: 'Эта розетка SFG134-RD представляет собой качественное электрическое устройство, которое обеспечивает надежное соединение с электрической сетью. Изготовлена из прочного пластика и меди, что обеспечивает долгий срок службы и надежную работу. Она прекрасно подойдет для использования в доме, офисе или других помещениях. У нас вы можете приобрести эту розетку по выгодной цене и выбрать удобный способ доставки, включая самовывоз. Покупая эту розетку, вы получаете отличное соотношение цены и качества, а также гарантию безопасного использования в вашей электрической системе.'
-        },
-        {
-            id: 2,
-            name: 'Удлинитель электрический PowerX 500',
-            sk: 'PX500-UE',
-            image:'https://avatars.mds.yandex.net/i?id=7c568f1f2b1e773bd9fcf1d6bb2bff4be7b0bc15-8376176-images-thumbs&n=13',
-            price: 849,
-            category: 'Удлинители',
-            material: ['Пластик', 'Медь'],
-            delivery: 'Доставка курьером',
-            description: 'Удлинитель PowerX 500 предоставляет дополнительные розетки для подключения электрических устройств. С его помощью вы сможете увеличить радиус действия электрических приборов в вашем доме или офисе. Удлинитель оборудован выключателем, что позволяет управлять подключенными устройствами без необходимости их выключения из розетки. Изготовлен из прочного пластика и меди, он обеспечивает безопасное и стабильное соединение. Приобретая удлинитель PowerX 500, вы получаете удобство и надежность в использовании.'
-        },
-        {
-            id: 3,
-            name: 'Лампа настольная Lumina-LX202',
-            sk: 'LUM-LX202',
-            image:'https://liferooms.ru/images/thumbnails/1100/900/detailed/147/06b9d470f457b7a78cdf14eb6530eb3e.jpg',
-            price: 1299,
-            category: 'Лампы',
-            material: ['Металл', 'Ткань'],
-            delivery: 'Доставка курьером',
-            description: 'Лампа настольная Lumina-LX202 прекрасно подходит для освещения рабочего стола или ночного столика. Ее современный дизайн и функциональность сделают ваше пространство уютным и стильным. Лампа имеет регулируемую подставку, что позволяет настроить направление света по вашим предпочтениям. Она изготовлена из прочных материалов - металла и ткани, что обеспечивает долгий срок службы. Вы можете выбрать удобный способ доставки, и наша компания обеспечит быструю доставку этой стильной настольной лампы к вам домой.'
-        },
-        {
-            id: 4,
-            name: 'Кабель USB-A to USB-C DataLink 2m',
-            sk: 'DL-USB2M',
-            image:'https://i.ebayimg.com/00/s/MzU5WDUwMA==/z/ig8AAOSwDcBjYva9/$_3.JPG?set_id=8800005007',
-            price: 299,
-            category: 'Кабели',
-            material: ['Пластик', 'Медь'],
-            delivery: 'Самовывоз',
-            description: 'Кабель USB-A to USB-C DataLink длиной 2 метра предназначен для передачи данных и зарядки устройств с разъемами USB-A и USB-C. Он обеспечивает стабильное и быстрое соединение, что позволяет быстро передавать файлы или заряжать ваш смартфон, планшет или другие устройства. Кабель изготовлен из прочных материалов, что делает его долговечным и надежным в использовании. У нас вы можете купить этот кабель по выгодной цене и использовать его для различных электронных устройств, обеспечивая их эффективную работу.'
-        },
-        {
-            id: 5,
-            name: 'Кофеварка автоматическая BaristaMaster-5000',
-            sk: 'BM-5000',
-            image:'https://good-bt.ru/wa-data/public/shop/products/63/40/24063/images/30195/30195.750x0.jpg',
-            price: 5699,
-            category: 'Кофеварки',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Доставка курьером',
-            description: 'Кофеварка BaristaMaster-5000 - это современное и удобное устройство для приготовления вкусного кофе в домашних условиях. Она автоматически мелет кофейные зерна, приготовит эспрессо, капуччино или латте, а также поддерживает функцию подогрева кофе. Кофеварка изготовлена из прочного пластика и металла, что обеспечивает ее долгий срок службы. Ее современный дизайн отлично впишется в интерьер вашей кухни. Купив BaristaMaster-5000, вы сможете наслаждаться вкусным кофе каждый день.'
-        },
-        {
-            id: 6,
-            name: 'Утюг паровой SteamPro 3000',
-            sk: 'SP-3000',
-            image:'https://img.akrep.com/beyaz-esya-ve-ev-aletleri/utu-dikis-makinesi/tn6/arzum-ar6000-steampro-plus-buharli-utu-gri-siyah_1_4732328.jpg',
-            price: 1499,
-            category: 'Утюги',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Доставка курьером',
-            description: 'Утюг паровой SteamPro 3000 обеспечивает быстрое и качественное глажение вашей одежды. Он оснащен паровой функцией, которая позволяет эффективно удалять складки с различных тканей. Утюг имеет регулируемую подачу пара и температуры, что позволяет адаптировать его под разные типы материалов. Изготовлен из прочных материалов, этот утюг служит долго и надежно. Приобретая SteamPro 3000, вы получаете отличный помощник для быстрого и качественного глажения.'
-        },
-        {
-            id: 7,
-            name: 'Фен для волос HairCare 2000',
-            sk: 'HC-2000',
-            image:'https://ke-images.servicecdn.ru/c6i9tfsqi3n45kjtuav0/original.jpg',
-            price: 799,
-            category: 'Фены',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Самовывоз',
-            description: 'Фен для волос HairCare 2000 позволяет быстро и удобно высушивать ваши волосы, придавая им ухоженный и стильный вид. Фен оборудован различными режимами скорости и температуры, что позволяет настроить его под ваши потребности. Он изготовлен из прочных материалов, что обеспечивает долгий срок службы. Компактный размер и удобная ручка делают его отличным выбором для использования дома или в поездке. Приобретая HairCare 2000, вы получаете профессиональный уход за волосами прямо у себя дома.'
-        },
-        {
-            id: 8,
-            name: 'Микроволновая печь QuickHeat 800',
-            sk: 'QH-800',
-            image:'https://avatars.mds.yandex.net/get-marketpic/6145646/pic9bf472cbb6dc7000effeb2d640d6167a/orig',
-            price: 3499,
-            category: 'Микроволновки',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Доставка курьером',
-            description: 'Микроволновая печь QuickHeat 800 представляет собой удобное и функциональное устройство для быстрого приготовления и разогрева пищи. Она оборудована различными программами и функциями, что позволяет легко приготовить разнообразные блюда. Микроволновка изготовлена из прочных материалов, что обеспечивает ее долгий срок службы. Удобные ручки и интуитивно понятные настройки делают использование этой печи максимально простым. Приобретая QuickHeat 800, вы получаете удовольствие от быстрой и вкусной еды в любое время.'
-        },
-        {
-            id: 9,
-            name: 'Беспроводные наушники SoundFreedom 202',
-            sk: 'SF-202',
-            image:'https://basket-10.wb.ru/vol1458/part145867/145867033/images/c246x328/1.jpg',
-            price: 1699,
-            category: 'Наушники',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Доставка курьером',
-            description: 'Беспроводные наушники SoundFreedom 202 позволяют наслаждаться качественным звуком без проводов и ограничений. Они подходят для прослушивания музыки, звонков и проведения видеозвонков. Наушники имеют долгий срок работы и быструю зарядку, что обеспечивает их надежную работу в течение всего дня. Они удобно крепятся в ухе и практически незаметны во время использования. Приобретая SoundFreedom 202, вы получаете свободу и комфорт в использовании наушников.'
-        },
-        {
-            id: 10,
-            name: 'Электрическая зубная щетка SmileCare 3000',
-            sk: 'SC-3000',
-            image:'https://dizion.ru/image/cache/catalog/katalog/gigiyena-polosti-rta/elektricheskie-schetki/braun_oral_b_pro_3000_3d_action_d20_zubnaya_schotka_4-700x700.jpg',
-            price: 799,
-            category: 'Зубные щетки',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Самовывоз',
-            description: 'Электрическая зубная щетка SmileCare 3000 обеспечивает эффективную и бережную чистку зубов. Она оснащена различными режимами работы, что позволяет настроить ее под ваши предпочтения. Зубная щетка обеспечивает высокую скорость вращения щетинок, что позволяет легко и эффективно удалять налет и зубной камень. Ее эргономичная ручка обеспечивает комфортное удержание в руке. Приобретая SmileCare 3000, вы получаете здоровую улыбку и чистоту ваших зубов.'
-        },
-        {
-            id: 11,
-            name: 'Розетка SFG134-RD',
-            sk: 'R910X023',
-            image:'/images/temp/product.png',
-            price: 569,
-            category: 'Розетки',
-            material: ['Пластик', 'Медь'],
-            delivery: 'Самовывоз',
-            description: 'Эта розетка SFG134-RD представляет собой качественное электрическое устройство, которое обеспечивает надежное соединение с электрической сетью. Изготовлена из прочного пластика и меди, что обеспечивает долгий срок службы и надежную работу. Она прекрасно подойдет для использования в доме, офисе или других помещениях. У нас вы можете приобрести эту розетку по выгодной цене и выбрать удобный способ доставки, включая самовывоз. Покупая эту розетку, вы получаете отличное соотношение цены и качества, а также гарантию безопасного использования в вашей электрической системе.'
-        },
-        {
-            id: 12,
-            name: 'Удлинитель электрический PowerX 500',
-            sk: 'PX500-UE',
-            image:'https://avatars.mds.yandex.net/i?id=7c568f1f2b1e773bd9fcf1d6bb2bff4be7b0bc15-8376176-images-thumbs&n=13',
-            price: 849,
-            category: 'Удлинители',
-            material: ['Пластик', 'Медь'],
-            delivery: 'Доставка курьером',
-            description: 'Удлинитель PowerX 500 предоставляет дополнительные розетки для подключения электрических устройств. С его помощью вы сможете увеличить радиус действия электрических приборов в вашем доме или офисе. Удлинитель оборудован выключателем, что позволяет управлять подключенными устройствами без необходимости их выключения из розетки. Изготовлен из прочного пластика и меди, он обеспечивает безопасное и стабильное соединение. Приобретая удлинитель PowerX 500, вы получаете удобство и надежность в использовании.'
-        },
-        {
-            id: 13,
-            name: 'Лампа настольная Lumina-LX202',
-            sk: 'LUM-LX202',
-            image:'https://liferooms.ru/images/thumbnails/1100/900/detailed/147/06b9d470f457b7a78cdf14eb6530eb3e.jpg',
-            price: 1299,
-            category: 'Лампы',
-            material: ['Металл', 'Ткань'],
-            delivery: 'Доставка курьером',
-            description: 'Лампа настольная Lumina-LX202 прекрасно подходит для освещения рабочего стола или ночного столика. Ее современный дизайн и функциональность сделают ваше пространство уютным и стильным. Лампа имеет регулируемую подставку, что позволяет настроить направление света по вашим предпочтениям. Она изготовлена из прочных материалов - металла и ткани, что обеспечивает долгий срок службы. Вы можете выбрать удобный способ доставки, и наша компания обеспечит быструю доставку этой стильной настольной лампы к вам домой.'
-        },
-        {
-            id: 14,
-            name: 'Кабель USB-A to USB-C DataLink 2m',
-            sk: 'DL-USB2M',
-            image:'https://i.ebayimg.com/00/s/MzU5WDUwMA==/z/ig8AAOSwDcBjYva9/$_3.JPG?set_id=8800005007',
-            price: 299,
-            category: 'Кабели',
-            material: ['Пластик', 'Медь'],
-            delivery: 'Самовывоз',
-            description: 'Кабель USB-A to USB-C DataLink длиной 2 метра предназначен для передачи данных и зарядки устройств с разъемами USB-A и USB-C. Он обеспечивает стабильное и быстрое соединение, что позволяет быстро передавать файлы или заряжать ваш смартфон, планшет или другие устройства. Кабель изготовлен из прочных материалов, что делает его долговечным и надежным в использовании. У нас вы можете купить этот кабель по выгодной цене и использовать его для различных электронных устройств, обеспечивая их эффективную работу.'
-        },
-        {
-            id: 15,
-            name: 'Кофеварка автоматическая BaristaMaster-5000',
-            sk: 'BM-5000',
-            image:'https://good-bt.ru/wa-data/public/shop/products/63/40/24063/images/30195/30195.750x0.jpg',
-            price: 5699,
-            category: 'Кофеварки',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Доставка курьером',
-            description: 'Кофеварка BaristaMaster-5000 - это современное и удобное устройство для приготовления вкусного кофе в домашних условиях. Она автоматически мелет кофейные зерна, приготовит эспрессо, капуччино или латте, а также поддерживает функцию подогрева кофе. Кофеварка изготовлена из прочного пластика и металла, что обеспечивает ее долгий срок службы. Ее современный дизайн отлично впишется в интерьер вашей кухни. Купив BaristaMaster-5000, вы сможете наслаждаться вкусным кофе каждый день.'
-        },
-        {
-            id: 16,
-            name: 'Утюг паровой SteamPro 3000',
-            sk: 'SP-3000',
-            image:'https://img.akrep.com/beyaz-esya-ve-ev-aletleri/utu-dikis-makinesi/tn6/arzum-ar6000-steampro-plus-buharli-utu-gri-siyah_1_4732328.jpg',
-            price: 1499,
-            category: 'Утюги',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Доставка курьером',
-            description: 'Утюг паровой SteamPro 3000 обеспечивает быстрое и качественное глажение вашей одежды. Он оснащен паровой функцией, которая позволяет эффективно удалять складки с различных тканей. Утюг имеет регулируемую подачу пара и температуры, что позволяет адаптировать его под разные типы материалов. Изготовлен из прочных материалов, этот утюг служит долго и надежно. Приобретая SteamPro 3000, вы получаете отличный помощник для быстрого и качественного глажения.'
-        },
-        {
-            id: 17,
-            name: 'Фен для волос HairCare 2000',
-            sk: 'HC-2000',
-            image:'https://ke-images.servicecdn.ru/c6i9tfsqi3n45kjtuav0/original.jpg',
-            price: 799,
-            category: 'Фены',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Самовывоз',
-            description: 'Фен для волос HairCare 2000 позволяет быстро и удобно высушивать ваши волосы, придавая им ухоженный и стильный вид. Фен оборудован различными режимами скорости и температуры, что позволяет настроить его под ваши потребности. Он изготовлен из прочных материалов, что обеспечивает долгий срок службы. Компактный размер и удобная ручка делают его отличным выбором для использования дома или в поездке. Приобретая HairCare 2000, вы получаете профессиональный уход за волосами прямо у себя дома.'
-        },
-        {
-            id: 18,
-            name: 'Микроволновая печь QuickHeat 800',
-            sk: 'QH-800',
-            image:'https://avatars.mds.yandex.net/get-marketpic/6145646/pic9bf472cbb6dc7000effeb2d640d6167a/orig',
-            price: 3499,
-            category: 'Микроволновки',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Доставка курьером',
-            description: 'Микроволновая печь QuickHeat 800 представляет собой удобное и функциональное устройство для быстрого приготовления и разогрева пищи. Она оборудована различными программами и функциями, что позволяет легко приготовить разнообразные блюда. Микроволновка изготовлена из прочных материалов, что обеспечивает ее долгий срок службы. Удобные ручки и интуитивно понятные настройки делают использование этой печи максимально простым. Приобретая QuickHeat 800, вы получаете удовольствие от быстрой и вкусной еды в любое время.'
-        },
-        {
-            id: 19,
-            name: 'Беспроводные наушники SoundFreedom 202',
-            sk: 'SF-202',
-            image:'https://basket-10.wb.ru/vol1458/part145867/145867033/images/c246x328/1.jpg',
-            price: 1699,
-            category: 'Наушники',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Доставка курьером',
-            description: 'Беспроводные наушники SoundFreedom 202 позволяют наслаждаться качественным звуком без проводов и ограничений. Они подходят для прослушивания музыки, звонков и проведения видеозвонков. Наушники имеют долгий срок работы и быструю зарядку, что обеспечивает их надежную работу в течение всего дня. Они удобно крепятся в ухе и практически незаметны во время использования. Приобретая SoundFreedom 202, вы получаете свободу и комфорт в использовании наушников.'
-        },
-        {
-            id: 20,
-            name: 'Электрическая зубная щетка SmileCare 3000',
-            sk: 'SC-3000',
-            image:'https://dizion.ru/image/cache/catalog/katalog/gigiyena-polosti-rta/elektricheskie-schetki/braun_oral_b_pro_3000_3d_action_d20_zubnaya_schotka_4-700x700.jpg',
-            price: 799,
-            category: 'Зубные щетки',
-            material: ['Пластик', 'Металл'],
-            delivery: 'Самовывоз',
-            description: 'Электрическая зубная щетка SmileCare 3000 обеспечивает эффективную и бережную чистку зубов. Она оснащена различными режимами работы, что позволяет настроить ее под ваши предпочтения. Зубная щетка обеспечивает высокую скорость вращения щетинок, что позволяет легко и эффективно удалять налет и зубной камень. Ее эргономичная ручка обеспечивает комфортное удержание в руке. Приобретая SmileCare 3000, вы получаете здоровую улыбку и чистоту ваших зубов.'
+            description: 'Не распространяющие горение, с низким дымо- и газовыделением предназначены для передачи и распределения электроэнергии в стационарных установках на номинальное переменное напряжение 0,66 кВ и 1 кВ частоты 50 Гц. Кабели изготавливаются для общепромышленного применения и атомных станций при поставках на внутренний рынок и на экспорт. Кабели предназначены для эксплуатации в кабельных сооружениях и помещениях, в том числе для использования в системах атомных станций классов 2, 3 и 4 по классификации ОПБ-88/97 (ПНАЭ Г-01-011-97).',
+            discount:18,
+            attributes: [
+                [{
+                    name: 'Страна',
+                    value: 'Россия'
+                },
+                    {
+                        name: 'Производитель',
+                        value: '100 м, 10000 м'
+                    },
+                    {
+                        name: 'Ед.измерения',
+                        value: 'м'
+                    },
+                    {
+                        name: 'Упаковки',
+                        value: '100 м, 10000 м'
+                    },
+                    {
+                        name: 'Тип изделия',
+                        value: 'Кабель'
+                    },
+                    {
+                        name: 'Марка',
+                        value: 'ВВГ-Пнг(A)-LS'
+                    },
+                    {
+                        name: 'Количество жил',
+                        value: '3'
+                    },
+                    {
+                        name: 'Сечение жилы, мм2',
+                        value: '1.5'
+                    },
+                    {
+                        name: 'Напряжение, В',
+                        value: '660'
+                    },
+                    {
+                        name: 'Тип исполнения кабельного изделия',
+                        value: 'нг(A)-LS'
+                    },
+                    {
+                        name: 'Материал оболочки',
+                        value: 'ПВХ пластикат'
+                    },],
+                [
+                    {
+                        name: 'Материал изоляции',
+                        value: 'ПВХ пластикат'
+                    },
+                    {
+                        name: 'Диапазон рабочих температур',
+                        value: 'от -50 до +50'
+                    },
+                    {
+                        name: 'Наличие защитного покрова',
+                        value: 'Нет'
+                    },
+                    {
+                        name: 'Наличие экрана',
+                        value: 'Нет'
+                    },
+                    {
+                        name: 'Конструкция жилы',
+                        value: 'Однопроволочная'
+                    },
+                    {
+                        name: 'Диаметр, мм',
+                        value: '5.37х10.51'
+                    },
+                    {
+                        name: 'Материал жилы',
+                        value: 'Медь'
+                    },
+                    {
+                        name: 'Форма жилы',
+                        value: 'Круглая'
+                    },
+                    {
+                        name: 'Гарантийный срок, мес',
+                        value: '60'
+                    },
+                    {
+                        name: 'Форма жилы',
+                        value: 'Круглая'
+                    },
+                    {
+                        name: 'Минимальный радиус изгиба',
+                        value: 'Не более 7.5 наружных диаметров'
+                    },
+                    {
+                        name: 'Температура монтажа',
+                        value: 'Не ниже -15'
+                    },
+                    {
+                        name: 'Температура эксплуатации',
+                        value: 'от -50 до +50'
+                    },
+                ]
+            ],
+            usage: 'Для передачи и распространения электрической энергии, в стационарных установках на номинальное переменное напряжение 0.66 кВ номинальной частотой 50 Гц',
         }
-
     ]
-
-    const id=params.id
-    const product=id&&id<actions.length-1?actions[Number(id)-1]:actions[0]
+    const id = params.id
+    const product = id && id < actions.length - 1 ? actions[Number(id) - 1] : actions[0]
 
     const reviews = [
         {
@@ -262,50 +157,111 @@ export default function Page({params}:any) {
     ];
 
 
-    return <div className={'w-full rounded-xl shadow-lg bg-white p-8'}>
-        <div className={'flex items-center justify-end'}>
-            <img className={'w-7 aspect-square cursor-pointer'} src={'/images/icons/close_filter.svg'} onClick={()=>{router.back()}}/>
-
+    return <div className={'w-full '}>
+        <div className={'flex items-center gap-3 justify-start'}>
+            <div onClick={() => {
+                router.back()
+            }}>
+                <img className={'cursor-pointer w-10'} src={'/images/icons/arrow_left.svg'}/>
+            </div>
+            <p className={'font-manrope text-4xl font-bold text-white'}>Каталог</p>
         </div>
-        <div className={'grid grid-cols-3 gap-8'}>
+        <div className={'grid grid-cols-3 bg-white p-8 gap-8 rounded-xl shadow-lg mt-8'}>
             <div className={'flex flex-col gap-3 p-4 border-r-2'}>
                 <img src={product.image} className={'w-full mb-12 aspect-square object-cover'}/>
-                <p className={'font-manrope text-blue font-bold text-2xl'}>Цена: <span className={'text-black'}>{product.price}  ₽</span></p>
-                <p className={'font-manrope text-blue font-bold text-2xl'}>Количество:</p>
-                <div className={'w-2/3 h-12'}>
-                    <ProductQntPicker callback={()=>{}} product={product}></ProductQntPicker>
+                <div className={'p-4 px-8 flex flex-col gap-2 bg-[#EFEFEF] rounded-xl'}>
+                    <div className={'rounded-md font-manrope text-white text-sm p-1 px-3 flex items-center justify-center bg-[#EB5757] w-fit'}>
+                        - {product.discount}%
+                    </div>
+                    <div className={'flex items-center justify-between'}>
+                        <div className={'flex items-center gap-2'}>
+                            <p className={'font-manrope font-medium text-blue'}>Ваша цена</p>
+                            <div className={'flex cursor-pointer text-blue font-semibold items-center text-xs justify-center w-2 h-2 p-2 border-blue rounded-full aspect-square border-[1px]'}>
+                                i
+                            </div>
+                        </div>
+                        <p className={'font-manrope font-bold text-xl text-black'}>{product.price*(1+(product.discount/100))} ₽</p>
+                    </div>
+                    <div className={'flex items-center justify-between'}>
+                        <div className={'flex items-center gap-2'}>
+                            <p className={'font-manrope font-medium text-blue'}>Розниная цена</p>
+                        </div>
+                        <div className={'relative flex items-center justify-center font-manrope font-medium text-lg text-black'}>
+                            <p>{product.price} ₽</p>
+                            <img className={'absolute w-full scale-125 h-full'} src={'/images/icons/discount.svg'}/>
+                        </div>
+                    </div>
+                    <ProductQntPickerPop className={'mt-4'} product={product}></ProductQntPickerPop>
+                    <div className={'mt-4 flex flex-col gap-1'}>
+                        <p className={'font-manrope font-bold text-md text-black'}>Доступно:</p>
+                        <p className={'font-manrope font-medium underline text-blue'}>Сегодня - 346 м</p>
+                        <p className={'font-manrope font-medium underline text-blue'}>Забрать c 15.09.2023 - 123551 м</p>
+                    </div>
+                    <div className={'mt-4 grid grid-cols-2 gap-4'}>
+                        <div className={'flex flex-col gap-1'}>
+                            <p className={'font-manrope font-bold text-md text-black'}>Доступно:</p>
+                            <p className={'font-manrope font-medium text-xs text-black'}>Самовывоз: 14.09.2023 <br/>Стандартная доставка</p>
+                        </div>
+                        <div className={'flex flex-col gap-1'}>
+                            <p className={'font-manrope font-bold text-md text-black'}>Оплата</p>
+                            <p className={'font-manrope font-medium text-xs text-black'}>По счету, онлайн, наличными, по QR-коду</p>
+                        </div>
+                    </div>
                 </div>
-                <p className={'font-manrope text-blue font-light underline cursor-pointer text-xl'}>Распечатать</p>
             </div>
-            <div className={'flex flex-col col-span-2 gap-4'}>
+            <div className={'flex flex-col col-span-2 gap-8'}>
                 <p className={'font-manrope text-3xl font-bold text-black'}>{product.name}</p>
-                <p className={'font-manrope text-2xl font-medium text-[#4A4A4A]'}>Технические характеристики</p>
-                <div className={'flex flex-col font-manrope gap-6'}>
-                    <div className={'w-1/2 grid grid-cols-2'}>
-                        <p className={'text-black font-bold text-lg'}>Категория:</p>
-                        <p className={'text-black font-medium text-lg'}>{product.category}</p>
+                <p className={'font-manrope text-2xl font-medium text-[#4A4A4A]'}>Характеристики</p>
+                <div className={'grid grid-cols-2 gap-4'}>
+                    <div className={'flex flex-col font-manrope gap-3'}>
+                        {product.attributes[0].map((attribute) => {
+                            return (
+                                <div key={nanoid()} className={'grid grid-cols-2 items-center'}>
+                                    <p className={'text-black font-manrope font-bold'}>{attribute.name}</p>
+                                    <p className={'text-[#4A4A4A] font-medium'}>{attribute.value}</p>
+                                </div>
+                            )
+                        })}
+                        <div className={'flex flex-col gap-2 mt-6'}>
+                            <p className={'text-black font-manrope font-bold'}>Сфера применения:</p>
+                            <p className={'text-[#4A4A4A] font-medium'}>{product.usage}</p>
+                        </div>
                     </div>
-                    <div className={'w-1/2 grid grid-cols-2'}>
-                        <p className={'text-black font-bold text-lg'}>Материал:</p>
-                        <p className={'text-black font-medium text-lg'}>{[...product.material].join(', ')}</p>
+                    <div className={'flex flex-col font-manrope gap-3'}>
+                        {product.attributes[1].map((attribute) => {
+                            return (
+                                <div key={nanoid()} className={'grid grid-cols-2 items-center'}>
+                                    <p className={'text-black font-manrope font-bold'}>{attribute.name}</p>
+                                    <p className={'text-[#4A4A4A] font-medium'}>{attribute.value}</p>
+                                </div>
+                            )
+                        })}
                     </div>
-                    <div className={'w-1/2 grid grid-cols-2'}>
-                        <p className={'text-black font-bold text-lg'}>Доставка:</p>
-                        <p className={'text-black font-medium text-lg'}>{product.delivery}</p>
-                    </div>
-
                 </div>
-                <div className={'w-1/2 mt-32 grid grid-cols-2'}>
-                    <p className={'text-black font-manrope font-bold text-lg'}>ОКПД2:</p>
-                    <p className={'font-manrope text-blue font-light cursor-pointer text-xl'}>Узнать</p>
+            </div>
+            <div className={'p-6 col-span-3'}>
+                <div className={'flex flex-col gap-3'}>
+                    <p className={'font-bold font-manrope text-2xl'}>Описание</p>
+                    <p>{product.description}</p>
                 </div>
-                <div className={'w-1/2 grid grid-cols-2'}>
-                    <p className={'text-black font-manrope font-bold text-lg'}>ОКПД2:</p>
-                    <p className={'font-manrope text-blue font-light cursor-pointer text-xl'}>Узнать</p>
+            </div>
+            <div className={'p-6 col-span-3 flex justify-between'}>
+                <div className={'flex flex-col gap-2'}>
+                    <p className={'font-bold font-manrope text-2xl'}>Сертификаты</p>
+                    <div className={'p-3 border-2 gap-4 border-blue flex cursor-pointer items-center justify-between rounded-lg'}>
+                        <p className={'font-manrope text-blue font-bold'}>PDF документ о сертификации</p>
+                        <img src={'/images/icons/download_blue.svg'}/>
+                    </div>
+                </div>
+                <div className={'flex flex-col gap-2'}>
+                    <p className={'font-bold font-manrope text-2xl'}>Материалы о товаре</p>
+                    <div className={'p-3 border-2 gap-4 border-blue flex cursor-pointer items-center justify-between rounded-lg'}>
+                        <p className={'font-manrope text-blue font-bold'}>PNG техническая информация</p>
+                        <img src={'/images/icons/download_blue.svg'}/>
+                    </div>
                 </div>
             </div>
         </div>
-
 
     </div>
 }
