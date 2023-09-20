@@ -630,7 +630,7 @@ export default function Home() {
                     </div>
 
                 </div>
-                {filteredOrders.map((order) => {
+                {filteredOrders.map((order,counter) => {
                     if (order.date >= startDate && order.date <= endDate) {
                         return (
                             <div key={order.id}
@@ -659,7 +659,7 @@ export default function Home() {
                                         }
                                     })}
                                     {order.products.length > 5 ?
-                                        <span className={'font-bold cursor-pointer underline text-[#004169] underline'}>смотреть все</span> : null}
+                                        <span className={'font-bold cursor-pointer underline text-[#004169] underline'}><Link href={`/deliveries/products/${counter}`}>смотреть все</Link></span> : null}
                                 </div>
                                 <div
                                     className={'col-span-1 px-4 font-bold text-black border-x-2 border-[#F1F1F1] text-sm flex items-center justify-center bg-white p-2'}>
@@ -667,8 +667,8 @@ export default function Home() {
                                 </div>
                                 <div
                                     className={'col-span-3 gap-4 grid grid-cols-2 items-center px-4 font-medium text-xs text-blue border-[#F1F1F1] w-full bg-white p-2'}>
-                                    <Button className={'w-full'} type={'white'}>Редактировать</Button>
-                                    <Button className={'w-full'}
+                                    <Button className={'w-full text-sm'} type={'white'}><Link href={`/deliveries/edit/${counter}`}>Редактировать</Link></Button>
+                                    <Button className={'w-full text-sm'}
                                             type={'orange'}>{translateOrderButton(order.orderStatus)}</Button>
                                 </div>
                             </div>
@@ -676,6 +676,8 @@ export default function Home() {
 
                     }
                 })}
+                <Pagination currentPage={1} setCurrentPage={() => {
+                }} pages={42}></Pagination>
             </div>
 
             <p className={'font-bold mt-20 mb-8 font-manrope text-blue text-3xl'}>Резервы</p>
@@ -754,8 +756,8 @@ export default function Home() {
                             )
                         }
                     })}
-                    {/*<Pagination currentPage={1} setCurrentPage={() => {*/}
-                    {/*}} pages={42}></Pagination>*/}
+                    <Pagination currentPage={1} setCurrentPage={() => {
+                    }} pages={42}></Pagination>
                 </div>
             </div>
 

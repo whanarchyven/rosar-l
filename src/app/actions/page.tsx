@@ -66,9 +66,9 @@ export default function Page() {
                     )
                 })}
             </div>
-            {/*<div className={'mt-5'}>*/}
-            {/*    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} pages={96}></Pagination>*/}
-            {/*</div>*/}
+            <div className={'mt-5'}>
+                <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} pages={96}></Pagination>
+            </div>
         </main>
     )
 }

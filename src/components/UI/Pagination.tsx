@@ -15,8 +15,8 @@ const Pagination = ({currentPage, setCurrentPage, pages}:paginationInterface) =>
         tempArr.push(i)
     }
     return (
-        <div className={'flex items-center justify-center gap-4'}>
-            <img className={'cursor-pointer'} src={'/images/icons/pagination_left.svg'}/>
+        <div className={'flex items-center mt-6 justify-center gap-4'}>
+            <img className={'cursor-pointer rotate-180 w-4 aspect-square'} src={'/images/icons/arrow_right_blue.svg'}/>
             {tempArr.map((page,counter)=>{
                 if(counter<5){
                     return(
@@ -29,8 +29,8 @@ const Pagination = ({currentPage, setCurrentPage, pages}:paginationInterface) =>
                     )
                 }
             })}
-            <p className={classList('cursor-pointer',currentPage==pages?'font-bold text-orange text-lg':'text-blue text-sm')}>{pages}</p>
-            <img className={'cursor-pointer'} src={'/images/icons/pagination_right.svg'}/>
+            <p className={classList('cursor-pointer font-manrope',currentPage==pages?'font-bold text-orange text-lg':'text-blue text-sm')}>{pages}</p>
+            <img className={'cursor-pointer w-4 aspect-square'} src={'/images/icons/arrow_right_blue.svg'}/>
         </div>
     );
 };

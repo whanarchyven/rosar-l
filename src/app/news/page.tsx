@@ -73,7 +73,7 @@ export default function Home() {
                         <NewsBanner key={news.id} {...news}></NewsBanner>
                     )
                 })}
-                {/*<Pagination currentPage={1} setCurrentPage={()=>{}} pages={6}></Pagination>*/}
+                <Pagination currentPage={1} setCurrentPage={()=>{}} pages={6}></Pagination>
             </div>
         </main>
     )

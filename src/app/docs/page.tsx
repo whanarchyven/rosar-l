@@ -227,9 +227,9 @@ export default function Home() {
                     </Link>
                 )
             })}
-            {/*<div className={'flex w-full items-center justify-center my-3 col-span-2'}>*/}
-            {/*    <Pagination currentPage={1} setCurrentPage={()=>{}} pages={8}></Pagination>*/}
-            {/*</div>*/}
+            <div className={'flex w-full col-span-3 items-center justify-center my-3 col-span-2'}>
+                <Pagination currentPage={1} setCurrentPage={()=>{}} pages={8}></Pagination>
+            </div>
         </div>:<div className={'flex mt-5 gap-4 border-orange w-full flex-col'}>
             {currentDocs.map((doc,counter)=>{
                 return (
@@ -248,9 +248,9 @@ export default function Home() {
                     </div>
                 )
             })}
-            {/*<div className={'flex w-full items-center justify-center my-3'}>*/}
-            {/*    <Pagination currentPage={1} setCurrentPage={()=>{}} pages={8}></Pagination>*/}
-            {/*</div>*/}
+            <div className={'flex w-full items-center justify-center my-3'}>
+                <Pagination currentPage={1} setCurrentPage={()=>{}} pages={8}></Pagination>
+            </div>
         </div>}
     </main>
   )

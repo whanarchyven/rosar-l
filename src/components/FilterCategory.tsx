@@ -36,6 +36,9 @@ const FilterCategory = ({
         // setMultiVariants([])
     }, [resetTrigger])
 
+    const [checked,setChecked]=useState<Array<typeof variants[0]>>([])
+    const [radio,setRadio]=useState<typeof variants[0]>();
+
     return (
         <div className={'flex font-manrope flex-col'}>
             <div className={'flex gap-2 cursor-pointer items-center'} onClick={() => {
@@ -67,10 +70,10 @@ const FilterCategory = ({
                         return (
                             <div key={variant.value} className={'flex items-center gap-2'}>
                                 {variant.icon ? <img className={'w-5'} src={variant.icon}/> : <img className={'w-5'}
-                                                                                                   src={variant.value == currentValue?.value ? '/images/icons/radio_checked.svg' : '/images/icons/radio.svg'}/>}
-                                <p className={classList('transition-all text-sm duration-300 font-medium', variant.value == currentValue?.value ? 'text-orange' : 'cursor-pointer text-blue')}
+                                                                                                   src={variant.value == radio?.value ? '/images/icons/radio_checked.svg' : '/images/icons/radio.svg'}/>}
+                                <p className={classList('transition-all text-sm duration-300 font-medium', variant.value == radio?.value ? 'text-orange' : 'cursor-pointer text-blue')}
                                    onClick={() => {
-                                       setCurrentValue(variant)
+                                       setRadio(variant)
                                    }}>{variant.value}</p>
                             </div>
                         )
@@ -80,21 +83,22 @@ const FilterCategory = ({
             {isOpen && type == 'multi' ?
                 <div className={'flex duration-300 transition-all flex-col'}>
                     {variants.map((variant) => {
-                        const isFound = currentValue?.find(((item: any) => item.value == variant.value))
+                        const isFound = checked.findIndex(((item: any) => item.value == variant.value))
                         return (
                             <div key={variant.value} className={'flex items-center gap-2'}>
-                                {isFound ? <img className={'w-5'} src={'/images/icons/checkbox_checked.svg'}/> :
+                                {isFound!=-1 ? <img className={'w-5'} src={'/images/icons/checkbox_checked.svg'}/> :
                                     <img className={'w-5'} src={'/images/icons/checkbox.svg'}/>}
-                                <p className={classList('transition-all text-sm duration-300 font-medium', isFound ? 'text-orange cursor-pointer' : 'cursor-pointer text-blue')}
+                                <p className={classList('transition-all text-sm duration-300 font-medium', isFound!=-1 ? 'text-orange cursor-pointer' : 'cursor-pointer text-blue')}
                                    onClick={() => {
-                                       let temp = [...currentValue]
-                                       const index = temp.findIndex((item => item.value == variant.value))
-                                       if (index != -1) {
-                                           temp.splice(index, 1)
-                                           setCurrentValue([...temp])
-                                       } else {
+                                       if(isFound==-1){
+                                           let temp=[...checked]
                                            temp.push(variant)
-                                           setCurrentValue([...temp])
+                                           setChecked(temp);
+                                       }
+                                       else {
+                                           let temp=[...checked]
+                                           temp.splice(isFound,1)
+                                           setChecked(temp);
                                        }
                                    }}>{variant.value}</p>
                             </div>

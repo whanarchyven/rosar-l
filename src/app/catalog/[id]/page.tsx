@@ -7,13 +7,15 @@ import parseDate from "@/helpers/parseDate";
 import Button from "@/components/UI/Button";
 import ProductQntPicker from "@/components/ProductQntPicker";
 import Link from "next/link";
-import React from "react";
+import React, {useState} from "react";
 import ProductQntPickerPop from "@/components/ProductQntPickerPop";
 import {nanoid} from "nanoid";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function Page({params}: any) {
     const router = useRouter()
 
+    const [showCharacteristics,setShowCharacteristics]=useState(false);
 
     const actions = [
         {
@@ -158,7 +160,7 @@ export default function Page({params}: any) {
 
 
     return <div className={'w-full '}>
-        <div className={'flex items-center gap-3 justify-start'}>
+        <div className={'flex items-center mb-10 gap-3 justify-start'}>
             <div onClick={() => {
                 router.back()
             }}>
@@ -166,9 +168,34 @@ export default function Page({params}: any) {
             </div>
             <p className={'font-manrope text-4xl font-bold text-white'}>Каталог</p>
         </div>
-        <div className={'grid grid-cols-3 bg-white p-8 gap-8 rounded-xl shadow-lg mt-8'}>
-            <div className={'flex flex-col gap-3 p-4 border-r-2'}>
-                <img src={product.image} className={'w-full mb-12 aspect-square object-cover'}/>
+        <Breadcrumbs></Breadcrumbs>
+        <div className={'grid grid-cols-3 mt-10 bg-white p-12 gap-8 rounded-xl shadow-lg mt-8'}>
+            <div className={'flex flex-col items-center gap-3 p-4 border-r-2'}>
+                <img src={product.image} className={'w-96 mb-12 aspect-square object-cover'}/>
+            </div>
+            <div className={'grid grid-cols-2 col-span-2 gap-8'}>
+                <div className={' flex flex-col gap-3'}>
+                    <p className={'font-manrope text-3xl font-bold text-black'}>{product.name}</p>
+                    <p className={'font-manrope text-2xl font-medium text-[#4A4A4A]'}>Характеристики</p>
+                    <div className={'grid grid-cols-1 gap-4'}>
+                        <div className={'flex flex-col font-manrope gap-3'}>
+                            {product.attributes[0].map((attribute,counter) => {
+                                if(counter<4){
+                                    return (
+                                        <div key={nanoid()} className={'grid grid-cols-2 items-center'}>
+                                            <p className={'text-black font-manrope font-bold'}>{attribute.name}</p>
+                                            <p className={'text-[#4A4A4A] font-medium'}>{attribute.value}</p>
+                                        </div>
+                                    )
+                                }
+                            })}
+                            <div onClick={()=>{setShowCharacteristics(true)}} className={'flex items-center cursor-pointer  gap-2'}>
+                                <p className={'font-manrope text-blue font-bold underline text-xl'}>Все характеристики</p>
+                                <img className={'w-4 aspect-square'} src={'/images/icons/arrow_right_blue.svg'}/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className={'p-4 px-8 flex flex-col gap-2 bg-[#EFEFEF] rounded-xl'}>
                     <div className={'rounded-md font-manrope text-white text-sm p-1 px-3 flex items-center justify-center bg-[#EB5757] w-fit'}>
                         - {product.discount}%
@@ -200,17 +227,16 @@ export default function Page({params}: any) {
                     <div className={'mt-4 grid grid-cols-2 gap-4'}>
                         <div className={'flex flex-col gap-1'}>
                             <p className={'font-manrope font-bold text-md text-black'}>Доступно:</p>
-                            <p className={'font-manrope font-medium text-xs text-black'}>Самовывоз: 14.09.2023 <br/>Стандартная доставка</p>
+                            <p className={'font-manrope font-medium text-sm text-black'}>Самовывоз: 14.09.2023 <br/>Стандартная доставка</p>
                         </div>
                         <div className={'flex flex-col gap-1'}>
                             <p className={'font-manrope font-bold text-md text-black'}>Оплата</p>
-                            <p className={'font-manrope font-medium text-xs text-black'}>По счету, онлайн, наличными, по QR-коду</p>
+                            <p className={'font-manrope font-medium text-sm  text-black'}>По счету, онлайн, наличными, по QR-коду</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className={'flex flex-col col-span-2 gap-8'}>
-                <p className={'font-manrope text-3xl font-bold text-black'}>{product.name}</p>
+            {showCharacteristics?<div className={'col-span-2 flex flex-col gap-2'}>
                 <p className={'font-manrope text-2xl font-medium text-[#4A4A4A]'}>Характеристики</p>
                 <div className={'grid grid-cols-2 gap-4'}>
                     <div className={'flex flex-col font-manrope gap-3'}>
@@ -238,14 +264,15 @@ export default function Page({params}: any) {
                         })}
                     </div>
                 </div>
-            </div>
-            <div className={'p-6 col-span-3'}>
+            </div>:null}
+
+            <div className={'col-span-3'}>
                 <div className={'flex flex-col gap-3'}>
                     <p className={'font-bold font-manrope text-2xl'}>Описание</p>
                     <p>{product.description}</p>
                 </div>
             </div>
-            <div className={'p-6 col-span-3 flex justify-between'}>
+            <div className={'col-span-3 flex justify-between'}>
                 <div className={'flex flex-col gap-2'}>
                     <p className={'font-bold font-manrope text-2xl'}>Сертификаты</p>
                     <div className={'p-3 border-2 gap-4 border-blue flex cursor-pointer items-center justify-between rounded-lg'}>

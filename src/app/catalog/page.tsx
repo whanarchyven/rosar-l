@@ -13,10 +13,12 @@ import {useSearchParams} from "next/navigation";
 import {param} from "ts-interface-checker";
 import {useCallback} from "react";
 import {nanoid} from "nanoid";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import {round} from "@popperjs/core/lib/utils/math";
 
 export default function Home() {
 
-    const categoryVariants:any = [
+    const categoryVariants: any = [
         // {
         //     value: 'Розетки',
         //     icon: '/images/catalog/power.svg'
@@ -71,13 +73,15 @@ export default function Home() {
     const products = [
         {
             id: 1,
-            name: 'Розетка SFG134-RD',
+            name: 'Кабель SFG134-RD',
             sk: 'R910X023',
             image: '/images/temp/product.png',
             price: 569,
+            discount: 0.12,
             category: 'Розетки',
             material: ['Пластик', 'Медь'],
             delivery: 'Самовывоз',
+            remains: 160,
             description: 'Эта розетка SFG134-RD представляет собой качественное электрическое устройство, которое обеспечивает надежное соединение с электрической сетью. Изготовлена из прочного пластика и меди, что обеспечивает долгий срок службы и надежную работу. Она прекрасно подойдет для использования в доме, офисе или других помещениях. У нас вы можете приобрести эту розетку по выгодной цене и выбрать удобный способ доставки, включая самовывоз. Покупая эту розетку, вы получаете отличное соотношение цены и качества, а также гарантию безопасного использования в вашей электрической системе.'
         },
         {
@@ -89,6 +93,7 @@ export default function Home() {
             category: 'Удлинители',
             material: ['Пластик', 'Медь'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Удлинитель PowerX 500 предоставляет дополнительные розетки для подключения электрических устройств. С его помощью вы сможете увеличить радиус действия электрических приборов в вашем доме или офисе. Удлинитель оборудован выключателем, что позволяет управлять подключенными устройствами без необходимости их выключения из розетки. Изготовлен из прочного пластика и меди, он обеспечивает безопасное и стабильное соединение. Приобретая удлинитель PowerX 500, вы получаете удобство и надежность в использовании.'
         },
         {
@@ -100,6 +105,7 @@ export default function Home() {
             category: 'Лампы',
             material: ['Металл', 'Ткань'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Лампа настольная Lumina-LX202 прекрасно подходит для освещения рабочего стола или ночного столика. Ее современный дизайн и функциональность сделают ваше пространство уютным и стильным. Лампа имеет регулируемую подставку, что позволяет настроить направление света по вашим предпочтениям. Она изготовлена из прочных материалов - металла и ткани, что обеспечивает долгий срок службы. Вы можете выбрать удобный способ доставки, и наша компания обеспечит быструю доставку этой стильной настольной лампы к вам домой.'
         },
         {
@@ -111,6 +117,7 @@ export default function Home() {
             category: 'Кабели',
             material: ['Пластик', 'Медь'],
             delivery: 'Самовывоз',
+            remains: 160,
             description: 'Кабель USB-A to USB-C DataLink длиной 2 метра предназначен для передачи данных и зарядки устройств с разъемами USB-A и USB-C. Он обеспечивает стабильное и быстрое соединение, что позволяет быстро передавать файлы или заряжать ваш смартфон, планшет или другие устройства. Кабель изготовлен из прочных материалов, что делает его долговечным и надежным в использовании. У нас вы можете купить этот кабель по выгодной цене и использовать его для различных электронных устройств, обеспечивая их эффективную работу.'
         },
         {
@@ -122,6 +129,7 @@ export default function Home() {
             category: 'Кофеварки',
             material: ['Пластик', 'Металл'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Кофеварка BaristaMaster-5000 - это современное и удобное устройство для приготовления вкусного кофе в домашних условиях. Она автоматически мелет кофейные зерна, приготовит эспрессо, капуччино или латте, а также поддерживает функцию подогрева кофе. Кофеварка изготовлена из прочного пластика и металла, что обеспечивает ее долгий срок службы. Ее современный дизайн отлично впишется в интерьер вашей кухни. Купив BaristaMaster-5000, вы сможете наслаждаться вкусным кофе каждый день.'
         },
         {
@@ -133,6 +141,7 @@ export default function Home() {
             category: 'Утюги',
             material: ['Пластик', 'Металл'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Утюг паровой SteamPro 3000 обеспечивает быстрое и качественное глажение вашей одежды. Он оснащен паровой функцией, которая позволяет эффективно удалять складки с различных тканей. Утюг имеет регулируемую подачу пара и температуры, что позволяет адаптировать его под разные типы материалов. Изготовлен из прочных материалов, этот утюг служит долго и надежно. Приобретая SteamPro 3000, вы получаете отличный помощник для быстрого и качественного глажения.'
         },
         {
@@ -144,6 +153,7 @@ export default function Home() {
             category: 'Фены',
             material: ['Пластик', 'Металл'],
             delivery: 'Самовывоз',
+            remains: 160,
             description: 'Фен для волос HairCare 2000 позволяет быстро и удобно высушивать ваши волосы, придавая им ухоженный и стильный вид. Фен оборудован различными режимами скорости и температуры, что позволяет настроить его под ваши потребности. Он изготовлен из прочных материалов, что обеспечивает долгий срок службы. Компактный размер и удобная ручка делают его отличным выбором для использования дома или в поездке. Приобретая HairCare 2000, вы получаете профессиональный уход за волосами прямо у себя дома.'
         },
         {
@@ -155,6 +165,7 @@ export default function Home() {
             category: 'Микроволновки',
             material: ['Пластик', 'Металл'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Микроволновая печь QuickHeat 800 представляет собой удобное и функциональное устройство для быстрого приготовления и разогрева пищи. Она оборудована различными программами и функциями, что позволяет легко приготовить разнообразные блюда. Микроволновка изготовлена из прочных материалов, что обеспечивает ее долгий срок службы. Удобные ручки и интуитивно понятные настройки делают использование этой печи максимально простым. Приобретая QuickHeat 800, вы получаете удовольствие от быстрой и вкусной еды в любое время.'
         },
         {
@@ -166,6 +177,7 @@ export default function Home() {
             category: 'Наушники',
             material: ['Пластик', 'Металл'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Беспроводные наушники SoundFreedom 202 позволяют наслаждаться качественным звуком без проводов и ограничений. Они подходят для прослушивания музыки, звонков и проведения видеозвонков. Наушники имеют долгий срок работы и быструю зарядку, что обеспечивает их надежную работу в течение всего дня. Они удобно крепятся в ухе и практически незаметны во время использования. Приобретая SoundFreedom 202, вы получаете свободу и комфорт в использовании наушников.'
         },
         {
@@ -177,6 +189,7 @@ export default function Home() {
             category: 'Зубные щетки',
             material: ['Пластик', 'Металл'],
             delivery: 'Самовывоз',
+            remains: 160,
             description: 'Электрическая зубная щетка SmileCare 3000 обеспечивает эффективную и бережную чистку зубов. Она оснащена различными режимами работы, что позволяет настроить ее под ваши предпочтения. Зубная щетка обеспечивает высокую скорость вращения щетинок, что позволяет легко и эффективно удалять налет и зубной камень. Ее эргономичная ручка обеспечивает комфортное удержание в руке. Приобретая SmileCare 3000, вы получаете здоровую улыбку и чистоту ваших зубов.'
         },
         {
@@ -188,6 +201,7 @@ export default function Home() {
             category: 'Розетки',
             material: ['Пластик', 'Медь'],
             delivery: 'Самовывоз',
+            remains: 160,
             description: 'Эта розетка SFG134-RD представляет собой качественное электрическое устройство, которое обеспечивает надежное соединение с электрической сетью. Изготовлена из прочного пластика и меди, что обеспечивает долгий срок службы и надежную работу. Она прекрасно подойдет для использования в доме, офисе или других помещениях. У нас вы можете приобрести эту розетку по выгодной цене и выбрать удобный способ доставки, включая самовывоз. Покупая эту розетку, вы получаете отличное соотношение цены и качества, а также гарантию безопасного использования в вашей электрической системе.'
         },
         {
@@ -199,6 +213,7 @@ export default function Home() {
             category: 'Удлинители',
             material: ['Пластик', 'Медь'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Удлинитель PowerX 500 предоставляет дополнительные розетки для подключения электрических устройств. С его помощью вы сможете увеличить радиус действия электрических приборов в вашем доме или офисе. Удлинитель оборудован выключателем, что позволяет управлять подключенными устройствами без необходимости их выключения из розетки. Изготовлен из прочного пластика и меди, он обеспечивает безопасное и стабильное соединение. Приобретая удлинитель PowerX 500, вы получаете удобство и надежность в использовании.'
         },
         {
@@ -210,6 +225,7 @@ export default function Home() {
             category: 'Лампы',
             material: ['Металл', 'Ткань'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Лампа настольная Lumina-LX202 прекрасно подходит для освещения рабочего стола или ночного столика. Ее современный дизайн и функциональность сделают ваше пространство уютным и стильным. Лампа имеет регулируемую подставку, что позволяет настроить направление света по вашим предпочтениям. Она изготовлена из прочных материалов - металла и ткани, что обеспечивает долгий срок службы. Вы можете выбрать удобный способ доставки, и наша компания обеспечит быструю доставку этой стильной настольной лампы к вам домой.'
         },
         {
@@ -221,6 +237,7 @@ export default function Home() {
             category: 'Кабели',
             material: ['Пластик', 'Медь'],
             delivery: 'Самовывоз',
+            remains: 160,
             description: 'Кабель USB-A to USB-C DataLink длиной 2 метра предназначен для передачи данных и зарядки устройств с разъемами USB-A и USB-C. Он обеспечивает стабильное и быстрое соединение, что позволяет быстро передавать файлы или заряжать ваш смартфон, планшет или другие устройства. Кабель изготовлен из прочных материалов, что делает его долговечным и надежным в использовании. У нас вы можете купить этот кабель по выгодной цене и использовать его для различных электронных устройств, обеспечивая их эффективную работу.'
         },
         {
@@ -232,6 +249,7 @@ export default function Home() {
             category: 'Кофеварки',
             material: ['Пластик', 'Металл'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Кофеварка BaristaMaster-5000 - это современное и удобное устройство для приготовления вкусного кофе в домашних условиях. Она автоматически мелет кофейные зерна, приготовит эспрессо, капуччино или латте, а также поддерживает функцию подогрева кофе. Кофеварка изготовлена из прочного пластика и металла, что обеспечивает ее долгий срок службы. Ее современный дизайн отлично впишется в интерьер вашей кухни. Купив BaristaMaster-5000, вы сможете наслаждаться вкусным кофе каждый день.'
         },
         {
@@ -243,6 +261,7 @@ export default function Home() {
             category: 'Утюги',
             material: ['Пластик', 'Металл'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Утюг паровой SteamPro 3000 обеспечивает быстрое и качественное глажение вашей одежды. Он оснащен паровой функцией, которая позволяет эффективно удалять складки с различных тканей. Утюг имеет регулируемую подачу пара и температуры, что позволяет адаптировать его под разные типы материалов. Изготовлен из прочных материалов, этот утюг служит долго и надежно. Приобретая SteamPro 3000, вы получаете отличный помощник для быстрого и качественного глажения.'
         },
         {
@@ -254,6 +273,7 @@ export default function Home() {
             category: 'Фены',
             material: ['Пластик', 'Металл'],
             delivery: 'Самовывоз',
+            remains: 160,
             description: 'Фен для волос HairCare 2000 позволяет быстро и удобно высушивать ваши волосы, придавая им ухоженный и стильный вид. Фен оборудован различными режимами скорости и температуры, что позволяет настроить его под ваши потребности. Он изготовлен из прочных материалов, что обеспечивает долгий срок службы. Компактный размер и удобная ручка делают его отличным выбором для использования дома или в поездке. Приобретая HairCare 2000, вы получаете профессиональный уход за волосами прямо у себя дома.'
         },
         {
@@ -265,6 +285,7 @@ export default function Home() {
             category: 'Микроволновки',
             material: ['Пластик', 'Металл'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Микроволновая печь QuickHeat 800 представляет собой удобное и функциональное устройство для быстрого приготовления и разогрева пищи. Она оборудована различными программами и функциями, что позволяет легко приготовить разнообразные блюда. Микроволновка изготовлена из прочных материалов, что обеспечивает ее долгий срок службы. Удобные ручки и интуитивно понятные настройки делают использование этой печи максимально простым. Приобретая QuickHeat 800, вы получаете удовольствие от быстрой и вкусной еды в любое время.'
         },
         {
@@ -276,6 +297,7 @@ export default function Home() {
             category: 'Наушники',
             material: ['Пластик', 'Металл'],
             delivery: 'Доставка курьером',
+            remains: 160,
             description: 'Беспроводные наушники SoundFreedom 202 позволяют наслаждаться качественным звуком без проводов и ограничений. Они подходят для прослушивания музыки, звонков и проведения видеозвонков. Наушники имеют долгий срок работы и быструю зарядку, что обеспечивает их надежную работу в течение всего дня. Они удобно крепятся в ухе и практически незаметны во время использования. Приобретая SoundFreedom 202, вы получаете свободу и комфорт в использовании наушников.'
         },
         {
@@ -287,6 +309,7 @@ export default function Home() {
             category: 'Зубные щетки',
             material: ['Пластик', 'Металл'],
             delivery: 'Самовывоз',
+            remains: 160,
             description: 'Электрическая зубная щетка SmileCare 3000 обеспечивает эффективную и бережную чистку зубов. Она оснащена различными режимами работы, что позволяет настроить ее под ваши предпочтения. Зубная щетка обеспечивает высокую скорость вращения щетинок, что позволяет легко и эффективно удалять налет и зубной камень. Ее эргономичная ручка обеспечивает комфортное удержание в руке. Приобретая SmileCare 3000, вы получаете здоровую улыбку и чистоту ваших зубов.'
         }
 
@@ -376,7 +399,7 @@ export default function Home() {
 
     const [filteredCategory, setFilteredCategory] = useState<{ value: string, icon: string }>()
 
-    const [filteredDelivery, setFilteredDelivery] = useState<{ value: string }>()
+    const [filteredDelivery, setFilteredDelivery] = useState<{ value: string }[]>()
 
     const [filteredMaterial, setFilteredMaterial] = useState<{ value: string }[]>([])
 
@@ -397,11 +420,10 @@ export default function Home() {
         console.log(filteredCategory, filteredDelivery)
         let arrs: any = []
         arrs.push(filterByCategory(filteredCategory))
-        arrs.push(filterByDelivery(filteredDelivery))
         arrs.push(filterByMaterials(filteredMaterial))
-        let result = (arrs[0].filter((value: any) => arrs[1].includes(value))).filter((value: any) => arrs[2].includes(value))
-        setFilteredProducts([...result])
-        console.log(result)
+        // let result = (arrs[0].filter((value: any) => arrs[1].includes(value))).filter((value: any) => arrs[2].includes(value))
+        // setFilteredProducts([...result])
+        // console.log(result)
     }, [filteredMaterial, filteredDelivery, filteredCategory])
 
 
@@ -433,7 +455,7 @@ export default function Home() {
 
 
     const subProducts = {
-        "Шуруповерты":[{
+        "Шуруповерты": [{
             name: 'Ударные',
             amount: 15,
             image: '/images/catalog/drills/0ede19ed_4f87_11e4_8b81_00259096c80e 1.png'
@@ -464,15 +486,23 @@ export default function Home() {
             }]
     }
 
-    const [isFiltered,setIsFiltered]=useState(params.has('type'))
+    const [isFiltered, setIsFiltered] = useState(params.has('type'))
 
-    const [filterSubCategory,setFilterSubcategory]=useState<Array<{name:string,amount:number,image:string}>>([])
+    const [filterSubCategory, setFilterSubcategory] = useState<Array<{
+        name: string,
+        amount: number,
+        image: string
+    }>>([])
 
-    useEffect(()=>{
-        if(filterKeys[2]?.value!=null){
+    useEffect(() => {
+        if (filterKeys[2]?.value != null) {
             setFilterSubcategory(subProducts[filterKeys[2]?.value as keyof typeof subProducts])
         }
-    },[filterKeys])
+    }, [filterKeys])
+
+    console.log(useSearchParams().entries())
+
+    const paramsLink=decodeURI(useSearchParams().toString())
 
     return (
         <main className="">
@@ -485,10 +515,13 @@ export default function Home() {
                     </Link>
                 </div>
             </div>
-            <div className={'w-full grid grid-cols-3 mb-5 gap-8'}>
-                {filterSubCategory?.map((item)=>{
-                    return(
-                        <a key={nanoid()} href={`/catalog?type=Инструмент&instrument=Аккумуляторный инструмент&accumulator_instrument_type=Шуруповерты&shurupovert=${item.name}`} className={classList('p-12 flex items-center gap-4 justify-start shadow-lg bg-white rounded-xl border-4',filterKeys[3]?.value==item.name?' border-orange':'border-transparent')}>
+            <Breadcrumbs></Breadcrumbs>
+            <div className={'w-full mt-10 grid grid-cols-3 mb-5 gap-8'}>
+                {filterSubCategory?.map((item) => {
+                    return (
+                        <a key={nanoid()}
+                           href={`/catalog?type=Инструмент&instrument=Аккумуляторный инструмент&accumulator_instrument_type=Шуруповерты&shurupovert=${item.name}`}
+                           className={classList('p-12 flex items-center gap-4 justify-start shadow-lg bg-white rounded-xl border-4', filterKeys[3]?.value == item.name ? ' border-orange' : 'border-transparent')}>
                             <img src={item.image}/>
                             <div className={'flex flex-col items-start gap-2'}>
                                 <p className={'font-manrope font-bold text-2xl'}>{item.name}</p>
@@ -520,15 +553,13 @@ export default function Home() {
                         </div>
                         <Button callback={() => {
                             setIsFilterOpen(true);
-                        }} className={'h-full col-span-3 col-end-13'} type={'orange'}>Фильтр</Button>
+                        }} className={'h-full col-span-3 col-end-13'} type={'orange'}>Категории</Button>
                     </div>
                 </div>
                 <div className={'mt-5 grid gap-8 grid-cols-12 items-start'}>
                     <div className={'col-span-3'}>
                         <div className={'drop-shadow-md bg-[#F8F8FA] p-4 rounded-xl'}>
                             <div className={'h-96 p-2 scrollbar-mini overflow-y-scroll'}>
-                                <p className={'text-sm mb-4 font-manrope text-[#8C8C8D] font-bold underline cursor-pointer'}>Сбросить
-                                    фильтр</p>
                                 <div className={'flex flex-col gap-4'}>
                                     <FilterCategory resetTrigger={resetFilters} variants={categoryVariants}
                                                     currentValue={filteredCategory}
@@ -538,7 +569,7 @@ export default function Home() {
                                                     setCurrentValue={() => {
                                                     }}
                                                     currentValue={filteredMaterial}
-                                                    type={'variants'} title={'Производители'}/>
+                                                    type={'radio'} title={'Производители'}/>
                                     <FilterCategory resetTrigger={resetFilters} variants={categoryVariants}
                                                     setCurrentValue={() => {
                                                     }}
@@ -546,8 +577,7 @@ export default function Home() {
                                                     type={'variants'} title={'Страна'}/>
                                     <FilterCategory resetTrigger={resetFilters} variants={deliveryVariants}
                                                     currentValue={filteredDelivery}
-                                                    setCurrentValue={() => {
-                                                    }}
+                                                    setCurrentValue={setFilteredDelivery}
                                                     type={'multi'} title={'Доставка'}/>
                                     <FilterCategory resetTrigger={resetFilters} variants={deliveryVariants}
                                                     currentValue={filteredDelivery}
@@ -558,6 +588,12 @@ export default function Home() {
                                                     currentValue={filteredCategory}
                                                     setCurrentValue={setFilteredCategory}
                                                     type={'variants'} title={'Категория'}/>
+                                    <div className={'flex w-full justify-between items-center gap-2'}>
+                                        <Button type={'blue-outlined'}
+                                                className={'text-sm w-40 h-12'}>Применить</Button>
+                                        <Button type={'transparent orange'} className={'text-sm h-12'}>Сбросить
+                                            фильтры</Button>
+                                    </div>
                                 </div>
                             </div>
                             {/*<div className={'p-2'}>*/}
@@ -597,13 +633,17 @@ export default function Home() {
                                 className={'col-span-2 font-bold text-[#004169] flex items-center justify-center  p-2'}>
                                 О товаре
                             </div>
+                            <div
+                                className={'col-span-1 font-bold text-[#004169] flex items-center justify-center  p-2'}>
+                                Наличие
+                            </div>
 
                             <div
                                 className={'col-span-2 font-bold text-[#004169] flex items-center justify-center  p-2'}>
                                 Количество
                             </div>
                             <div
-                                className={'col-span-2 font-bold text-[#004169]  flex items-center justify-center  p-2'}>
+                                className={'col-span-1 font-bold text-[#004169]  flex items-center justify-center  p-2'}>
 
                             </div>
 
@@ -613,7 +653,7 @@ export default function Home() {
                                 return (
                                     <div key={counter} className={'grid grid-cols-12 border-b-2 border-[#F1F1F1]'}>
                                         <div
-                                            className={'col-span-5 text-blue border-r-2 border-[#F1F1F1] flex items-center justify-start bg-white p-2'}>
+                                            className={'col-span-4 text-blue border-r-2 border-[#F1F1F1] flex items-center justify-start bg-white p-2'}>
                                             <div className={'flex gap-2 items-center'}>
                                                 <img className={'w-12 aspect-square object-cover'} src={product.image}/>
                                                 <div className={'flex flex-col'}>
@@ -629,15 +669,25 @@ export default function Home() {
                                         </div>
                                         <div
                                             className={'font-manrope col-span-2 font-bold text-black border-r-2 border-[#F1F1F1] flex items-center justify-center bg-white p-2'}>
-                                            {product.price} ₽/шт.
+                                            {product.discount ? <div className={'flex flex-col items-center '}>
+                                                <p>{round(product.price*(1-product.discount))} ₽/шт.</p>
+                                                <div className={'relative flex items-center justify-center'}>
+                                                    <p className={'text-sm font-medium text-[#929292]'}>{product.price} ₽/шт.</p>
+                                                    <img className={'absolute w-full scale-110 h-full'} src={'/images/icons/discount.svg'}/>
+                                                </div>
+                                            </div> : <p>{product.price} ₽/шт.</p>}
                                         </div>
                                         <div
                                             className={'col-span-2 font-normal text-blue border-r-2 border-[#F1F1F1] flex items-center justify-center bg-white p-2'}>
-                                            <Link href={`/catalog/${product.id}`}>
+                                            <Link
+                                                href={`/catalog/${product.id}?${paramsLink}`}>
                                                 <p className={'text-md font-manrope underline text-[#004169] font-semibold'}>Подробнее</p>
                                             </Link>
                                         </div>
-
+                                        <div
+                                            className={'col-span-1 font-normal text-blue border-r-2 border-[#F1F1F1] flex items-center justify-center bg-white p-2'}>
+                                            <p className={'text-md font-manrope text-[#004169] font-semibold'}>{product.remains}</p>
+                                        </div>
                                         <div
                                             className={'col-span-3 font-bold text-blue border-[#F1F1F1] flex items-center justify-center bg-white'}>
                                             <ProductQntPicker product={product} callback={addToCart}></ProductQntPicker>
@@ -646,8 +696,8 @@ export default function Home() {
                                 )
                             }
                         })}
-                        {/*<Pagination currentPage={1} setCurrentPage={() => {*/}
-                        {/*}} pages={42}></Pagination>*/}
+                        <Pagination currentPage={1} setCurrentPage={() => {
+                        }} pages={42}></Pagination>
                     </div>
 
                 </div>
