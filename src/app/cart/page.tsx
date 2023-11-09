@@ -9,6 +9,7 @@ import ProductQntPicker from "@/components/ProductQntPicker";
 import Pagination from "@/components/UI/Pagination";
 import Link from "next/link";
 import Select from "@/components/UI/Select";
+import {useNotification} from "react-hook-notification";
 
 export default function Home() {
     const [cartProducts, setCartProducts] = useState<any>([])
@@ -37,6 +38,8 @@ export default function Home() {
     const deliveryVariants=[{value:'Самовывоз со склада на Бауманской'},{value:'Доставка на склад покупателя'}]
 
     const [deliveryVariant,setDeliveryVariant]=useState(null)
+
+    const notification = useNotification();
 
     return (
         <main className="mt-5">
@@ -136,7 +139,11 @@ export default function Home() {
                     <div className={'flex flex-col gap-3 items-start'}>
                         <div className={'flex flex-col w-full'}>
                             <p className={'text-lg text-blue font-medium'}>Стоимость доставки: <strong>12599 ₽</strong></p>
-                            <Button className={'h-full'} type={'orange'}>Выставить счёт на оплату</Button>
+                            <Button callback={()=>{notification.warning({
+                                title:'Уведомление',
+                                text:'У вас выходит срок оплаты заказа #123567',
+                                position:'bottom-right'
+                            })}} className={'h-full'} type={'orange'}>Выставить счёт на оплату</Button>
                         </div>
                     </div>
                 </div>

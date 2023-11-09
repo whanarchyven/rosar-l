@@ -15,6 +15,7 @@ import {useCallback} from "react";
 import {nanoid} from "nanoid";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import {round} from "@popperjs/core/lib/utils/math";
+import DragNDrop from "@/components/UI/DragNDrop";
 
 export default function Home() {
 
@@ -504,8 +505,22 @@ export default function Home() {
 
     const paramsLink=decodeURI(useSearchParams().toString())
 
+
+    const [importPop,setImportPop]=useState(false)
+    const [file,setFile]=useState<FileList>()
+
     return (
         <main className="">
+            {importPop?<div className={'w-screen h-screen bg-zinc-700 bg-opacity-30 fixed top-0 left-0 backdrop-blur-sm z-50 flex items-center justify-center'}>
+                <div className={'w-1/3 flex flex-col gap-5 rounded-lg bg-white p-6'}>
+                    <div className={'flex items-center justify-between'}>
+                        <p className={'text-4xl font-bold'}>Импортировать список покупок</p>
+                        <img onClick={()=>{setImportPop(false)}} className={'w-6 cursor-pointer aspect-square'} src={'/images/icons/close_orange.svg'}/>
+                    </div>
+                    <DragNDrop setFile={setFile}></DragNDrop>
+                    <Button callback={()=>{setImportPop(false)}} type={'orange'}>Загрузить</Button>
+                </div>
+            </div>:null}
             <div className={'flex items-center mb-10 justify-between'}>
                 <p className={'font-bold font-manrope text-white text-4xl'}>Каталог</p>
                 <div className={'flex gap-2 items-center'}>
@@ -612,7 +627,7 @@ export default function Home() {
                             </div>
                         </Link>
                         <div className={'bg-orange rounded-xl drop-shadow-lg flex flex-col gap-3 mt-4 p-4'}>
-                            <div className={'flex gap-2 items-center justify-between'}>
+                            <div onClick={()=>{setImportPop(true)}} className={'flex gap-2 cursor-pointer items-center justify-between'}>
                                 <p className={'text-sm font-manrope font-bold text-white'}>Импорт списка покупок из
                                     Excel</p>
                                 <img src={'/images/icons/import.svg'}/>

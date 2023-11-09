@@ -18,6 +18,10 @@ export default function Home() {
     const router=useRouter();
     return (
         <main className="flex items-center p-6 justify-center">
+            <Link href={'/landing'} className={'absolute cursor-pointer left-5 top-5 h-5 flex items-center gap-5 justify-center'}>
+                <img className={'rotate-180'} src={'/images/icons/arrow_right_white.svg'}/>
+                <p className={'border-b-2 border-white text-white'}>Вернуться</p>
+            </Link>
             <div className={'w-full xl:w-96 flex gap-12 flex-col'}>
                 <img src={'/images/logo.svg'} className={'w-full'}/>
                 <div className={'w-full rounded-lg flex flex-col gap-4'}>
