@@ -2,7 +2,7 @@
 import React from 'react';
 
 interface InputInterface {
-    type:'text'|'number',
+    type:'text'|'number'|'password',
     placeholder?:string,
     mutateFunction:(arg:any)=>any,
     mutateValue?:any,

@@ -39,6 +39,13 @@ export default function RootLayout({
 
     const [isOpen,setIsOpen]=useState(false)
 
+    if (pathname.includes('/login')){
+        return (
+            <div className={'w-screen h-screen flex items-center justify-center bg-blue'}>
+                {children}
+            </div>
+        )
+    }
 
     return (
         <html lang="en">
