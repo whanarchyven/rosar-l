@@ -492,12 +492,10 @@ export default function Home() {
                             <p className={'font-manrope text-black text-lg font-normal'}>5. Требования клиента</p>
                             <select
                                 className={'border-[1px] p-1 py-2 w-full border-b-black font-manrope text-lg text-black font-semibold'}>
-                                <option>Требование 1</option>
-                                <option>Требование 2</option>
-                                <option>Требование 3</option>
-                                <option>Требование 4</option>
-                                <option>Требование 5</option>
-                                <option>Требование 6</option>
+                                <option>Допоставка</option>
+                                <option>Возврат денежных средств</option>
+                                <option>Реализация на излишки</option>
+                                <option>Возврат излишка</option>
                             </select>
                         </div>
                         <div className={'mt-12 flex flex-col gap-2'}>
