@@ -525,8 +525,8 @@ export default function Home() {
                 <p className={'font-bold font-manrope text-white text-4xl'}>Каталог</p>
                 <div className={'flex gap-2 items-center'}>
                     <Link href={'/catalog/history'}
-                          className={'flex p-2 font-bold text-white text-lg transition-all duration-200 items-center border-b-2 justify-center'}>
-                        История заказов {filterKeys[0]?.value}
+                          className={'flex p-2 font-bold font-manrope text-white text-lg transition-all duration-200 items-center border-b-2 justify-center'}>
+                        История заказов
                     </Link>
                 </div>
             </div>

@@ -9,7 +9,9 @@ interface filterCategoryInterface {
     setCurrentValue: ([...args]: any) => any
     type: 'variants' | 'multi' | 'radio' | 'price',
     title: string,
-    resetTrigger?: boolean
+    resetTrigger?: boolean,
+    isMutatable?: boolean,
+    isDefaultOpen?:boolean
 }
 
 const FilterCategory = ({
@@ -18,14 +20,14 @@ const FilterCategory = ({
                             title,
                             setCurrentValue,
                             currentValue,
-                            type
+                            type, isMutatable, isDefaultOpen
                         }: filterCategoryInterface) => {
 
     // const [currentValue, setCurrentValue] = useState<typeof variants[0]|null>(null)
 
     // const [multiVariants,setMultiVariants]=useState<typeof variants>([])
 
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(isDefaultOpen??false)
 
     useEffect(() => {
         if (Array.isArray(currentValue)) {
@@ -36,8 +38,8 @@ const FilterCategory = ({
         // setMultiVariants([])
     }, [resetTrigger])
 
-    const [checked,setChecked]=useState<Array<typeof variants[0]>>([])
-    const [radio,setRadio]=useState<typeof variants[0]>();
+    const [checked, setChecked] = useState<Array<typeof variants[0]>>([])
+    const [radio, setRadio] = useState<typeof variants[0]>(isMutatable?currentValue:variants[0]);
 
     return (
         <div className={'flex font-manrope flex-col'}>
@@ -73,7 +75,10 @@ const FilterCategory = ({
                                                                                                    src={variant.value == radio?.value ? '/images/icons/radio_checked.svg' : '/images/icons/radio.svg'}/>}
                                 <p className={classList('transition-all text-sm duration-300 font-medium', variant.value == radio?.value ? 'text-orange' : 'cursor-pointer text-blue')}
                                    onClick={() => {
-                                       setRadio(variant)
+                                       setRadio(variant);
+                                       if (isMutatable) {
+                                           setCurrentValue(variant)
+                                       }
                                    }}>{variant.value}</p>
                             </div>
                         )
@@ -86,18 +91,17 @@ const FilterCategory = ({
                         const isFound = checked.findIndex(((item: any) => item.value == variant.value))
                         return (
                             <div key={variant.value} className={'flex items-center gap-2'}>
-                                {isFound!=-1 ? <img className={'w-5'} src={'/images/icons/checkbox_checked.svg'}/> :
+                                {isFound != -1 ? <img className={'w-5'} src={'/images/icons/checkbox_checked.svg'}/> :
                                     <img className={'w-5'} src={'/images/icons/checkbox.svg'}/>}
-                                <p className={classList('transition-all text-sm duration-300 font-medium', isFound!=-1 ? 'text-orange cursor-pointer' : 'cursor-pointer text-blue')}
+                                <p className={classList('transition-all text-sm duration-300 font-medium', isFound != -1 ? 'text-orange cursor-pointer' : 'cursor-pointer text-blue')}
                                    onClick={() => {
-                                       if(isFound==-1){
-                                           let temp=[...checked]
+                                       if (isFound == -1) {
+                                           let temp = [...checked]
                                            temp.push(variant)
                                            setChecked(temp);
-                                       }
-                                       else {
-                                           let temp=[...checked]
-                                           temp.splice(isFound,1)
+                                       } else {
+                                           let temp = [...checked]
+                                           temp.splice(isFound, 1)
                                            setChecked(temp);
                                        }
                                    }}>{variant.value}</p>

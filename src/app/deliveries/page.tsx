@@ -532,7 +532,10 @@ export default function Home() {
 
     return (
         <main className="">
-            <p className={'font-bold font-manrope text-white mb-8 text-4xl'}>Отгрузки</p>
+            <div className={'flex items-center justify-between'}>
+                <p className={'font-bold font-manrope text-white mb-8 text-4xl'}>Отгрузки</p>
+                <Link className={'font-manrope text-white text-xl underline'} href={'/reclamations'}>Рекламации</Link>
+            </div>
             <div className={'bg-white drop-shadow-lg p-4 px-8 rounded-lg'}>
                 <div className={'w-full grid mt-4 gap-8 grid-cols-9'}>
                     <div className={'flex flex-col gap-2 col-span-6'}>

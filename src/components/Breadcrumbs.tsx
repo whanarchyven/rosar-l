@@ -28,7 +28,7 @@ const Breadcrumbs = () => {
     const pathname=usePathname();
 
     return (
-        <div className={'flex gap-3'}>
+        <div className={'flex gap-3 my-10'}>
             {crumbs.map((item:string,counter:number)=>{
                 return(
                     <div key={item} className={'flex gap-3'}>

@@ -37,7 +37,11 @@ export default function Home() {
     const [orderName,setOrderName]=useState('')
     const deliveryVariants=[{value:'Самовывоз со склада на Бауманской'},{value:'Доставка на склад покупателя'}]
 
-    const [deliveryVariant,setDeliveryVariant]=useState(null)
+    const [deliveryVariant,setDeliveryVariant]=useState(deliveryVariants[0])
+
+    const deliveryCompanyVariants=[{value:'Доставка МО и Москва - 3000 руб. (от 50 тыс. бесплатно)'},{value:'Доставка до ТК - 300 руб. (от 50 тыс. бесплатно)'}]
+    const [deliveryCompanyVariant,setDeliveryCompanyVariant]=useState(deliveryCompanyVariants[0]);
+
 
     const notification = useNotification();
 
@@ -127,15 +131,18 @@ export default function Home() {
                             <Input type={'text'} mutateValue={orderName} mutateFunction={setOrderName} placeholder={'Заказ от 24.07'}></Input>
                         </div>
                         <div className={'flex flex-col w-full'}>
-                            <FilterCategory variants={deliveryVariants} currentValue={deliveryVariant} setCurrentValue={setDeliveryVariant} type={'radio'} title={'Выберите способ доставки'}></FilterCategory>
+                            <FilterCategory isDefaultOpen={true} isMutatable={true} variants={deliveryVariants} currentValue={deliveryVariant} setCurrentValue={setDeliveryVariant} type={'radio'} title={'Выберите способ доставки'}></FilterCategory>
                         </div>
                     </div>
-                    <div className={'flex flex-col gap-3 items-start'}>
+                    {deliveryVariant?.value=='Доставка на склад покупателя'?<div className={'flex flex-col gap-3 items-start'}>
                         <div className={'flex flex-col w-full'}>
                             <p className={'text-lg text-blue font-medium'}>Выберите склад для доставки</p>
                             <Select current={currentWarehouse} mutateVariants={setWarehouses} variants={[...warehouses]} mutateFunction={setCurrentWarehouse}></Select>
                         </div>
-                    </div>
+                    </div>:null}
+                    {deliveryVariant?.value=='Доставка на склад покупателя'?<div className={'flex flex-col w-full'}>
+                        <FilterCategory isDefaultOpen={true} isMutatable={true} variants={deliveryCompanyVariants} currentValue={deliveryCompanyVariant} setCurrentValue={setDeliveryCompanyVariant} type={'radio'} title={'Выберите способ доставки на склад'}></FilterCategory>
+                    </div>:null}
                     <div className={'flex flex-col gap-3 items-start'}>
                         <div className={'flex flex-col w-full'}>
                             <p className={'text-lg text-blue font-medium'}>Стоимость доставки: <strong>12599 ₽</strong></p>

@@ -10,6 +10,8 @@
     "export": "next export"
   },
   "dependencies": {
+    "@types/html2canvas": "^1.0.0",
+    "@types/jspdf": "^2.0.0",
     "@types/node": "20.4.2",
     "@types/react": "18.2.14",
     "@types/react-datepicker": "^4.11.2",
@@ -19,6 +21,8 @@
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "framer-motion": "^10.15.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "nanoid": "^4.0.2",
     "next": "^13.4.9",
     "postcss": "8.4.25",
