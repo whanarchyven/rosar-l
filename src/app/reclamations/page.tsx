@@ -282,8 +282,8 @@ export default function Home() {
                         </div>
                         <div className={'mt-32 flex gap-2 items-center justify-center'}>
                             <p className={'font-manrope text-black text-xl font-bold'}>Рекламационный акт №</p>
-                            <input
-                                className={'border-[1px] px-1 w-32 font-manrope border-b-black text-lg text-black font-bold'}/>
+                            <div
+                                className={'border-b-[1px] h-6 px-1 w-32 font-manrope border-b-black text-lg text-black font-bold'}></div>
                             <p className={'font-manrope text-black text-xl font-bold'}>от {new Date().toLocaleString("ru", {
                                 year: 'numeric',
                                 month: 'numeric',
